@@ -4,8 +4,10 @@
 * a parameter of type ArrayList<Die>
 * 
 * CPSC 224-02, Spring 2018
-* Programming Assignment #5
+* Group Project
 * @author Benjamin Bladow
+* @author Brandon Niblock
+* @author Eugene Krug
 * 
 * @version v1.1 3/7/18
 */
@@ -20,7 +22,7 @@ public class Calculations {
     * @returns count of max number of dice values
 	* @throws N/A
     */
-	public static int maxOfAKindFound(ArrayList<Die> hand)
+	public static int maxOfAZagFound(ArrayList<Die> hand)
 	{
 		int maxCount = 0;
 		int currentCount ;
@@ -57,63 +59,83 @@ public class Calculations {
 	}
 
 	/**
-    * Finds the length of the longest straight found in a hand 
-	* @param ArrayList<Die> has been filled with Dice. Must be sorted to work
-    * @returns length of longest straight in hand
-	* @throws N/A
-    */
-    public static int maxStraightFound(ArrayList<Die> hand)
-	{
-		int maxLength = 1;
-		int curLength = 1;
-		for(int counter = 0; counter < Die.numberOfDie - 1; counter++)
-		{
-			if (hand.get(counter).getValue() + 1 == hand.get(counter + 1).getValue()) //jump of 1
-				curLength++;
-			else if (hand.get(counter).getValue() + 1 < hand.get(counter + 1).getValue()) //jump of >= 2
-				curLength = 1;
-			if (curLength > maxLength)
-				maxLength = curLength;
-		}
-		return maxLength;
-	}
-
-	/**
-    * This method determines if the hand has Dice equivalent to a full house.  
-	* Full House occurs when >= 5 of a kind occurs. And when, 3 (or 4) of a kind 
+    * This method determines if the hand has Dice equivalent to a full Team.  
+	* Full Team occurs when >= 5 of a kind occurs. And when, 3 (or 4) of a kind 
 	* together with a pair or another >=3 of a kind.
 	* @param ArrayList<Die> has been filled with Dice.  Must be sorted to work
     * @returns true if the hand has a full House. False otherwise
 	* @throws N/A
     */
-	public static boolean fullHouseFound(ArrayList<Die> hand)
+	public static boolean fullTeamFound(ArrayList<Die> hand)
 	{
 		boolean foundFH = false;
 		boolean found3K = false;
 		boolean found2K = false;
-		int currentCount;
-		for (int dieValue = 1; dieValue <= Die.numberOfSides; dieValue++)
+		int guardCount = 0;
+		int forwardCount = 0;
+		for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
 		{
-			currentCount = 0;
-			for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
+			if (hand.get(diePosition).getPosition().equals("GUARD"))
+				guardCount++;
+			if(guardCount == 3 && !found3K)
 			{
-				if (hand.get(diePosition).getValue() == dieValue)
-					currentCount++;
-				if(currentCount == 3 && !found3K)
-				{
-					found3K = true;
-					currentCount = 0;
-				}
+				found3K = true;
 			}
-			
-			if (currentCount >= 2)
+			if (hand.get(diePosition).getPosition().equals("FORWARD"))
+				forwardCount++;
+			if(forwardCount == 3 && !found2K)
 			{
 				found2K = true;
 			}
-		}
+		}	
 		if (found2K && found3K)
 			foundFH = true;
 		return foundFH;
 	} 
-	
+	/**
+	* This method determines if the hand has Dice equivalent to a full bench.  
+	* Full Team occurs when >= 5 of a kind occurs. And when, all five dice 
+	* together have the status of bench.
+	* @param ArrayList<Die> has been filled with Dice.  Must be sorted to work
+	* @returns true if the hand has a full bench. False otherwise
+	* @throws N/A
+	*/
+	public static boolean benchBrigadeFound(ArrayList<Die> hand)
+	{
+		boolean foundBB = false;
+		int benchCount = 0;
+		for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
+		{
+			if (hand.get(diePosition).getStatus().equals("BENCH"))
+				benchCount++;
+			if(benchCount == 5 && !foundBB)
+			{
+				foundBB = true;
+			}
+		}	
+		return foundBB;
+	} 
+	/**
+	* This method determines if the hand has Dice equivalent to a full Starting lineup.  
+	* Full Team occurs when >= 5 of a kind occurs. And when, all five dice 
+	* together have the status of Starter.
+	* @param ArrayList<Die> has been filled with Dice.  Must be sorted to work
+	* @returns true if the hand has a full Starting lineup. False otherwise
+	* @throws N/A
+	*/
+	public static boolean startingLineupFound(ArrayList<Die> hand)
+	{
+		boolean foundST = false;
+		int starterCount = 0;
+		for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
+		{
+			if (hand.get(diePosition).getStatus().equals("STARTER"))
+				benchCount++;
+			if(benchCount == 5 && !foundBB)
+			{
+				foundST = true;
+			}
+		}	
+		return foundST;
+	} 
 }
