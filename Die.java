@@ -14,9 +14,9 @@
 
 public class Die implements Cloneable{
     private int faceValue;
-    public static int numberOfSides = 6;
+    public static int numberOfSides = 15;
 	public static int numberOfDie = 5;
-	public static int numberOfRolls = 3;
+	public static int numberOfRolls = 5;
 	
 	/**
     * 'rolls' the die by finding a random double between 0.0 and 1.0 -
