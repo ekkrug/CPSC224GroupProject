@@ -5,10 +5,12 @@
 * An ArrayList of Dice and the Calculations class is used to do so
 * 
 * CPSC 224-02, Spring 2018
-* Programming Assignment #5
+* Group Programming Assignment 
 * @author Benjamin Bladow
+* @author Brandon Niblock
+* @author Eugene Krug
 * 
-* @version v2.0 3/7/18
+* @version v2.0 4/7/18
 */
 import java.util.*;
 import java.io.*;
@@ -30,8 +32,8 @@ public class ScoreCard {
     */
 	public ScoreCard()
 	{
-		// 7 for bottom scorecard.  Die.numberOfSides for top
-		numberRows = 7 + Die.numberOfSides;
+		// 7 for bottom scorecard.  15 for top
+		numberRows = 22;
 		scoringCard = new int[numberRows];
 		canPlaceScoreCard = new boolean[numberRows];
 		
@@ -43,7 +45,7 @@ public class ScoreCard {
 	}
 	
 	/**
-    * This method gets where the player would like to score her round at.
+    * This method gets where the player would like to score their round at.
 	* It will ask for a viable row.  Then it will place the value in the right 
 	* location and update the boolean array canPlaceScoreCard at the scoredRowNumber.
 	* Will output the number of points a player received for that round.
@@ -72,7 +74,7 @@ public class ScoreCard {
 			placeUpper(hand);
 		}
 		canPlaceScoreCard[scoredRowNumber] = false;
-	System.out.println("The rowValue is: " + scoringCard[scoredRowNumber]); 
+		System.out.println("The rowValue is: " + scoringCard[scoredRowNumber]); 
 	}
 	
 	/**
@@ -88,10 +90,10 @@ public class ScoreCard {
 		int rowValue;
 		int currentCount = 0;
 		for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
-			{
-				if (hand.get(diePosition).getValue() == dieValue)
-					currentCount++;
-			}
+		{
+			if (hand.get(diePosition).getValue() == dieValue)
+				currentCount++;
+		}
 		rowValue = dieValue * currentCount;
 		scoringCard[scoredRowNumber] = rowValue;
 	}
@@ -105,61 +107,61 @@ public class ScoreCard {
     */
 	private void placeLower(ArrayList<Die> hand)
 	{
-		//if 3 of a kind Row
+		//if 3 of a Zag Row
 		if(scoredRowNumber == Die.numberOfSides) 
 		{
-			if (Calculations.maxOfAKindFound(hand) >= 3)
+			if (Calculations.maxOfAZagFound(hand) >= 3)
 				scoringCard[scoredRowNumber] = Calculations.totalAllDice(hand);
 			else
 				scoringCard[scoredRowNumber] = 0;
 		}
 		
-		//if 4 of a kind Row
+		//if 4 of a Zag Row
 		if(scoredRowNumber == Die.numberOfSides + 1)
 		{
-			if (Calculations.maxOfAKindFound(hand) >= 4)
+			if (Calculations.maxOfAZagFound(hand) >= 4)
 				scoringCard[scoredRowNumber] = Calculations.totalAllDice(hand);
 			else
 				scoringCard[scoredRowNumber] = 0;
 		}
 		
-		//if Full House Row
+		//if Full Team Row
 		if(scoredRowNumber == Die.numberOfSides + 2)
 		{
-			if(Calculations.fullHouseFound(hand))
+			if(Calculations.fullTeamFound(hand))
 				scoringCard[scoredRowNumber] = 25;
 			else
 				scoringCard[scoredRowNumber] = 0;
 		}
 
-		//if Small straight Row
+		//if bench brigade row
 		if(scoredRowNumber == Die.numberOfSides + 3)
 		{
-			if(Calculations.maxStraightFound(hand) >= 4)
+			if(Calculations.benchBrigadeFound(hand))
 				scoringCard[scoredRowNumber] = 30;
 			else
 				scoringCard[scoredRowNumber] = 0;
 		}
 		
-		//if Large Straight Row
+		//if starting lineup row
 		if(scoredRowNumber == Die.numberOfSides + 4)
 		{
-			if(Calculations.maxStraightFound(hand) >= 5)
+			if(Calculations.startingLineupFound(hand))
 				scoringCard[scoredRowNumber] = 40;
 			else
 				scoringCard[scoredRowNumber] = 0;
 		}
 		
-		//if Yahtzee Row
+		//if Zombie Nation Row
 		if(scoredRowNumber == Die.numberOfSides + 5)
 		{
-			if(Calculations.maxOfAKindFound(hand) >= 5)
-				scoringCard[scoredRowNumber] = 50;
+			if(Calculations.maxOfAZagFound(hand) >= 5)
+				scoringCard[scoredRowNumber] = 100;
 			else
 				scoringCard[scoredRowNumber] = 0;
 		}
 		
-		//if Chance Row
+		//if the kennel Row
 		if(scoredRowNumber == Die.numberOfSides + 6)
 		{
 			scoringCard[scoredRowNumber] = Calculations.totalAllDice(hand);
@@ -190,7 +192,7 @@ public class ScoreCard {
 			{
 				System.out.print("Row " + (dieValue - 1) + ": " + "Score is ");
 				System.out.print(dieValue * currentCount + " on the ");
-				System.out.println(dieValue + " line");
+				System.out.println(hand.get(dieValue).getName() + " line");
 			}
 		}
 		
@@ -208,60 +210,60 @@ public class ScoreCard {
 	{
 		if(canPrint(Die.numberOfSides))
 		{
-			if (Calculations.maxOfAKindFound(hand) >= 3)
+			if (Calculations.maxOfAZagFound(hand) >= 3)
 			{
 				System.out.print("Row " + (Die.numberOfSides) + ": " + "Score " + Calculations.totalAllDice(hand) + " on the ");
-				System.out.println("3 of a Kind line");
+				System.out.println("3 of a Zag line");
 			}
 			else 
-				System.out.println("Row " + (Die.numberOfSides) + ": " + "Score 0 on the 3 of a Kind line");
+				System.out.println("Row " + (Die.numberOfSides) + ": " + "Score 0 on the 3 of a Zag line");
 		}
 		
 		if(canPrint(Die.numberOfSides + 1))
 		{
-			if (Calculations.maxOfAKindFound(hand) >= 4)
+			if (Calculations.maxOfAZagFound(hand) >= 4)
 			{
 				System.out.print("Row " + (Die.numberOfSides + 1) + ": " + "Score " + Calculations.totalAllDice(hand) + " on the ");
-				System.out.println("4 of a Kind line");
+				System.out.println("4 of a Zag line");
 			}
 			else 
-				System.out.println("Row " + (Die.numberOfSides + 1) + ": " + "Score 0 on the 4 of a Kind line");
+				System.out.println("Row " + (Die.numberOfSides + 1) + ": " + "Score 0 on the 4 of a Zag line");
 		}
 		
 		if(canPrint(Die.numberOfSides + 2))
 		{
-			if (Calculations.fullHouseFound(hand))
-				System.out.println("Row " + (Die.numberOfSides + 2) + ": " + "Score 25 on the Full House line");
+			if (Calculations.fullTeamFound(hand))
+				System.out.println("Row " + (Die.numberOfSides + 2) + ": " + "Score 25 on the Full Team line");
 			else
 				System.out.println("Row " + (Die.numberOfSides + 2) + ": " + "Score 0 on the Full House line");
 		}
 		
 		if(canPrint(Die.numberOfSides + 3))
 		{
-			if (Calculations.maxStraightFound(hand) >= 4)
-				System.out.println("Row " + (Die.numberOfSides + 3) + ": " + "Score 30 on the Small Straight line");
+			if (Calculations.benchBrigadeFound(hand))
+				System.out.println("Row " + (Die.numberOfSides + 3) + ": " + "Score 30 on the Bench Brigade line");
 			else
-				System.out.println("Row " + (Die.numberOfSides + 3) + ": " + "Score 0 on the Small Straight line");
+				System.out.println("Row " + (Die.numberOfSides + 3) + ": " + "Score 0 on the Bench Brigade line");
 		}
 		
 		if(canPrint(Die.numberOfSides + 4))
 		{
-			if (Calculations.maxStraightFound(hand) >= 5)
-				System.out.println("Row " + (Die.numberOfSides + 4) + ": " + "Score 40 on the Large Straight line");
+			if (Calculations.startingLineupFound(hand))
+				System.out.println("Row " + (Die.numberOfSides + 4) + ": " + "Score 40 on the Starters line");
 			else
-				System.out.println("Row " + (Die.numberOfSides + 4) + ": " + "Score 0 on the Large Straight line");
+				System.out.println("Row " + (Die.numberOfSides + 4) + ": " + "Score 0 on the Starters line");
 		}
 		if(canPrint(Die.numberOfSides + 5))
 		{
-			if (Calculations.maxOfAKindFound(hand) >= 5)
-				System.out.println("Row " + (Die.numberOfSides + 5) + ": " + "Score 50 on the Yahtzee line");
+			if (Calculations.maxOfAZagFound(hand) >= 5)
+				System.out.println("Row " + (Die.numberOfSides + 5) + ": " + "Score 100 on the Zombie Nation line");
 			else
-				System.out.println("Row " + (Die.numberOfSides + 5) + ": " + "Score 0 on the Yahtzee line");
+				System.out.println("Row " + (Die.numberOfSides + 5) + ": " + "Score 0 on the Zombie Nation line");
 		}
 		if(canPrint(Die.numberOfSides + 6))
 		{
 			System.out.print("Row " + (Die.numberOfSides + 6) + ": " + "Score " + Calculations.totalAllDice(hand) + " on the ");
-			System.out.println("Chance line");
+			System.out.println("Kennel line");
 			System.out.println();
 		}
 		
@@ -337,27 +339,27 @@ public class ScoreCard {
 		{
 			System.out.print("Row " + (dieValue - 1) + ": " + "Score is ");
 			System.out.print(scoringCard[(dieValue - 1)] + " on the ");
-			System.out.println(dieValue + " line");
+			System.out.println(hand.get(dieValue).getName() + " line");
 		}
 		
 		//Lower
 		System.out.print("Row " + (Die.numberOfSides) + ": " + "Score " + scoringCard[Die.numberOfSides] + " on the ");
-		System.out.println("3 of a Kind line");
+		System.out.println("3 of a Zag line");
 
 		
 		System.out.print("Row " + (Die.numberOfSides + 1) + ": " + "Score " + scoringCard[Die.numberOfSides + 1] + " on the ");
-		System.out.println("4 of a Kind line");
+		System.out.println("4 of a Zag line");
 		
-		System.out.println("Row " + (Die.numberOfSides + 2) + ": " + "Score " + scoringCard[Die.numberOfSides + 2] + " on the Full House line");
+		System.out.println("Row " + (Die.numberOfSides + 2) + ": " + "Score " + scoringCard[Die.numberOfSides + 2] + " on the Full Team line");
 		
-		System.out.println("Row " + (Die.numberOfSides + 3) + ": " + "Score " + scoringCard[Die.numberOfSides + 3] + " on the Small Straight line");
+		System.out.println("Row " + (Die.numberOfSides + 3) + ": " + "Score " + scoringCard[Die.numberOfSides + 3] + " on the Bench Brigade line");
 		
-		System.out.println("Row " + (Die.numberOfSides + 4) + ": " + "Score " + scoringCard[Die.numberOfSides + 4] + " on the Large Straight line");
+		System.out.println("Row " + (Die.numberOfSides + 4) + ": " + "Score " + scoringCard[Die.numberOfSides + 4] + " on the Starters line");
 		
-		System.out.println("Row " + (Die.numberOfSides + 5) + ": " + "Score " + scoringCard[Die.numberOfSides + 5] + " on the Yahtzee line");
+		System.out.println("Row " + (Die.numberOfSides + 5) + ": " + "Score " + scoringCard[Die.numberOfSides + 5] + " on the Zombie Nation line");
 			
 		System.out.print("Row " + (Die.numberOfSides + 6) + ": " + "Score " + scoringCard[Die.numberOfSides + 6] + " on the ");
-		System.out.println("Chance line");
+		System.out.println("Kennel line");
 		System.out.println();		
 	}
 }
