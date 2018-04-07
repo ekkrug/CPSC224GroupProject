@@ -101,7 +101,7 @@ public class Calculations {
 					currentCount++;
 				if(currentCount == 3 && !found3K)
 				{
-					found3K = true
+					found3K = true;
 					currentCount = 0;
 				}
 			}

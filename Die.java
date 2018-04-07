@@ -13,11 +13,13 @@
 
 
 public class Die implements Cloneable{
-    private int faceValue;
+    private int jerseyNumber;
     public static int numberOfSides = 15;
 	public static int numberOfDie = 5;
 	public static int numberOfRolls = 5;
-	
+	private String position;
+    private String status;
+    
 	/**
     * 'rolls' the die by finding a random double between 0.0 and 1.0 -
 	* Then multiplies that number by the number of sides + 1 and casts
@@ -27,7 +29,15 @@ public class Die implements Cloneable{
 	* @throws N/A
     */
 	public void roll(){
-        faceValue = (int)(Math.random() * numberOfSides + 1);
+        jerseyNumber = (int)(Math.random() * numberOfSides + 1);
+        if(jerseyNumber == 3 || jerseyNumber == 4 || jerseyNumber == 5 || jerseyNumber == 7 || jerseyNumber == 13 || jerseyNumber == 15)
+            position = "FORWARD";
+        else
+            position = "GUARD";
+        if(jerseyNumber == 9 || jerseyNumber == 10 || jerseyNumber == 11 || jerseyNumber == 13 || jerseyNumber == 15)
+            status = "STARTER";
+        else
+            status = "BENCH";
     }
 
 	/**
@@ -38,19 +48,19 @@ public class Die implements Cloneable{
 	* @throws N/A
     */
     public int getValue(){
-        return faceValue;   
+        return jerseyNumber;   
     }
-	
-	/**
-    * sets the die's value to a different integer
-	* @param takes in the integer that faceValue should become
-    * @returns N/A
-	* @throws N/A
-    */
-	public void setValue(int faceValue){
-        this.faceValue = faceValue;   
+    
+//***************************************NEEDS DOCUMENTATION**************************************\\
+
+	public String getPosition(){
+        return position;
     }
-	
+    
+    public String getStatus(){
+        return status;
+    }
+    
 	/**
     * Allows for a new object to be created identical to the current Die
 	* @param N/A

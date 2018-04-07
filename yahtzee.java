@@ -194,49 +194,28 @@ public class yahtzee{
 	* @throws FileNotFoundException if "yahtzeeConfig.txt" cannot be found
     */
 	public static void getInput()
-		throws FileNotFoundException{
+    {
 		
 		Scanner configuration = new Scanner(System.in);
-		Scanner inputConfig = new Scanner(new File("yahtzeeConfig.txt"));
 		
-		//Getting values from "yahtzeeConfig.txt"
-		Die.numberOfSides = inputConfig.nextInt();
-		Die.numberOfDie = inputConfig.nextInt();
-		Die.numberOfRolls = inputConfig.nextInt();
+        //Getting values from "yahtzeeConfig.txt"
+		int numberOfPlayers = 1;
 		
-		boolean configurationGood = true;
 		char changeConfig = 'y';
 		
-		System.out.print("you are playing with " + Die.numberOfDie + " " + Die.numberOfSides);
-		System.out.println("-sided dice");
-		System.out.println("you get " + Die.numberOfRolls + " rolls per hand");
-		System.out.println();
-		System.out.print("enter 'y' if you would like to change the configuration ");
+		System.out.println("There are  " + numberOfPlayers + " " + " people playing");
+		System.out.print("enter 'y' if you would like to change the number of players ");
 		changeConfig = configuration.next().charAt(0);
 
-		PrintWriter writer = new PrintWriter("yahtzeeConfig.txt");
 		//Getting User Input
-		while(configurationGood && changeConfig == 'y')
+		while(changeConfig == 'y')
 		{
-			System.out.print("enter the number of sides on each die ");
-			Die.numberOfSides = configuration.nextInt();
-			System.out.print("enter the number of dice in play ");
-			Die.numberOfDie = configuration.nextInt();
-			System.out.print("enter the number of rolls per hand ");
-			Die.numberOfRolls = configuration.nextInt();
+			System.out.print("how many people are playing this game? ");
+			numberOfPlayers = configuration.nextInt();
 			
-			
-			System.out.print("enter 'y' if you would like to change the configuration ");
-			changeConfig = configuration.next().charAt(0);
-			System.out.println();
+            System.out.print("enter 'y' if you would like to change the number of players ");
+            changeConfig = configuration.next().charAt(0);
 		}
-		
-		//Overwriting values in "yahtzeeConfig.txt"
-		writer.print("");
-		writer.println(Die.numberOfSides);
-		writer.println(Die.numberOfDie);
-		writer.println(Die.numberOfRolls);
-		writer.close();
-		}
+    }
 	
 }
