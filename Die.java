@@ -19,6 +19,7 @@ public class Die implements Cloneable{
 	public static int numberOfRolls = 5;
 	private String position;
     private String status;
+    private String name;
     
 	/**
     * 'rolls' the die by finding a random double between 0.0 and 1.0 -
@@ -38,6 +39,36 @@ public class Die implements Cloneable{
             status = "STARTER";
         else
             status = "BENCH";
+        if(jerseyNumber == 1)
+            name = "Joel Ayayi";
+        else if(jerseyNumber == 2)
+            name = "Jack Beach";
+        else if(jerseyNumber == 3)
+            name = "Brandon Clarke";
+        else if(jerseyNumber == 4)
+            name = "Rui Hachimura";
+        else if(jerseyNumber == 5)
+            name = "Jeremy Jones";
+        else if(jerseyNumber == 6)
+            name = "Corey Kispert";
+        else if(jerseyNumber == 7)
+            name = "Jacob Larson";
+        else if(jerseyNumber == 8)
+            name = "Alex Martin";
+        else if(jerseyNumber == 9)
+            name = "Silas Melson";
+        else if(jerseyNumber == 10)
+            name = "Zach Norvell Jr.";
+        else if(jerseyNumber == 11)
+            name = "Josh Perkins";
+        else if(jerseyNumber == 12)
+            name = "Brian Pete";
+        else if(jerseyNumber == 13)
+            name = "Killian Tillie";
+        else if(jerseyNumber == 14)
+            name = "Jesse Wade";
+        else
+            name = "Jonathan Williams";
     }
 
 	/**
@@ -59,6 +90,10 @@ public class Die implements Cloneable{
     
     public String getStatus(){
         return status;
+    }
+    
+    public String getName(){
+        return name;
     }
     
 	/**

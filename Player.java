@@ -15,14 +15,17 @@
 import java.util.*;
 import java.io.*;
 
-public class ScoreCard {
+public class Player {
 
 	
 	public int numberRows;
 	private int[] scoringCard;
 	private boolean[] canPlaceScoreCard;
+    private String[] athleteNames;
 	private int scoredRowNumber;
-
+    public String name;
+    public ArrayList<Die> hand;
+    
     /**
     * Default constructor will create a game specific ScoreCard
 	* by setting the numberOfRows and the arrays scoringCard (with 0s) and 
@@ -30,18 +33,35 @@ public class ScoreCard {
 	* @param N/A
     * @returns N/A
     */
-	public ScoreCard()
-	{
+	public Player()
+	{   
+        hand = new ArrayList<Die>(Die.numberOfDie);
 		// 7 for bottom scorecard.  15 for top
 		numberRows = 22;
 		scoringCard = new int[numberRows];
 		canPlaceScoreCard = new boolean[numberRows];
+        athleteNames = new String[Die.numberOfSides];
 		
 		for(int i = 0; i < numberRows; i++)
 		{
 			scoringCard[i] = 0;
 			canPlaceScoreCard[i] = true;			
 		}
+        athleteNames[0] = "Joel Ayayi";
+        athleteNames[1] = "Jack Beach";
+        athleteNames[2] = "Brandon Clarke";
+        athleteNames[3] = "Rui Hachimura";
+        athleteNames[4] = "Jeremy Jones";
+        athleteNames[5] = "Corey Kispert";
+        athleteNames[6] = "Jacob Larson";
+        athleteNames[7] = "Alex Martin";
+        athleteNames[8] = "Silas Melson";
+        athleteNames[9] = "Zach Norvell Jr.";
+        athleteNames[10] = "Josh Perkins";
+        athleteNames[11] = "Brian Pete";
+        athleteNames[12] = "Killian Tillie";
+        athleteNames[13] = "Jesse Wade";
+        athleteNames[14] = "Jonathan Williams";
 	}
 	
 	/**
@@ -192,7 +212,7 @@ public class ScoreCard {
 			{
 				System.out.print("Row " + (dieValue - 1) + ": " + "Score is ");
 				System.out.print(dieValue * currentCount + " on the ");
-				System.out.println(hand.get(dieValue).getName() + " line");
+				System.out.println(athleteNames[dieValue - 1] + " line");
 			}
 		}
 		
@@ -332,14 +352,14 @@ public class ScoreCard {
     * @returns N/A
 	* @throws N/A
     */
-	public void printCompleted()
+	public void printCompleted(ArrayList<Die> hand)
 	{
 		//Upper
 		for (int dieValue = 1; dieValue <= Die.numberOfSides; dieValue++)
 		{
 			System.out.print("Row " + (dieValue - 1) + ": " + "Score is ");
 			System.out.print(scoringCard[(dieValue - 1)] + " on the ");
-			System.out.println(hand.get(dieValue).getName() + " line");
+			System.out.println(hand.get(dieValue - 1).getName() + " line");
 		}
 		
 		//Lower
@@ -362,4 +382,22 @@ public class ScoreCard {
 		System.out.println("Kennel line");
 		System.out.println();		
 	}
+    
+    public String getName()
+    {
+        return name;
+    }
+    
+    public int getCurrentScore()
+    {
+        int sum = 0;
+		for(int i = 0; i < numberRows; i++)
+		{
+            if(!canPlaceScoreCard[i]) //spot is filled.
+            {
+                sum = sum + scoringCard[i];
+            }
+		}
+		return sum;
+    }
 }

@@ -39,75 +39,98 @@ public class yahtzee{
 		
 		Scanner scannerKeep = new Scanner(System.in);
 		Scanner continuePlay = new Scanner(System.in);
-
-		getInput();
-		
+        
+        int numberOfPlayers = getNumberPlayers();
+        String[] playerNames = new String[numberOfPlayers];
+        playerNames = getPlayerNames(numberOfPlayers, playerNames);
+        
 		char playAgain = 'y';
-		ScoreCard theScoreCard = new ScoreCard();
-		int numberOfTurns = theScoreCard.getNumberRows();
+        
+        
+//***************MAKING INTO AN ARRAY****************8
+		Player[] players = new Player[numberOfPlayers];
+        
+        for(int i = 0; i < numberOfPlayers; i++)
+        {
+            players[i] = new Player();
+            players[i].name = playerNames[i];
+        }  
+//******************************************8     
+        int numberOfTurns = players[0].getNumberRows();
+
 		while (playAgain == 'y')
 		{
-			for(int i = 0; i < numberOfTurns; i++)
+			for(int j = 0; j < numberOfTurns; j++)
 			{
-				ArrayList<Die> hand = new ArrayList<Die>(Die.numberOfDie);
-				 
-				char[] keep = keepString(Die.numberOfDie, "n").toCharArray(); //setup to roll all dice in the first roll
-				int turn = 1;
-				while (turn < (Die.numberOfRolls + 1) && !(Arrays.equals(keep, keepString(Die.numberOfDie, "y").toCharArray())))
-				{
-					//roll dice not kept
-					for (int dieNumber = 0; dieNumber < Die.numberOfDie; dieNumber++)
-					{
-						if (keep[dieNumber] != 'y')
-						{
-							if(turn == 1){
-								hand.add(dieNumber, rollDie());
-							}
-							else{
-								hand.set(dieNumber, rollDie());
-							}
-						}
-					}
+				for(int i = 0; i < numberOfPlayers; i++)
+                {
+                    System.out.println();
+                    System.out.println("It is turn: " + (j+1) + " for player: " + players[i].name);
+                    
+                    char[] keep = keepString(Die.numberOfDie, "n").toCharArray(); //setup to roll all dice in the first roll
+                    int turn = 1;
+                    while (turn < (Die.numberOfRolls + 1) && !(Arrays.equals(keep, keepString(Die.numberOfDie, "y").toCharArray())))
+                    {
+                        //roll dice not kept
+                        for (int dieNumber = 0; dieNumber < Die.numberOfDie; dieNumber++)
+                        {
+                            if (keep[dieNumber] != 'y')
+                            {
+                                if(turn == 1){
+                                    players[i].hand.add(dieNumber, rollDie());
+                                }
+                                else{
+                                    players[i].hand.set(dieNumber, rollDie());
+                                }
+                            }
+                        }
 
-					//output roll
-					System.out.print("Roll " + turn + " was: ");
-					for (int dieNumber = 0; dieNumber < Die.numberOfDie; dieNumber++)
-					{
-						System.out.print(hand.get(dieNumber).getValue() + " ");
-					}
-					
-					System.out.println();
-					//if not the last roll of the hand prompt the user for dice to keep
-					if (turn < (Die.numberOfRolls))
-					{
-						System.out.print("enter dice to keep (y or n) ");
-						keep = scannerKeep.nextLine().toCharArray();
-					}
-					turn++;
-				}
+                        //output roll
+                        System.out.print("Roll " + turn + " was: ");
+                        for (int dieNumber = 0; dieNumber < Die.numberOfDie; dieNumber++)
+                        {
+                            System.out.print(players[i].hand.get(dieNumber).getValue() + " ");
+                        }
+                        
+                        System.out.println();
+                        //if not the last roll of the hand prompt the user for dice to keep
+                        if (turn < (Die.numberOfRolls))
+                        {
+                            System.out.print("enter dice to keep (y or n) ");
+                            keep = scannerKeep.nextLine().toCharArray();
+                        }
+                        turn++;
+                    }
 
-				//start scoring
-				//hand need to be sorted to check for straights
-				sortArray(hand, Die.numberOfDie);
-				System.out.print("Here is your sorted hand : ");
-				for (int dieNumber = 0; dieNumber < Die.numberOfDie; dieNumber++)
-				{
-					System.out.print(hand.get(dieNumber).getValue() + " ");
-				}
-				System.out.println();
-							
-				//upper ScoreCard choices
-				theScoreCard.printUpperChoices(hand);
-				
-				//lower scorecard
-				theScoreCard.printLowerChoices(hand);
-				
-				
-				theScoreCard.scoreCardTracker(hand);
-				System.out.println();
+                    //start scoring
+                    //hand need to be sorted to check for straights
+                    sortArray(players[i].hand, Die.numberOfDie);
+                    System.out.print("Here is your sorted hand : ");
+                    for (int dieNumber = 0; dieNumber < Die.numberOfDie; dieNumber++)
+                    {
+                        System.out.print(players[i].hand.get(dieNumber).getValue() + " ");
+                    }
+                    System.out.println();
+                                
+                    //upper ScoreCard choices
+                    players[i].printUpperChoices(players[i].hand);
+                    
+                    //lower scorecard
+                    players[i].printLowerChoices(players[i].hand);
+                    
+                    
+                    players[i].scoreCardTracker(players[i].hand);
+                    System.out.println();
+                    
+                    System.out.println("This is " + players[i].name + "'s current score: " + players[i].getCurrentScore());
+                }
 			}
-			System.out.println("You scored " + theScoreCard.totalValue() + " for this round");
-			theScoreCard.printCompleted();
+            
+            for(int i = 0; i < numberOfPlayers; i++)
+            {
+                System.out.println(players[i].name + "scored " + players[i].totalValue() + " for this round");
+                players[i].printCompleted(players[i].hand);
+            }
 			
 			System.out.print("Enter 'y' to play again ");
 			playAgain = continuePlay.next().charAt(0);
@@ -193,7 +216,7 @@ public class yahtzee{
     * @returns N/A
 	* @throws FileNotFoundException if "yahtzeeConfig.txt" cannot be found
     */
-	public static void getInput()
+	public static int getNumberPlayers()
     {
 		
 		Scanner configuration = new Scanner(System.in);
@@ -212,10 +235,25 @@ public class yahtzee{
 		{
 			System.out.print("how many people are playing this game? ");
 			numberOfPlayers = configuration.nextInt();
-			
+            
             System.out.print("enter 'y' if you would like to change the number of players ");
             changeConfig = configuration.next().charAt(0);
+            System.out.println();
 		}
+        return numberOfPlayers;
+    }
+    
+    public static String[] getPlayerNames(int numberOfPlayers, String[] playerNames)
+    {
+        Scanner names = new Scanner(System.in);
+        
+        for(int i = 0; i < numberOfPlayers; i++)
+        {
+            System.out.print("What is player number " + (i+1) + "'s name? ");
+            playerNames[i] = names.next();
+        }
+        
+        return playerNames;
     }
 	
 }

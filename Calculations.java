@@ -130,8 +130,8 @@ public class Calculations {
 		for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
 		{
 			if (hand.get(diePosition).getStatus().equals("STARTER"))
-				benchCount++;
-			if(benchCount == 5 && !foundBB)
+				starterCount++;
+			if(starterCount == 5 && !foundST)
 			{
 				foundST = true;
 			}
