@@ -22,9 +22,12 @@ public class Die implements Cloneable{
     private String name;
     
 	/**
-    * 'rolls' the die by finding a random double between 0.0 and 1.0 -
-	* Then multiplies that number by the number of sides + 1 and casts
-	* to an integer
+    * "Rolls" the die by finding a random double between 0.0 and 1.0.
+	* That result is multiplied by the number of sides + 1 and is
+    * casted to an integer. A series of conditions are checked, such that
+    * the result of the roll is matched with its corresponding player
+    * from the roster. In addition, the player is assigned his corresponding
+    * position and status. 
 	* @param N/A
     * @returns N/A
 	* @throws N/A
