@@ -129,12 +129,14 @@ public class yahtzee{
             
             for(int i = 0; i < numberOfPlayers; i++)
             {
-                System.out.println(players[i].name + "scored " + players[i].totalValue() + " for this round");
+                System.out.println(players[i].name + " scored " + players[i].totalValue() + " for this round");
                 players[i].printCompleted(players[i].hand);
             }
 			
 			System.out.print("Enter 'y' to play again ");
 			playAgain = continuePlay.next().charAt(0);
+            
+            checkLeaderboard(players, numberOfPlayers);  //Gawwww
             
             if(playAgain == 'y')
             {
@@ -264,19 +266,72 @@ public class yahtzee{
         
         return playerNames;
     }
-   /* 
-    public checkLeaderboard(Player[] players, int numberOfPlayers)
-    {
-        Scanner checkValues = new Scanner(new File("leaderboard.txt"));
-        PrintWriter writer = new PrintWriter("leaderboard.txt");
-        int highscore1;
-        int highscore2;
-        int highscore3;
+    
+    public static void checkLeaderboard(Player[] players, int numberOfPlayers)
+        throws FileNotFoundException{
+        //1. Get numbers and names
+        //2. Put at end of leaderboard
+        //3. Sort leaderboard
+        //4. Put in correct order
+        //5. Print leaderboard 
+        int numberOfLeaders;
+        int iterator;
+        int nextInt;
+        String nextName;
         
+        Map<Integer, String> gameScoreNames = new HashMap<Integer, String>();
+        for(int i = 0; i < numberOfPlayers; i++)
+        {
+            gameScoreNames.put(players[i].totalValue(), players[i].name);
+        }
+       
+		Scanner inputLeader = new Scanner(new File("leaderboard.txt"));
+        numberOfLeaders = inputLeader.nextInt();
+        iterator = numberOfLeaders;
         
-        if(players[0] > 
+        if(numberOfLeaders > 15) //Reset numberOfLeaders
+        {
+            numberOfLeaders = 0;
+        }
+        numberOfLeaders = numberOfLeaders + numberOfPlayers;
+        
+		while(iterator > 0)
+        {
+            nextInt = inputLeader.nextInt();
+            nextName = inputLeader.nextLine();  //next?
+            gameScoreNames.put(nextInt, nextName);
+            
+            iterator--;
+        }    
+        
+		//SORT
+        Map<Integer, String> sortedLeaders = new TreeMap<Integer, String>(gameScoreNames);
+
+		PrintWriter writer = new PrintWriter("leaderboard.txt");
+		
+		//Overwriting values in "yahtzeeConfig.txt"
+		writer.print("");
+		writer.println(numberOfLeaders);
+        
+        for(Map.Entry<Integer, String> entry : sortedLeaders.entrySet())
+        {
+            writer.print(entry.getKey());
+            writer.print(" ");
+            writer.println(entry.getValue());
+        }
+        
+        writer.close();
+        
+        int i = 1;
+        for(Map.Entry<Integer, String> entry : sortedLeaders.entrySet())
+        {
+            System.out.print("This is place: " + i + "for player: " + entry.getValue());
+            System.out.print(" Their total score is: ");
+            System.out.println(entry.getKey());
+            i++;
+        }
     }
-	*/
+	
 
 	public static void printRules(){
 		System.out.println();
