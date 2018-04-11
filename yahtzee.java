@@ -134,6 +134,14 @@ public class yahtzee{
 			
 			System.out.print("Enter 'y' to play again ");
 			playAgain = continuePlay.next().charAt(0);
+            
+            if(playAgain == 'y')
+            {
+                for(int i = 0; i < numberOfPlayers; i++)
+                {
+                    players[i].resetScoreCard();
+                }            
+            }
 		}
 	}
 	
@@ -255,5 +263,17 @@ public class yahtzee{
         
         return playerNames;
     }
-	
+   /* 
+    public checkLeaderboard(Player[] players, int numberOfPlayers)
+    {
+        Scanner checkValues = new Scanner(new File("leaderboard.txt"));
+        PrintWriter writer = new PrintWriter("leaderboard.txt");
+        int highscore1;
+        int highscore2;
+        int highscore3;
+        
+        
+        if(players[0] > 
+    }
+	*/
 }
