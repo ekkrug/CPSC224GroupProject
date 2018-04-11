@@ -307,14 +307,21 @@ public class yahtzee{
 		//SORT
         Map<Integer, String> sortedLeaders = new TreeMap<Integer, String>(gameScoreNames);
         
-
+        Map<Integer, String> sorted = new TreeMap<Integer, String>(Collections.reverseOrder());
+        
+        for(Map.Entry<Integer, String> entry : sortedLeaders.entrySet())
+        {
+            sorted.put(entry.getKey(), entry.getValue());
+        }
+        
+        
 		PrintWriter writer = new PrintWriter("leaderboard.txt");
 		
 		//Overwriting values in "yahtzeeConfig.txt"
 		writer.print("");
 		writer.println(numberOfLeaders);
         
-        for(Map.Entry<Integer, String> entry : sortedLeaders.entrySet())
+        for(Map.Entry<Integer, String> entry : sorted.entrySet())
         {
             writer.print(entry.getKey());
             writer.print(" ");
@@ -324,7 +331,7 @@ public class yahtzee{
         writer.close();
         
         int i = 1;
-        for(Map.Entry<Integer, String> entry : sortedLeaders.entrySet())
+        for(Map.Entry<Integer, String> entry : sorted.entrySet())
         {
             System.out.print("This is place: " + i + " for player: " + entry.getValue());
             System.out.print(" total score is: ");
