@@ -306,6 +306,7 @@ public class yahtzee{
         
 		//SORT
         Map<Integer, String> sortedLeaders = new TreeMap<Integer, String>(gameScoreNames);
+        
 
 		PrintWriter writer = new PrintWriter("leaderboard.txt");
 		
@@ -325,8 +326,8 @@ public class yahtzee{
         int i = 1;
         for(Map.Entry<Integer, String> entry : sortedLeaders.entrySet())
         {
-            System.out.print("This is place: " + i + "for player: " + entry.getValue());
-            System.out.print(" Their total score is: ");
+            System.out.print("This is place: " + i + " for player: " + entry.getValue());
+            System.out.print(" total score is: ");
             System.out.println(entry.getKey());
             i++;
         }
