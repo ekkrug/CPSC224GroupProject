@@ -46,6 +46,7 @@ public class yahtzee{
         
 		char playAgain = 'y';
         
+		printRules();
         
 //***************MAKING INTO AN ARRAY****************8
 		Player[] players = new Player[numberOfPlayers];
@@ -255,5 +256,26 @@ public class yahtzee{
         
         return playerNames;
     }
-	
+	public static void printRules(){
+		System.out.println();
+		System.out.println();
+		System.out.println("Athlete's name|Yahtzee Number|Athlete's Position|Athlete's Status");
+		System.out.println("Joel Ayayi    |       1      |      Guard       |      Bench     ");
+		System.out.println("Jack Beach    |       2      |      Guard       |      Bench     ");
+		System.out.println("Brandon Clarke|       3      |      Forward     |      Bench     ");
+		System.out.println("Rui Hachimura |       4      |      Forward     |      Bench     ");
+		System.out.println("Jeremy Jones  |       5      |      Forward     |      Bench     ");
+		System.out.println("Corey Kispert |       6      |      Guard       |      Bench     ");
+		System.out.println("Jacob Larsen  |       7      |      Forward     |      Bench     ");
+		System.out.println("Alex Martin   |       8      |      Guard       |      Bench     ");
+		System.out.println("Silas Melson  |       9      |      Guard       |      Starter   ");
+		System.out.println("Zach Norvell  |       10     |      Guard       |      Starter   ");
+		System.out.println("Josh Perkins  |       11     |      Guard       |      Starter   ");
+		System.out.println("Brian Pete    |       12     |      Guard       |      Bench     ");
+		System.out.println("Killian Tillie|       13     |      Forward     |      Starter   ");
+		System.out.println("Jesse Wade    |       14     |      Guard       |      Bench     ");
+		System.out.println("John Williams |       15     |      Forward     |      Starter   ");
+		System.out.println();
+		System.out.println();
+	}
 }
