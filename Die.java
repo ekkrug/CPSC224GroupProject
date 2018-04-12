@@ -27,7 +27,7 @@ public class Die implements Cloneable{
     * casted to an integer. A series of conditions are checked, such that
     * the result of the roll is matched with its corresponding player
     * from the roster. In addition, the player is assigned his corresponding
-    * position and status. 
+    * position and status.
 	* @param N/A
     * @returns N/A
 	* @throws N/A
