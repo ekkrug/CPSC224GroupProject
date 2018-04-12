@@ -25,6 +25,7 @@ public class Player {
 	private int scoredRowNumber;
     public String name;
     public ArrayList<Die> hand;
+    private int bonusLine;
     
     /**
     * Default constructor will create a game specific ScoreCard
@@ -36,8 +37,9 @@ public class Player {
 	public Player()
 	{   
         hand = new ArrayList<Die>(Die.numberOfDie);
-		// 7 for bottom scorecard.  15 for top
+		// 7 for bottom scorecard.  15 for top.
 		numberRows = 22;
+        bonusLine = 22;
 		scoringCard = new int[numberRows];
 		canPlaceScoreCard = new boolean[numberRows];
         athleteNames = new String[Die.numberOfSides];
@@ -85,13 +87,13 @@ public class Player {
 			scoredRowNumber = scoring.nextInt();
 		}
 		//Now we want to place the value!
-		if((scoredRowNumber) >= Die.numberOfSides)
+		if((scoredRowNumber) >= Die.numberOfSides + 1) //Plus one bc of bonus
 		{
 			placeLower(hand);
 		}
 		else
 		{
-			placeUpper(hand);
+			placeUpper(hand, scoredRowNumber);
 		}
 		canPlaceScoreCard[scoredRowNumber] = false;
 		System.out.println("The rowValue is: " + scoringCard[scoredRowNumber]); 
@@ -104,7 +106,7 @@ public class Player {
     * @returns N/A
 	* @throws N/A
     */
-	private void placeUpper(ArrayList<Die> hand)
+	private void placeUpper(ArrayList<Die> hand, int scoredRowNumber)
 	{
 		int dieValue = scoredRowNumber + 1;
 		int rowValue;
@@ -116,6 +118,7 @@ public class Player {
 		}
 		rowValue = dieValue * currentCount;
 		scoringCard[scoredRowNumber] = rowValue;
+        
 	}
 	
 	/**
@@ -214,8 +217,7 @@ public class Player {
 				System.out.print(dieValue * currentCount + " on the ");
 				System.out.println(athleteNames[dieValue - 1] + " line");
 			}
-		}
-		
+		}		
 	}
 	
 	/**
@@ -332,7 +334,8 @@ public class Player {
 		{
 			sum = sum + scoringCard[i];
 		}
-		return sum;
+        
+		return sum + sumBonus();
 	}
 	
 	/**
@@ -380,7 +383,11 @@ public class Player {
 			
 		System.out.print("Row " + (Die.numberOfSides + 6) + ": " + "Score " + scoringCard[Die.numberOfSides + 6] + " on the ");
 		System.out.println("Kennel line");
-		System.out.println();		
+        
+        System.out.println("Bonus Row " + bonusLine + ": Score is " + sumBonus());
+        
+		System.out.println();	
+        
 	}
     
     public String getName()
@@ -400,4 +407,39 @@ public class Player {
 		}
 		return sum;
     }
+    
+    private int sumBonus()
+    {
+        int sum = 0;
+        int countUpper = 0;
+        for (int i = 0; i < 15; i++) //Checking for values on upper scoreCard.
+		{
+			countUpper = countUpper + scoringCard[i];
+		}
+        
+        if(countUpper >= 100)
+        {
+           sum = 35;
+        }
+        
+        return sum;
+    }
+    
+    public void resetScoreCard()
+    {
+        for(int i = 0; i < numberRows; i++)
+		{
+			scoringCard[i] = 0;
+			canPlaceScoreCard[i] = true;			
+		}
+    }
 }
+
+
+
+
+
+
+
+
+

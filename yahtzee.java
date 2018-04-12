@@ -46,6 +46,7 @@ public class yahtzee{
         
 		char playAgain = 'y';
         
+		printRules();
         
 //***************MAKING INTO AN ARRAY****************8
 		Player[] players = new Player[numberOfPlayers];
@@ -128,12 +129,22 @@ public class yahtzee{
             
             for(int i = 0; i < numberOfPlayers; i++)
             {
-                System.out.println(players[i].name + "scored " + players[i].totalValue() + " for this round");
+                System.out.println(players[i].name + " scored " + players[i].totalValue() + " for this round");
                 players[i].printCompleted(players[i].hand);
             }
 			
 			System.out.print("Enter 'y' to play again ");
 			playAgain = continuePlay.next().charAt(0);
+            
+            checkLeaderboard(players, numberOfPlayers);  //Gawwww
+            
+            if(playAgain == 'y')
+            {
+                for(int i = 0; i < numberOfPlayers; i++)
+                {
+                    players[i].resetScoreCard();
+                }            
+            }
 		}
 	}
 	
@@ -255,5 +266,101 @@ public class yahtzee{
         
         return playerNames;
     }
+    
+    public static void checkLeaderboard(Player[] players, int numberOfPlayers)
+        throws FileNotFoundException{
+        //1. Get numbers and names
+        //2. Put at end of leaderboard
+        //3. Sort leaderboard
+        //4. Put in correct order
+        //5. Print leaderboard 
+        int numberOfLeaders;
+        int iterator;
+        int nextInt;
+        String nextName;
+        
+        Map<Integer, String> gameScoreNames = new HashMap<Integer, String>();
+        for(int i = 0; i < numberOfPlayers; i++)
+        {
+            gameScoreNames.put(players[i].totalValue(), players[i].name);
+        }
+       
+		Scanner inputLeader = new Scanner(new File("leaderboard.txt"));
+        numberOfLeaders = inputLeader.nextInt();
+        iterator = numberOfLeaders;
+        
+        if(numberOfLeaders > 15) //Reset numberOfLeaders
+        {
+            numberOfLeaders = 0;
+        }
+        numberOfLeaders = numberOfLeaders + numberOfPlayers;
+        
+		while(iterator > 0)
+        {
+            nextInt = inputLeader.nextInt();
+            nextName = inputLeader.nextLine();  //next?
+            gameScoreNames.put(nextInt, nextName);
+            
+            iterator--;
+        }    
+        
+		//SORT
+        Map<Integer, String> sortedLeaders = new TreeMap<Integer, String>(gameScoreNames);
+        
+        Map<Integer, String> sorted = new TreeMap<Integer, String>(Collections.reverseOrder());
+        
+        for(Map.Entry<Integer, String> entry : sortedLeaders.entrySet())
+        {
+            sorted.put(entry.getKey(), entry.getValue());
+        }
+        
+        
+		PrintWriter writer = new PrintWriter("leaderboard.txt");
+		
+		//Overwriting values in "yahtzeeConfig.txt"
+		writer.print("");
+		writer.println(numberOfLeaders);
+        
+        for(Map.Entry<Integer, String> entry : sorted.entrySet())
+        {
+            writer.print(entry.getKey());
+            writer.print(" ");
+            writer.println(entry.getValue());
+        }
+        
+        writer.close();
+        
+        int i = 1;
+        for(Map.Entry<Integer, String> entry : sorted.entrySet())
+        {
+            System.out.print("This is place: " + i + " for player: " + entry.getValue());
+            System.out.print(" total score is: ");
+            System.out.println(entry.getKey());
+            i++;
+        }
+    }
 	
+
+	public static void printRules(){
+		System.out.println();
+		System.out.println();
+		System.out.println("Athlete's name|Yahtzee Number|Athlete's Position|Athlete's Status");
+		System.out.println("Joel Ayayi    |       1      |      Guard       |      Bench     ");
+		System.out.println("Jack Beach    |       2      |      Guard       |      Bench     ");
+		System.out.println("Brandon Clarke|       3      |      Forward     |      Bench     ");
+		System.out.println("Rui Hachimura |       4      |      Forward     |      Bench     ");
+		System.out.println("Jeremy Jones  |       5      |      Forward     |      Bench     ");
+		System.out.println("Corey Kispert |       6      |      Guard       |      Bench     ");
+		System.out.println("Jacob Larsen  |       7      |      Forward     |      Bench     ");
+		System.out.println("Alex Martin   |       8      |      Guard       |      Bench     ");
+		System.out.println("Silas Melson  |       9      |      Guard       |      Starter   ");
+		System.out.println("Zach Norvell  |       10     |      Guard       |      Starter   ");
+		System.out.println("Josh Perkins  |       11     |      Guard       |      Starter   ");
+		System.out.println("Brian Pete    |       12     |      Guard       |      Bench     ");
+		System.out.println("Killian Tillie|       13     |      Forward     |      Starter   ");
+		System.out.println("Jesse Wade    |       14     |      Guard       |      Bench     ");
+		System.out.println("John Williams |       15     |      Forward     |      Starter   ");
+		System.out.println();
+		System.out.println();
+	}
 }
