@@ -3,20 +3,26 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+
 
 
 
 public class YahtzeeGUI extends JFrame{
 	private static JFrame frame;
-	private JPanel panel, mainMenuPanel, instructionsPanel;
+	private JPanel panel, mainMenuPanel, instrPnl1, instrPnl2;
 	
 	public YahtzeeGUI() {
 		createWindow(1000, 600);
-		addMainMenuPanel();
-		
+		//addMainMenuPanel();
+		//addInstrPnl1();
+		addInstrPnl2();
 		
 		frame.add(panel);
 		frame.setVisible(true);
@@ -32,7 +38,8 @@ public class YahtzeeGUI extends JFrame{
 		frame.setResizable(false);
 		panel = new JPanel(new BorderLayout());
 		mainMenuPanel = new JPanel();
-		instructionsPanel = new JPanel();
+		instrPnl2 = new JPanel();
+		//instrPnl1 = new JPanel();
 		//frame.setJMenuBar(addMenuBar());
 		//define panels
 	}
@@ -56,63 +63,104 @@ public class YahtzeeGUI extends JFrame{
 	    jlabel.setLocation(105, 20);
 	  
 	    // Play button
-	    JButton btnPlay = new JButton("Play");
-	    btnPlay.setFont(new Font("Verdana",1,30));
-	    mainMenuPanel.add(btnPlay);
-	    Dimension sizeBtnPlay = btnPlay.getPreferredSize();
-	    btnPlay.setBounds(305, 500, sizeBtnPlay.width, sizeBtnPlay.height);
-		//btnPlay.setLocation(400, 400);
-		
+	    createGenBtn("Play", 305, 500, mainMenuPanel);
+	    
 		// Leaderboard button
-		JButton btnLdBd = new JButton("Leaderboard");
-	    btnLdBd.setFont(new Font("Verdana",1,30));
-	    mainMenuPanel.add(btnLdBd);
-	    Dimension sizeBtnLdBd = btnLdBd.getPreferredSize();
-	    btnLdBd.setBounds(445, 500, sizeBtnLdBd.width, sizeBtnLdBd.height);
-		//btnPlay.setLocation(200, 200);
+	    createGenBtn("Leaderboard", 445, 500, mainMenuPanel);
+	    
+	    // Instructions button
+	    createGenBtn("Instructions", 725, 500, mainMenuPanel);
+		 
+		 
 		
-		// Instructions button
-		JButton btnInstr = new JButton("Instructions");
-		btnInstr.setFont(new Font("Verdana",1,30));
-		mainMenuPanel.add(btnInstr);
-		Dimension sizeBtnInstr = btnInstr.getPreferredSize();
-		btnInstr.setBounds(725, 500, sizeBtnInstr.width, sizeBtnInstr.height);
-		//btnPlay.setLocation(500, 200);
+	
 		
 	}
 	
-	public void addInstructionsPanel()
-	{
-		instructionsPanel.setLayout(null);
-		//mainMenuPanel.setLayout(new BorderLayout());
-		instructionsPanel.setBackground(new Color(145, 200, 255));
-		panel.add(instructionsPanel, BorderLayout.CENTER);
-		
-		
-		JLabel lblInstructions = new JLabel("Instructions");
-	    lblInstructions.setFont(new Font("Verdana",1,40));
-	    instructionsPanel.add(lblInstructions);
-	    Dimension sizeTitleInstr = lblInstructions.getPreferredSize();
-	    lblInstructions.setBounds(100, 100, sizeTitleInstr.width, sizeTitleInstr.height);
-	    instructionsPanel.setSize(400, 400);
-	    instructionsPanel.setLocation(105, 20);
-	  
-	
-		
-		// Next button
-		JButton btnNext = new JButton("Next");
-	    btnNext.setFont(new Font("Verdana",1,30));
-	    instructionsPanel.add(btnNext);
-	    Dimension sizeBtnNext = btnNext.getPreferredSize();
-	    btnNext.setBounds(445, 500, sizeBtnNext.width, sizeBtnNext.height);
-		//btnPlay.setLocation(200, 200);
-		
-		// Instructions button
-		JButton btnMainMenu = new JButton("Instructions");
-		btnMainMenu.setFont(new Font("Verdana",1,30));
-		mainMenuPanel.add(btnMainMenu);
-		Dimension sizeBtnMainMenu = btnMainMenu.getPreferredSize();
-		btnMainMenu.setBounds(725, 500, sizeBtnMainMenu.width, sizeBtnMainMenu.height);
+	public void createGenBtn(String btnName, int btnWidth, int btnHeight, JPanel panelAdd) {
+		JButton btn = new JButton(btnName);
+		btn.setFont(new Font("Verdana",1,30));
+		panelAdd.add(btn);
+		Dimension sizeBtn = btn.getPreferredSize();
+		btn.setBounds(btnWidth, btnHeight, sizeBtn.width, sizeBtn.height);
 		//btnPlay.setLocation(500, 200);
+	}
+	
+	public void addInstrPnl1()
+	{
+		instrPnl1.setLayout(null);
+		//instrPnl1.setLayout(new BorderLayout());
+		instrPnl1.setBackground(new Color(145, 200, 255));
+		panel.add(instrPnl1, BorderLayout.CENTER);
+		
+		
+		
+	  
+	   // Instructions title
+	    createGenLabel("Instructions", 200, 200, 40, instrPnl1);
+	    
+		// Next button
+	    createGenBtn("Next", 560, 500, instrPnl1);
+	    
+	    // Main Menu button
+	    createGenBtn("Main Menu", 725, 500, instrPnl1);
+	    
+	    
+	}
+	
+	public void addInstrPnl2()
+	{
+		instrPnl2.setLayout(null);
+		//instrPnl2.setLayout(new BorderLayout());
+		instrPnl2.setBackground(new Color(145, 200, 255));
+		panel.add(instrPnl2, BorderLayout.CENTER);
+		
+		
+		
+	  
+	   // Instructions title
+	    createGenLabel("Dice", 100, 50, 40, instrPnl2);
+	    
+	 // ....
+	    createGenLabel("*The game uses five, fifteen-sided dice.", 25, 200, 15, instrPnl2);
+	    createGenLabel("*The sides of each die represent the GU", 25, 225, 15, instrPnl2);
+	    createGenLabel("  Men’s Basketball 2017-2018 Roster:", 25, 245, 15, instrPnl2);
+	    
+		// Next button
+	    createGenBtn("Next", 560, 500, instrPnl2);
+	    
+	    // Main Menu button
+	    createGenBtn("Main Menu", 725, 500, instrPnl2);
+	    
+	    
+	}
+	
+	//TO-DO: make color of text generic
+	public void createGenLabel(String dispText, int textWidth, int textHeight, int textSize, JPanel panelAdd)
+	{
+		JLabel text = new JLabel(dispText);
+	    text.setFont(new Font("Verdana",1,textSize));
+	    panelAdd.add(text);
+	    Dimension sizeText = text.getPreferredSize();
+	    text.setBounds(textWidth, textHeight, sizeText.width, sizeText.height);
+	    text.setForeground(Color.black);
+	    panelAdd.setSize(400, 400);
+	    //text.setLocation(360, 20);
+	}
+	
+	//TO-DO: Eug needs help here
+	public void createGenImg(String imgPath, int imgWidth, int imgHeight, JPanel panelAdd)//String imgPath, int imgWidth, int imgHeight, JPanel panelAdd) 
+	{
+		BufferedImage myPicture = null;
+		try {
+			myPicture = ImageIO.read(new File("RosterScreenshot.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+	    instrPnl1.add(picLabel);
+	    Dimension sizePic = picLabel.getPreferredSize();
+	    picLabel.setBounds(200, 200, sizePic.width, sizePic.height);
 	}
 }
