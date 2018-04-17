@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.awt.Toolkit;
@@ -97,7 +98,7 @@ public class YahtzeeGUI extends JFrame{
 		
 	  
 	   // Instructions title
-	    createGenLabel("Instructions", 200, 200, 40, instrPnl1);
+	    createGenLabel("Instructions", 200, 200, 40, Color.black, instrPnl1);
 	    
 		// Next button
 	    createGenBtn("Next", 560, 500, instrPnl1);
@@ -119,12 +120,12 @@ public class YahtzeeGUI extends JFrame{
 		
 	  
 	   // Instructions title
-	    createGenLabel("Dice", 100, 50, 40, instrPnl2);
+	    createGenLabel("Dice", 100, 50, 40, Color.black, instrPnl2);
 	    
 	 // ....
-	    createGenLabel("*The game uses five, fifteen-sided dice.", 25, 200, 15, instrPnl2);
-	    createGenLabel("*The sides of each die represent the GU", 25, 225, 15, instrPnl2);
-	    createGenLabel("  Men’s Basketball 2017-2018 Roster:", 25, 245, 15, instrPnl2);
+	    createGenLabel("*The game uses five, fifteen-sided dice.", 25, 200, 15, Color.black, instrPnl2);
+	    createGenLabel("*The sides of each die represent the GU", 25, 225, 15, Color.black, instrPnl2);
+	    createGenLabel("  Men’s Basketball 2017-2018 Roster:", 25, 245, 15, Color.black, instrPnl2);
 	    
 		// Next button
 	    createGenBtn("Next", 560, 500, instrPnl2);
@@ -132,35 +133,43 @@ public class YahtzeeGUI extends JFrame{
 	    // Main Menu button
 	    createGenBtn("Main Menu", 725, 500, instrPnl2);
 	    
-	    
+	    // Roster image
+	    createGenImg("RosterScreenshot.png", 465, 465, 450, 25, instrPnl2);
 	}
 	
-	//TO-DO: make color of text generic
-	public void createGenLabel(String dispText, int textWidth, int textHeight, int textSize, JPanel panelAdd)
+	
+	public void createGenLabel(String dispText, int textWidth, int textHeight, int textSize, Color color ,JPanel panelAdd)
 	{
 		JLabel text = new JLabel(dispText);
 	    text.setFont(new Font("Verdana",1,textSize));
 	    panelAdd.add(text);
 	    Dimension sizeText = text.getPreferredSize();
 	    text.setBounds(textWidth, textHeight, sizeText.width, sizeText.height);
-	    text.setForeground(Color.black);
+	    text.setForeground(color);
 	    panelAdd.setSize(400, 400);
 	    //text.setLocation(360, 20);
 	}
 	
-	//TO-DO: Eug needs help here
-	public void createGenImg(String imgPath, int imgWidth, int imgHeight, JPanel panelAdd)//String imgPath, int imgWidth, int imgHeight, JPanel panelAdd) 
+	
+	public void createGenImg(String imgPath, int imgWidth, int imgHeight, int imgWidthLoc, int imgHeightLoc, JPanel panelAdd)//String imgPath, int imgWidth, int imgHeight, JPanel panelAdd) 
 	{
 		BufferedImage myPicture = null;
 		try {
-			myPicture = ImageIO.read(new File("RosterScreenshot.png"));
+			myPicture = ImageIO.read(new File(imgPath));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-	    instrPnl1.add(picLabel);
+		
+		Image dimg = myPicture.getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH);
+		
+		
+		
+	    JLabel picLabel = new JLabel(new ImageIcon(dimg));
+	    panelAdd.add(picLabel);
+
 	    Dimension sizePic = picLabel.getPreferredSize();
-	    picLabel.setBounds(200, 200, sizePic.width, sizePic.height);
+	    //picLabel.setPreferredSize(new Dimension(100, 25));
+	    picLabel.setBounds(imgWidthLoc, imgHeightLoc, sizePic.width, sizePic.height);
 	}
 }
