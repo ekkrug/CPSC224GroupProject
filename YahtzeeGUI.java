@@ -17,13 +17,19 @@ import javax.swing.*;
 
 public class YahtzeeGUI extends JFrame{
 	private static JFrame frame;
-	private JPanel panel, mainMenuPanel, instrPnl1, instrPnl2;
+	private JPanel panel, mainMenuPanel, instrPnl1, instrPnl2, instrPnl3, instrPnl4, instrPnl5;
 	
 	public YahtzeeGUI() {
 		createWindow(1000, 600);
+		
+		
+		//***PANEL TESTS***
 		//addMainMenuPanel();
 		//addInstrPnl1();
 		//addInstrPnl2();
+		//addInstrPnl3();
+		//addInstrPnl4();
+		addInstrPnl5();
 		
 		//frame.add(panel);
 		//frame.setVisible(true);
@@ -38,9 +44,14 @@ public class YahtzeeGUI extends JFrame{
 		frame.setSize(width, height);
 		frame.setResizable(false);
 		panel = new JPanel(new BorderLayout());
+		
 		mainMenuPanel = new JPanel();
+		
+		instrPnl1 = new JPanel();
 		instrPnl2 = new JPanel();
-		//instrPnl1 = new JPanel();
+		instrPnl3 = new JPanel();
+		instrPnl4 = new JPanel();
+		instrPnl5 = new JPanel();
 		//frame.setJMenuBar(addMenuBar());
 		//define panels
 	}
@@ -63,14 +74,17 @@ public class YahtzeeGUI extends JFrame{
 	    mainMenuPanel.setSize(400, 400);
 	    jlabel.setLocation(105, 20);
 	  
+	    // Roster Photo
+	    createGenImg("1718PosterPhoto.jpg", 900, 400, 50, 80, mainMenuPanel);
+	    
 	    // Play button
-	    createGenBtn("Play", 305, 500, mainMenuPanel);
+	    createGenBtn("Play", 305, 500, Color.black, mainMenuPanel);
 	    
 		// Leaderboard button
-	    createGenBtn("Leaderboard", 445, 500, mainMenuPanel);
+	    createGenBtn("Leaderboard", 445, 500, Color.black, mainMenuPanel);
 	    
 	    // Instructions button
-	    createGenBtn("Instructions", 725, 500, mainMenuPanel);
+	    createGenBtn("Instructions", 725, 500, Color.black, mainMenuPanel);
 		 
 		 
 		
@@ -78,9 +92,11 @@ public class YahtzeeGUI extends JFrame{
 		
 	}
 	
-	public void createGenBtn(String btnName, int btnWidth, int btnHeight, JPanel panelAdd) {
+	public void createGenBtn(String btnName, int btnWidth, int btnHeight, Color textColor, JPanel panelAdd) {
 		JButton btn = new JButton(btnName);
 		btn.setFont(new Font("Verdana",1,30));
+		//btn.setBackground(Color.yellow);
+		btn.setForeground(textColor);
 		panelAdd.add(btn);
 		Dimension sizeBtn = btn.getPreferredSize();
 		btn.setBounds(btnWidth, btnHeight, sizeBtn.width, sizeBtn.height);
@@ -96,15 +112,17 @@ public class YahtzeeGUI extends JFrame{
 		
 		
 		
+		
+		//createGenImg("MACEmptyTrsp.png", 1000, 600, 0, 0, instrPnl1);
 	  
 	   // Instructions title
-	    createGenLabel("Instructions", 200, 200, 40, Color.black, instrPnl1);
+	    createGenLabel("Instructions", 540, 200, 60, Color.black, instrPnl1);
 	    
 		// Next button
-	    createGenBtn("Next", 560, 500, instrPnl1);
+	    createGenBtn("Next", 560, 500, Color.black, instrPnl1);
 	    
 	    // Main Menu button
-	    createGenBtn("Main Menu", 725, 500, instrPnl1);
+	    createGenBtn("Main Menu", 725, 500, Color.black, instrPnl1);
 	    
 	    
 	}
@@ -128,15 +146,96 @@ public class YahtzeeGUI extends JFrame{
 	    createGenLabel("  Men’s Basketball 2017-2018 Roster:", 25, 245, 15, Color.black, instrPnl2);
 	    
 		// Next button
-	    createGenBtn("Next", 560, 500, instrPnl2);
+	    createGenBtn("Next", 560, 500, Color.black, instrPnl2);
 	    
 	    // Main Menu button
-	    createGenBtn("Main Menu", 725, 500, instrPnl2);
+	    createGenBtn("Main Menu", 725, 500, Color.black, instrPnl2);
 	    
 	    // Roster image
 	    createGenImg("RosterScreenshot.png", 465, 465, 450, 25, instrPnl2);
 	}
 	
+	public void addInstrPnl3()
+	{
+		instrPnl3.setLayout(null);
+		//instrPnl2.setLayout(new BorderLayout());
+		instrPnl3.setBackground(new Color(145, 200, 255));
+		panel.add(instrPnl3, BorderLayout.CENTER);
+		
+		//instrPnl3.setOpaque(true);
+		
+		//createGenImg("LkrRmTrsp.png", 1000, 600, 0, 0, instrPnl3);
+		
+		// How to Win title
+	    createGenLabel("How to Win", 340, 30, 50, Color.black, instrPnl3);
+		
+	    // Text
+	    createGenLabel("*Roll dice 5 times to get the highest score", 25, 200, 15, Color.black, instrPnl3);
+	    createGenLabel("  after all 22 rounds.", 25, 225, 15, Color.black, instrPnl3);
+	    
+	    // Next button
+	    createGenBtn("Next", 560, 500, Color.black, instrPnl3);
+	    
+	    // Main Menu button
+	    createGenBtn("Main Menu", 725, 500, Color.black, instrPnl3);
+	}
+	
+	public void addInstrPnl4()
+	{
+		instrPnl4.setLayout(null);
+		//instrPnl2.setLayout(new BorderLayout());
+		instrPnl4.setBackground(new Color(145, 200, 255));
+		panel.add(instrPnl4, BorderLayout.CENTER);
+		
+		// How to Play title
+	    createGenLabel("How to Play", 340, 30, 50, Color.black, instrPnl4);
+	    
+	    // Text
+	    createGenLabel("To start, you will roll the dice by clicking Roll. After rolling you can either score the current roll on the", 25, 100, 15, Color.black, instrPnl4);
+	    createGenLabel("scorecard or re-roll any or all of the dice*. You may only roll the dice a total of five times. After the", 25, 115, 15, Color.black, instrPnl4);
+	    createGenLabel("fifth roll you must choose a category on the scorecard to score your hand in. You must choose a", 25, 130, 15, Color.black, instrPnl4);
+	    createGenLabel("different category each time i.e., you can NOT score your hand in a category you have already scored.", 25, 145, 15, Color.black, instrPnl4);
+	    //createGenLabel("text here", 25, 160, 15, Color.black, instrPnl4);
+	    createGenLabel("To keep a die value enter ‘y’ in the same order that the die appeared. Enter ‘n’ to re-roll. For example,", 25, 175, 15, Color.black, instrPnl4);
+	    createGenLabel("if the roll is Jones, Hachimura, Norvell, Tillie, Perkins to keep Jones, Norvell, and Tillie and re-roll the", 25, 190, 15, Color.black, instrPnl4);
+	    createGenLabel("others you would enter: ‘ynyyn’.", 25, 205, 15, Color.black, instrPnl4);
+	    //createGenLabel("text here", 25, 220, 15, Color.black, instrPnl4);
+	    createGenLabel("*Note: For example, after the first roll you can keep 4 dice and re-roll the fifth die. Then you can", 25, 235, 15, Color.black, instrPnl4);
+	    createGenLabel("choose to keep all of the die and end that round or keep the first 2 die and roll the next 3 and", 25, 250, 15, Color.black, instrPnl4);
+	    createGenLabel("continue...", 25, 265, 15, Color.black, instrPnl4);
+	    
+	    
+		// Next button
+	    createGenBtn("Next", 560, 500, Color.black, instrPnl4);
+	    
+	    // Main Menu button
+	    createGenBtn("Main Menu", 725, 500, Color.black, instrPnl4);
+	}
+	
+	public void addInstrPnl5()
+	{
+		instrPnl5.setLayout(null);
+		//instrPnl2.setLayout(new BorderLayout());
+		instrPnl5.setBackground(new Color(145, 200, 255));
+		panel.add(instrPnl5, BorderLayout.CENTER);
+		
+		//instrPnl3.setOpaque(true);
+		
+		//createGenImg("LkrRmTrsp.png", 1000, 600, 0, 0, instrPnl3);
+		
+		// How to Win title
+	    createGenLabel("Scoring", 340, 30, 50, Color.black, instrPnl5);
+		
+	    // Text
+	    createGenLabel("*The scorecard is split into upper and lower", 25, 200, 15, Color.black, instrPnl5);
+	    createGenLabel("  sections.", 25, 225, 15, Color.black, instrPnl5);
+	    
+	    // Next button
+	    createGenBtn("Next", 560, 500, Color.black, instrPnl5);
+	    
+	    // Main Menu button
+	    createGenBtn("Main Menu", 725, 500, Color.black, instrPnl5);
+	}
 	
 	public void createGenLabel(String dispText, int textWidth, int textHeight, int textSize, Color color ,JPanel panelAdd)
 	{
