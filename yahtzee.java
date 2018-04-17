@@ -1,3 +1,5 @@
+package yahtzee;
+
 /**
 * This program will implement the game Lizard Spock Yahtzee.
 * It uses static methods from the classes Calculations and has an 
@@ -59,6 +61,8 @@ public class yahtzee{
 //******************************************8     
         int numberOfTurns = players[0].getNumberRows();
 
+        new YahtzeeGUI();
+        
 		while (playAgain == 'y')
 		{
 			for(int j = 0; j < numberOfTurns; j++)

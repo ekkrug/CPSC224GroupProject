@@ -1,3 +1,4 @@
+package yahtzee;
 /**
 * This class will create a Die that can be rolled. It also 
 * keeps track of the number of Dice in  play the number of sides

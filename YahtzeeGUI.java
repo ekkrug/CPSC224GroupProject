@@ -1,3 +1,4 @@
+package yahtzee;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,7 +9,6 @@ import java.awt.image.BufferedImage;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -23,10 +23,10 @@ public class YahtzeeGUI extends JFrame{
 		createWindow(1000, 600);
 		//addMainMenuPanel();
 		//addInstrPnl1();
-		addInstrPnl2();
+		//addInstrPnl2();
 		
-		frame.add(panel);
-		frame.setVisible(true);
+		//frame.add(panel);
+		//frame.setVisible(true);
 
 	}
 	
