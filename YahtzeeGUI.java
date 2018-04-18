@@ -31,8 +31,8 @@ public class YahtzeeGUI extends JFrame{
 		//addInstrPnl4();
 		addInstrPnl5();
 		
-		//frame.add(panel);
-		//frame.setVisible(true);
+		frame.add(panel);
+		frame.setVisible(true);
 
 	}
 	
