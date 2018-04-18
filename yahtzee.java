@@ -160,7 +160,7 @@ public class yahtzee{
     */
 	public static Die rollDie()
 	{
-		Die  newDie = new Die();
+		Die newDie = new Die();
 		newDie.roll();
 		return newDie;
 	}
