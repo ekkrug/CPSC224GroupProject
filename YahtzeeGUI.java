@@ -12,7 +12,20 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-
+/*
+INTERNAL PANEL KEY:
+1: The game!
+2: Leaderboard
+3: Instructions - Opening
+4: Main Menu
+5: Instructions - Dice
+6: Instructions - How to Win
+7: Instructions - How to Play
+8: Instructions - Scoring
+9: Instruction - Upper Section 
+10: Instructions - Lower Section
+11: Instructions - Scorecard
+*/
 
 
 public class YahtzeeGUI extends JFrame{
@@ -85,7 +98,7 @@ public class YahtzeeGUI extends JFrame{
 		
 
 	}
-		
+	
 	public class createGenBtn implements ActionListener{
 		String btnName; 
 		int btnWidth; 
