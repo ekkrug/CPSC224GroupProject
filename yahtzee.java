@@ -38,7 +38,7 @@ public class yahtzee{
      */
 	public static void main(String[] args)
 		throws FileNotFoundException{
-		
+		new YahtzeeGUI();
 		Scanner scannerKeep = new Scanner(System.in);
 		Scanner continuePlay = new Scanner(System.in);
         
@@ -61,7 +61,7 @@ public class yahtzee{
 //******************************************8     
         int numberOfTurns = players[0].getNumberRows();
 
-        new YahtzeeGUI();
+        
         
 		while (playAgain == 'y')
 		{

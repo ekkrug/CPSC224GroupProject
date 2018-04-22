@@ -1,5 +1,4 @@
 // BBQ is 2morrow
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -459,7 +458,7 @@ public class YahtzeeGUI extends JFrame{
 	 // ....
 	    createGenLabel("*The game uses five, fifteen-sided dice.", 25, 200, 15, Color.black, instrPnl2);
 	    createGenLabel("*The sides of each die represent the GU", 25, 225, 15, Color.black, instrPnl2);
-	    createGenLabel("  Men’s Basketball 2017-2018 Roster:", 25, 245, 15, Color.black, instrPnl2);
+	    createGenLabel("  Men's Basketball 2017-2018 Roster:", 25, 245, 15, Color.black, instrPnl2);
 	    
 		// Next button
 	    createGenBtn next2 = new createGenBtn("Next",6, 560, 500, instrPnl2);
@@ -513,9 +512,9 @@ public class YahtzeeGUI extends JFrame{
 	    createGenLabel("fifth roll you must choose a category on the scorecard to score your hand in. You must choose a", 25, 130, 15, Color.black, instrPnl4);
 	    createGenLabel("different category each time i.e., you can NOT score your hand in a category you have already scored.", 25, 145, 15, Color.black, instrPnl4);
 	    //createGenLabel("text here", 25, 160, 15, Color.black, instrPnl4);
-	    createGenLabel("To keep a die value enter ‘y’ in the same order that the die appeared. Enter ‘n’ to re-roll. For example,", 25, 175, 15, Color.black, instrPnl4);
+	    createGenLabel("To keep a die value enter 'y' in the same order that the die appeared. Enter 'n' to re-roll. For example,", 25, 175, 15, Color.black, instrPnl4);
 	    createGenLabel("if the roll is Jones, Hachimura, Norvell, Tillie, Perkins to keep Jones, Norvell, and Tillie and re-roll the", 25, 190, 15, Color.black, instrPnl4);
-	    createGenLabel("others you would enter: ‘ynyyn’.", 25, 205, 15, Color.black, instrPnl4);
+	    createGenLabel("others you would enter: 'ynyyn'.", 25, 205, 15, Color.black, instrPnl4);
 	    //createGenLabel("text here", 25, 220, 15, Color.black, instrPnl4);
 	    createGenLabel("*Note: For example, after the first roll you can keep 4 dice and re-roll the fifth die. Then you can", 25, 235, 15, Color.black, instrPnl4);
 	    createGenLabel("choose to keep all of the die and end that round or keep the first 2 die and roll the next 3 and", 25, 250, 15, Color.black, instrPnl4);
