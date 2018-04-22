@@ -1,4 +1,4 @@
-package yahtzee;
+//package yahtzee;
 
 /**
 * This program will implement the game Lizard Spock Yahtzee.
@@ -56,7 +56,7 @@ public class yahtzee{
         for(int i = 0; i < numberOfPlayers; i++)
         {
             players[i] = new Player();
-            players[i].name = playerNames[i];
+            players[i].setName(playerNames[i]);
         }  
 //******************************************8     
         int numberOfTurns = players[0].getNumberRows();
@@ -70,7 +70,7 @@ public class yahtzee{
 				for(int i = 0; i < numberOfPlayers; i++)
                 {
                     System.out.println();
-                    System.out.println("It is turn: " + (j+1) + " for player: " + players[i].name);
+                    System.out.println("It is turn: " + (j+1) + " for player: " + players[i].getName());
                     
                     char[] keep = keepString(Die.numberOfDie, "n").toCharArray(); //setup to roll all dice in the first roll
                     int turn = 1;
@@ -127,13 +127,13 @@ public class yahtzee{
                     players[i].scoreCardTracker(players[i].hand);
                     System.out.println();
                     
-                    System.out.println("This is " + players[i].name + "'s current score: " + players[i].getCurrentScore());
+                    System.out.println("This is " + players[i].getName() + "'s current score: " + players[i].getCurrentScore());
                 }
 			}
             
             for(int i = 0; i < numberOfPlayers; i++)
             {
-                System.out.println(players[i].name + " scored " + players[i].totalValue() + " for this round");
+                System.out.println(players[i].getName() + " scored " + players[i].totalValue() + " for this round");
                 players[i].printCompleted(players[i].hand);
             }
 			
@@ -286,7 +286,7 @@ public class yahtzee{
         Map<Integer, String> gameScoreNames = new HashMap<Integer, String>();
         for(int i = 0; i < numberOfPlayers; i++)
         {
-            gameScoreNames.put(players[i].totalValue(), players[i].name);
+            gameScoreNames.put(players[i].totalValue(), players[i].getName());
         }
        
 		Scanner inputLeader = new Scanner(new File("leaderboard.txt"));

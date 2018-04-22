@@ -47,7 +47,8 @@ public class YahtzeeGUI extends JFrame{
 	private JPanel panel, mainMenuPanel, instrPnl1, instrPnl2,instrPnl3,instrPnl4,instrPnl5, instrPnl6, instrPnl7, instrPnl8, ldrPnl, playNumPnl, firstRollPnl;
 	private JPanel playNamePnl, rollPnl;
 	private int numberOfPlayers;
-	private String[] playerNames = new String[4]; 
+	private String[] playerNames = new String[4]; // TO-DO: remove @ some pt.
+	private Player[] players;
 	
 	public YahtzeeGUI() {
 		createWindow(1000, 600);
@@ -209,9 +210,10 @@ public class YahtzeeGUI extends JFrame{
 		 }
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			// TODO Auto-generated method tub
 			if(e.getSource() == btn) {
-	    		playerNames[playSpot-1] = textField.getText(); 	
+	    		//playerNames[playSpot-1] = textField.getText(); 	
+	    		players[playSpot - 1].setName(textField.getText());
 			}
 			
 		}
@@ -759,12 +761,16 @@ public class YahtzeeGUI extends JFrame{
 	    panel.add(playNamePnl, BorderLayout.CENTER);
 	    // ENTER PLAYER NAMES PANEL
 
+	    players = new Player[numberOfPlayers];
         
+	    
+	    
         for(int i = 1; i <= numberOfPlayers; i++)
         {
               createGenLabel("Player #" + i + ":", 150, (i-1)*45 + 175, 20, Color.black, playNamePnl);
               createGenTextField userNames = new createGenTextField(i, 200, 30, 275, (i-1)*45 + 175, playNamePnl);
               userNames.setup();
+              players[i-1] = new Player();
         }
         
         // Upper Section title
@@ -841,6 +847,7 @@ public class YahtzeeGUI extends JFrame{
 	    panel.add(rollPnl, BorderLayout.CENTER);
 		
 	    createGenLabel("TODD GUSE", 220, 30, 50, Color.black, rollPnl);
+
 	    
 		//createGenImg("Basketball.png", 200, 200, 400, 200, firstRollPnl);
 		
