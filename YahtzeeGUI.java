@@ -39,13 +39,14 @@ INTERNAL PANEL KEY:
 15: 4-player game
 16: player name panel
 17: get name
+18: first roll
 */
 
 
 public class YahtzeeGUI extends JFrame{
 	private static JFrame frame;
-	private JPanel panel, mainMenuPanel, instrPnl1, instrPnl2,instrPnl3,instrPnl4,instrPnl5, instrPnl6, instrPnl7, instrPnl8, ldrPnl, playNumPnl;
-	private JPanel playNamePnl;
+	private JPanel panel, mainMenuPanel, instrPnl1, instrPnl2,instrPnl3,instrPnl4,instrPnl5, instrPnl6, instrPnl7, instrPnl8, ldrPnl, playNumPnl, firstRollPnl;
+	private JPanel playNamePnl, rollPnl;
 	private int numberOfPlayers;
 	private String[] playerNames = new String[4]; 
 	
@@ -80,6 +81,8 @@ public class YahtzeeGUI extends JFrame{
 		ldrPnl = new JPanel();
 		playNumPnl = new JPanel();
 		playNamePnl = new JPanel();
+		firstRollPnl = new JPanel();
+		rollPnl = new JPanel();
 		//frame.setJMenuBar(addMenuBar());
 		//define panels
 	}
@@ -117,7 +120,59 @@ public class YahtzeeGUI extends JFrame{
 		instructions.setup(); 
 	
 	}
-	
+	public class createGenBtnPic implements ActionListener{	
+	String iconName;
+	int picWidth;
+	int picHeight; 
+	int locX; 
+	int locY;
+	JButton genBtn;
+		
+	public createGenBtnPic(String name, int width, int height, int x, int y) {
+		iconName = name;
+		picWidth = width;
+		picHeight = height;
+		locX = x;
+		locY = y;
+	}
+	public void setup() {
+		ImageIcon imageIcon = new ImageIcon(iconName); // load the image to a imageIcon
+	    Image image = imageIcon.getImage(); // transform it 
+	    Image newimg = image.getScaledInstance(picWidth, picHeight,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+	    imageIcon = new ImageIcon(newimg);  // transform it back
+	    
+	    
+	    genBtn = new JButton(imageIcon);	
+	    firstRollPnl.add(genBtn);
+		  
+	    Dimension sizeBtn = genBtn.getPreferredSize();
+	    
+	    genBtn.setBounds(locX, locY, sizeBtn.width, sizeBtn.height);
+		 
+	    genBtn.setBackground(new Color(145, 200, 255));
+	    genBtn.setOpaque(true);
+	    genBtn.setBorderPainted(false);
+	    genBtn.addActionListener(this);
+	}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if(e.getSource() == genBtn) {
+				System.out.println("Hi eugene");
+				
+				
+	    			//the actual game window
+	    			frame.getContentPane().removeAll();
+	    			frame.getContentPane().invalidate();
+	    			
+	    			rollPnl();
+	    			frame.getContentPane().add(rollPnl);
+	    			frame.getContentPane().revalidate();
+	    		
+			}
+			
+		}
+	}
 	public class createGenTextField implements ActionListener
     {
 		 int textFieldWidth;
@@ -348,6 +403,19 @@ public class YahtzeeGUI extends JFrame{
 	    		else  if(desiredAction == 17) {
 	    		
 	    		}
+	    		
+	    		else if(desiredAction == 18) {
+	    			frame.getContentPane().removeAll();
+	    			frame.getContentPane().invalidate();
+	    			
+	    			
+	    		
+	    			firstRollPnl();
+	    			frame.getContentPane().add(firstRollPnl);
+	    			frame.getContentPane().revalidate();
+	    		}
+	    		
+	    		
 	    		//another window
 	    		else {
 	    			//another window
@@ -698,7 +766,6 @@ public class YahtzeeGUI extends JFrame{
               createGenLabel("Player #" + i + ":", 150, (i-1)*45 + 175, 20, Color.black, playNamePnl);
               createGenTextField userNames = new createGenTextField(i, 200, 30, 275, (i-1)*45 + 175, playNamePnl);
               userNames.setup();
-              System.out.println(playerNames[i-1]);
         }
         
         // Upper Section title
@@ -706,11 +773,34 @@ public class YahtzeeGUI extends JFrame{
       createGenLabel("No spaces allowed!", 365, 100, 25, Color.black, playNamePnl);
      
         // Next button
-      createGenBtn Next8= new createGenBtn("Next", 11, 725, 500, playNamePnl);
+      createGenBtn Next8= new createGenBtn("Next", 18, 725, 500, playNamePnl);
       Next8.setup();
 
 	    
 	}
+	
+	public void firstRollPnl(){
+		firstRollPnl.setLayout(null);
+	    //instrPnl2.setLayout(new BorderLayout());
+		firstRollPnl.setBackground(new Color(145, 200, 255));
+	    panel.add(firstRollPnl, BorderLayout.CENTER);
+		
+	    createGenLabel("Press the ball to roll", 220, 30, 50, Color.black, firstRollPnl);
+	    
+		//createGenImg("Basketball.png", 200, 200, 400, 200, firstRollPnl);
+		
+	    //ImageIcon ic2 = new ImageIcon("Basketball.png");
+	    
+	    //START
+	    createGenBtnPic basketball  = new createGenBtnPic("Basketball.png", 300, 300, 350, 150);
+	    	basketball.setup();
+	    
+		//END	
+		
+	    
+	}
+	
+	
 	public void createGenLabel(String dispText, int textWidth, int textHeight, int textSize, Color color ,JPanel panelAdd)
 	{
 		JLabel text = new JLabel(dispText);
@@ -744,4 +834,26 @@ public class YahtzeeGUI extends JFrame{
 	    //picLabel.setPreferredSize(new Dimension(100, 25));
 	    picLabel.setBounds(imgWidthLoc, imgHeightLoc, sizePic.width, sizePic.height);
 	}
+	
+	public void rollPnl(){
+		rollPnl.setLayout(null);
+	    //instrPnl2.setLayout(new BorderLayout());
+		rollPnl.setBackground(new Color(145, 200, 255));
+	    panel.add(rollPnl, BorderLayout.CENTER);
+		
+	    createGenLabel("TODD GUSE", 220, 30, 50, Color.black, rollPnl);
+	    
+		//createGenImg("Basketball.png", 200, 200, 400, 200, firstRollPnl);
+		
+	    //ImageIcon ic2 = new ImageIcon("Basketball.png");
+	    
+	    //START
+	    createGenBtnPic basketball  = new createGenBtnPic("Basketball.png", 300, 300, 350, 150);
+	    	basketball.setup();
+	    
+		//END	
+		
+	    
+	}
+	
 }
