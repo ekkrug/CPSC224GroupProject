@@ -1,4 +1,6 @@
-package yahtzee;
+//package yahtzee;
+
+// TODD GUSE IS COOL
 /**
 * This class will create a Die that can be rolled. It also 
 * keeps track of the number of Dice in  play the number of sides
