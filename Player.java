@@ -1,4 +1,4 @@
-package yahtzee;
+//package yahtzee;
 /**
 * This class will construct a ScoreCard that will keep track
 * of which values are being placed into it and where.  It can print
@@ -24,7 +24,7 @@ public class Player {
 	private boolean[] canPlaceScoreCard;
     private String[] athleteNames;
 	private int scoredRowNumber;
-    public String name;
+    private String name;
     public ArrayList<Die> hand;
     private int bonusLine;
     
@@ -66,6 +66,12 @@ public class Player {
         athleteNames[13] = "Jesse Wade";
         athleteNames[14] = "Jonathan Williams";
 	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
 	
 	/**
     * This method gets where the player would like to score their round at.
