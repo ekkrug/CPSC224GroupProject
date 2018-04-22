@@ -1,4 +1,5 @@
 // BBQ is 2morrow
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -50,6 +51,8 @@ public class YahtzeeGUI extends JFrame{
 	private int numberOfPlayers;
 	private String[] playerNames = new String[4]; // TO-DO: remove @ some pt.
 	private Player[] players;
+	final int NUMBER_OF_ROUNDS = 22;
+	final int NUMBER_OF_ROLLS = 5;
 	
 	public YahtzeeGUI() {
 		createWindow(1000, 600);
@@ -407,14 +410,7 @@ public class YahtzeeGUI extends JFrame{
 	    		}
 	    		
 	    		else if(desiredAction == 18) {
-	    			frame.getContentPane().removeAll();
-	    			frame.getContentPane().invalidate();
-	    			
-	    			
-	    		
-	    			firstRollPnl();
-	    			frame.getContentPane().add(firstRollPnl);
-	    			frame.getContentPane().revalidate();
+	    			gameDrive();
 	    		}
 	    		
 	    		
@@ -458,7 +454,7 @@ public class YahtzeeGUI extends JFrame{
 	 // ....
 	    createGenLabel("*The game uses five, fifteen-sided dice.", 25, 200, 15, Color.black, instrPnl2);
 	    createGenLabel("*The sides of each die represent the GU", 25, 225, 15, Color.black, instrPnl2);
-	    createGenLabel("  Men's Basketball 2017-2018 Roster:", 25, 245, 15, Color.black, instrPnl2);
+	    createGenLabel("  Men’s Basketball 2017-2018 Roster:", 25, 245, 15, Color.black, instrPnl2);
 	    
 		// Next button
 	    createGenBtn next2 = new createGenBtn("Next",6, 560, 500, instrPnl2);
@@ -512,9 +508,9 @@ public class YahtzeeGUI extends JFrame{
 	    createGenLabel("fifth roll you must choose a category on the scorecard to score your hand in. You must choose a", 25, 130, 15, Color.black, instrPnl4);
 	    createGenLabel("different category each time i.e., you can NOT score your hand in a category you have already scored.", 25, 145, 15, Color.black, instrPnl4);
 	    //createGenLabel("text here", 25, 160, 15, Color.black, instrPnl4);
-	    createGenLabel("To keep a die value enter 'y' in the same order that the die appeared. Enter 'n' to re-roll. For example,", 25, 175, 15, Color.black, instrPnl4);
+	    createGenLabel("To keep a die value enter ‘y’ in the same order that the die appeared. Enter ‘n’ to re-roll. For example,", 25, 175, 15, Color.black, instrPnl4);
 	    createGenLabel("if the roll is Jones, Hachimura, Norvell, Tillie, Perkins to keep Jones, Norvell, and Tillie and re-roll the", 25, 190, 15, Color.black, instrPnl4);
-	    createGenLabel("others you would enter: 'ynyyn'.", 25, 205, 15, Color.black, instrPnl4);
+	    createGenLabel("others you would enter: ‘ynyyn’.", 25, 205, 15, Color.black, instrPnl4);
 	    //createGenLabel("text here", 25, 220, 15, Color.black, instrPnl4);
 	    createGenLabel("*Note: For example, after the first roll you can keep 4 dice and re-roll the fifth die. Then you can", 25, 235, 15, Color.black, instrPnl4);
 	    createGenLabel("choose to keep all of the die and end that round or keep the first 2 die and roll the next 3 and", 25, 250, 15, Color.black, instrPnl4);
@@ -785,15 +781,17 @@ public class YahtzeeGUI extends JFrame{
 	    
 	}
 	
-	public void firstRollPnl(){
+	public void firstRollPnl(int numRound, int numPlayer){
 		firstRollPnl.setLayout(null);
 	    //instrPnl2.setLayout(new BorderLayout());
 		firstRollPnl.setBackground(new Color(145, 200, 255));
 	    panel.add(firstRollPnl, BorderLayout.CENTER);
 		
-	    createGenLabel("Press the ball to roll", 220, 30, 50, Color.black, firstRollPnl);
+	    createGenLabel("Press the ball to roll!", 220, 30, 50, Color.black, firstRollPnl);
+	    System.out.println("Round " + numRound + " for " + players[numPlayer - 1].getName());
+	    createGenLabel("Round " + numRound + " for " + players[numPlayer - 1].getName(), 220, 80, 30, Color.black, firstRollPnl);
 	    
-		//createGenImg("Basketball.png", 200, 200, 400, 200, firstRollPnl);
+		//createGenImg("Basketball.png", 200, 200, 400, 200, firstRollPnl); 
 		
 	    //ImageIcon ic2 = new ImageIcon("Basketball.png");
 	    
@@ -861,6 +859,33 @@ public class YahtzeeGUI extends JFrame{
 		//END	
 		
 	    
+	}
+	
+	void gameDrive()
+	{
+		// Loop for rounds
+		for(int i = 1; i <= 1; i++)//NUMBER_OF_ROUNDS
+		{
+			for(int j = 1; j <= numberOfPlayers; j++)
+			{
+				for(int k = 1; k <= 1; k++)//NUMBER_OF_ROLLS
+				{
+					if(k == 1) //FIRST TURN
+					{
+						frame.getContentPane().removeAll();
+						frame.getContentPane().invalidate();
+						
+						firstRollPnl(i,j);
+						frame.getContentPane().add(firstRollPnl);
+						frame.getContentPane().revalidate();
+					}
+					else
+					{
+						
+					}
+				}
+			}
+		}
 	}
 	
 }
