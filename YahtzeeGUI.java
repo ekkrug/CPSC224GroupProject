@@ -212,31 +212,31 @@ public class YahtzeeGUI extends JFrame{
 				
 				else if(desiredAction == 4){
 					//TO-DO: actually implement
-					keep[0] = 'n';
+					keep[0] = 'y';
 					System.out.println("P1 clicked");
 				}
 				
 				else if(desiredAction == 5){
 					//TO-DO: actually implement
-					keep[1] = 'n';
+					keep[1] = 'y';
 					System.out.println("P2 clicked");
 				}
 				
 				else if(desiredAction == 6){
 					//TO-DO: actually implement
-					keep[2] = 'n';
+					keep[2] = 'y';
 					System.out.println("P3 clicked");
 				}
 				
 				else if(desiredAction == 7){
 					//TO-DO: actually implement
-					keep[3] = 'n';
+					keep[3] = 'y';
 					System.out.println("P4 clicked");
 				}
 				
 				else if(desiredAction == 8){
 					//TO-DO: actually implement
-					keep[4] = 'n';
+					keep[4] = 'y';
 					System.out.println("P5 clicked");
 				}
 				else {
@@ -491,6 +491,8 @@ public class YahtzeeGUI extends JFrame{
 				frame.getContentPane().invalidate();
 				int flag = 0;
 				flag = modifySettings();
+                    //RESET keep array to roll all dice
+                    keep = keepString(Die.numberOfDie, "n").toCharArray(); //Bladow added
 				if(flag == 2)
 				{
 					firstRollPnl(gameRound, playerCounter, rollRound);
@@ -505,7 +507,7 @@ public class YahtzeeGUI extends JFrame{
 	    		//TO-DO: send to scoring first
 	    		else if(desiredAction == 20) {
 	    			frame.getContentPane().removeAll();
-				frame.getContentPane().invalidate();
+                    frame.getContentPane().invalidate();
 					rollRound = 6;
 					int flag = modifySettings();
 					if(flag == 1)
@@ -515,6 +517,10 @@ public class YahtzeeGUI extends JFrame{
 					}
 					else {
 						//TO-DO: CHANGE PANEL TO SCOREBOARD
+                        
+                        //RESET keep array to roll all dice
+                        keep = keepString(Die.numberOfDie, "n").toCharArray();
+                        
 						firstRollPnl(gameRound, playerCounter, rollRound);
 						frame.getContentPane().add(firstRollPnl);
 					}
@@ -1005,19 +1011,19 @@ public class YahtzeeGUI extends JFrame{
 	    //createGenLabel("keep from the roll " + numRoll + ":", 220, 60, 50, Color.black, otherRollPnl);
 		//createGenImg("Basketball.png", 200, 200, 400, 200, firstRollPnl); 
 		
-	    createGenBtnPic p1Img  = new createGenBtnPic("Kispert.jpeg", 4,162, 220, 25, 150, otherRollPnl);
+	    createGenBtnPic p1Img  = new createGenBtnPic(dieRoll(0), 4,162, 220, 25, 150, otherRollPnl);
 	    p1Img.setup();
 	    
-	    createGenBtnPic p2Img  = new createGenBtnPic("Kispert.jpeg", 5,162, 220, 218, 150, otherRollPnl);
+	    createGenBtnPic p2Img  = new createGenBtnPic(dieRoll(1), 5,162, 220, 218, 150, otherRollPnl);
 	    p2Img.setup();
 	    
-	    createGenBtnPic p3Img  = new createGenBtnPic("Kispert.jpeg", 6,162, 220, 412, 150, otherRollPnl);
+	    createGenBtnPic p3Img  = new createGenBtnPic(dieRoll(2), 6,162, 220, 412, 150, otherRollPnl);
 	    p3Img.setup();
 	    
-	    createGenBtnPic p4Img  = new createGenBtnPic("Kispert.jpeg", 7,162, 220, 606, 150, otherRollPnl);
+	    createGenBtnPic p4Img  = new createGenBtnPic(dieRoll(3), 7,162, 220, 606, 150, otherRollPnl);
 	    p4Img.setup();
 	    
-	    createGenBtnPic p5Img  = new createGenBtnPic("Kispert.jpeg", 8,162, 220, 799, 150, otherRollPnl);
+	    createGenBtnPic p5Img  = new createGenBtnPic(dieRoll(4), 8,162, 220, 799, 150, otherRollPnl);
 	    p5Img.setup();
 	    
 	    
@@ -1028,8 +1034,8 @@ public class YahtzeeGUI extends JFrame{
 	   
         // Next button
 	    if(numRoll != 6) {
-	    		createGenBtn rollAgain = new createGenBtn("Roll Again", 19, 500, 500, otherRollPnl);
-	    		rollAgain.setup();
+	    	createGenBtn rollAgain = new createGenBtn("Roll Again", 19, 500, 500, otherRollPnl);
+	    	rollAgain.setup();
 	    }
         createGenBtn finishTurn = new createGenBtn("Finish Turn", 20, 725, 500, otherRollPnl);
         finishTurn.setup();
@@ -1075,7 +1081,7 @@ public class YahtzeeGUI extends JFrame{
 		else {
 				for(int dieNumber = 0; dieNumber < 5; dieNumber++)
 				{
-					if(keep[dieNumber] == 'y') //ROLL the dice!
+					if(keep[dieNumber] != 'y') //ROLL the dice!
 					{
 						if(rollRound == 1)
 							players[numberOfPlayers - 1].hand.add(dieNumber, rollDie());
@@ -1083,6 +1089,13 @@ public class YahtzeeGUI extends JFrame{
 							players[numberOfPlayers - 1].hand.set(dieNumber, rollDie());
 					}
 				}
+				//Temporary --below
+				System.out.print("Roll " + rollRound + " was: ");
+                for (int dieNumber = 0; dieNumber < Die.numberOfDie; dieNumber++)
+                {
+                    System.out.print(players[numberOfPlayers - 1].hand.get(dieNumber).getValue() + " ");
+                }
+                //--above
 			rollRound++;
 		}
 		return desiredAction;
@@ -1096,5 +1109,10 @@ public class YahtzeeGUI extends JFrame{
 			keeps = keeps + initializeVal;
 		}
 		return keeps;
+	}
+	
+	public String dieRoll(int dieNumber)
+	{
+        return players[numberOfPlayers - 1].hand.get(dieNumber).getName() + ".jpeg";
 	}
 }

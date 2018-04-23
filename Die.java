@@ -45,35 +45,35 @@ public class Die implements Cloneable{
         else
             status = "BENCH";
         if(jerseyNumber == 1)
-            name = "Joel Ayayi";
+            name = "Ayayi";
         else if(jerseyNumber == 2)
-            name = "Jack Beach";
+            name = "Beach";
         else if(jerseyNumber == 3)
-            name = "Brandon Clarke";
+            name = "Clarke";
         else if(jerseyNumber == 4)
-            name = "Rui Hachimura";
+            name = "Hachimura";
         else if(jerseyNumber == 5)
-            name = "Jeremy Jones";
+            name = "Jones";
         else if(jerseyNumber == 6)
-            name = "Corey Kispert";
+            name = "Kispert";
         else if(jerseyNumber == 7)
-            name = "Jacob Larson";
+            name = "Larsen";
         else if(jerseyNumber == 8)
-            name = "Alex Martin";
+            name = "Martin";
         else if(jerseyNumber == 9)
-            name = "Silas Melson";
+            name = "Melson";
         else if(jerseyNumber == 10)
-            name = "Zach Norvell Jr.";
+            name = "Norvell";
         else if(jerseyNumber == 11)
-            name = "Josh Perkins";
+            name = "Perkins";
         else if(jerseyNumber == 12)
-            name = "Brian Pete";
+            name = "Pete";
         else if(jerseyNumber == 13)
-            name = "Killian Tillie";
+            name = "Tillie";
         else if(jerseyNumber == 14)
-            name = "Jesse Wade";
+            name = "Wade";
         else
-            name = "Jonathan Williams";
+            name = "Williams";
     }
 
 	/**

@@ -1,4 +1,4 @@
-package yahtzee;
+//package yahtzee;
 /**
 * This class does the different calculations required to calculate 
 * the different yahtzee scores.  Each method is static and takes in 
