@@ -43,17 +43,29 @@ INTERNAL PANEL KEY:
 18: first roll
 */
 
+/*
+INTERNAL GEN PIC BUTTON KEY:
+4: Player 1 image
+5: Player 2 image
+6: Player 3 image
+7: Player 4 image
+8: Player 5 image 
+*/
+
 
 public class YahtzeeGUI extends JFrame{
 	private static JFrame frame;
-	private JPanel panel, mainMenuPanel, instrPnl1, instrPnl2,instrPnl3,instrPnl4,instrPnl5, instrPnl6, instrPnl7, instrPnl8, ldrPnl, playNumPnl, firstRollPnl;
+	private JPanel panel, mainMenuPanel, instrPnl1, instrPnl2,instrPnl3,instrPnl4,instrPnl5, instrPnl6, instrPnl7, instrPnl8, ldrPnl, playNumPnl, firstRollPnl, otherRollPnl;
 	private JPanel playNamePnl, rollPnl;
 	private int numberOfPlayers;
 	private String[] playerNames = new String[4]; // TO-DO: remove @ some pt.
 	private Player[] players;
-	final int NUMBER_OF_ROUNDS = 22;
-	final int NUMBER_OF_ROLLS = 5;
-	
+	final int NUMBER_OF_ROUNDS = 2;
+	final int NUMBER_OF_ROLLS = 6;
+	private int playerCounter= 1;
+	private int rollRound = 1;
+	private int gameRound = 1;
+	private char[] keep = keepString(Die.numberOfDie, "n").toCharArray(); //setup to roll all dice in the first roll
 	public YahtzeeGUI() {
 		createWindow(1000, 600);
 		addMainMenuPanel();
@@ -86,6 +98,7 @@ public class YahtzeeGUI extends JFrame{
 		playNumPnl = new JPanel();
 		playNamePnl = new JPanel();
 		firstRollPnl = new JPanel();
+		otherRollPnl = new JPanel();
 		rollPnl = new JPanel();
 		//frame.setJMenuBar(addMenuBar());
 		//define panels
@@ -131,13 +144,17 @@ public class YahtzeeGUI extends JFrame{
 	int locX; 
 	int locY;
 	JButton genBtn;
-		
-	public createGenBtnPic(String name, int width, int height, int x, int y) {
+	int desiredAction;
+	JPanel panelAdd;
+	
+	public createGenBtnPic(String name, int action, int width, int height, int x, int y,JPanel add) {
 		iconName = name;
 		picWidth = width;
 		picHeight = height;
 		locX = x;
 		locY = y;
+		desiredAction = action;
+		panelAdd = add;
 	}
 	public void setup() {
 		ImageIcon imageIcon = new ImageIcon(iconName); // load the image to a imageIcon
@@ -147,7 +164,7 @@ public class YahtzeeGUI extends JFrame{
 	    
 	    
 	    genBtn = new JButton(imageIcon);	
-	    firstRollPnl.add(genBtn);
+	    panelAdd.add(genBtn);
 		  
 	    Dimension sizeBtn = genBtn.getPreferredSize();
 	    
@@ -162,17 +179,71 @@ public class YahtzeeGUI extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			if(e.getSource() == genBtn) {
-				System.out.println("Hi eugene");
-				
-				
+
+				if(desiredAction == 1) {
+					int flag = modifySettings();
 	    			//the actual game window
-	    			frame.getContentPane().removeAll();
-	    			frame.getContentPane().invalidate();
+				if(flag==1) {
+	    				frame.getContentPane().removeAll();
+	    				frame.getContentPane().invalidate();
 	    			
-	    			rollPnl();
-	    			frame.getContentPane().add(rollPnl);
-	    			frame.getContentPane().revalidate();
-	    		
+	    				rollPnl();
+	    				frame.getContentPane().add(rollPnl);
+	    				frame.getContentPane().revalidate();
+				}
+				else {
+					frame.getContentPane().removeAll();
+					frame.getContentPane().invalidate();
+					
+					if(rollRound == 1){
+						firstRollPnl(gameRound, playerCounter, rollRound);
+						frame.getContentPane().add(firstRollPnl);
+					}
+					else{
+						otherRollPnl(gameRound, playerCounter, rollRound);
+						frame.getContentPane().add(otherRollPnl);
+					}
+					frame.getContentPane().revalidate();
+				}
+				}
+				else if(desiredAction == 2){
+					//exit game panel
+				}
+				
+				else if(desiredAction == 4){
+					//TO-DO: actually implement
+					keep[0] = 'n';
+					System.out.println("P1 clicked");
+				}
+				
+				else if(desiredAction == 5){
+					//TO-DO: actually implement
+					keep[1] = 'n';
+					System.out.println("P2 clicked");
+				}
+				
+				else if(desiredAction == 6){
+					//TO-DO: actually implement
+					keep[2] = 'n';
+					System.out.println("P3 clicked");
+				}
+				
+				else if(desiredAction == 7){
+					//TO-DO: actually implement
+					keep[3] = 'n';
+					System.out.println("P4 clicked");
+				}
+				
+				else if(desiredAction == 8){
+					//TO-DO: actually implement
+					keep[4] = 'n';
+					System.out.println("P5 clicked");
+				}
+				else {
+					
+				}
+				
+				
 			}
 			
 		}
@@ -399,8 +470,6 @@ public class YahtzeeGUI extends JFrame{
 	    			frame.getContentPane().removeAll();
 	    			frame.getContentPane().invalidate();
 	    			
-	    			
-	    			System.out.println("go to game");
 	    			addPlayNamePnl();
 	    			frame.getContentPane().add(playNamePnl);
 	    			frame.getContentPane().revalidate();
@@ -410,9 +479,47 @@ public class YahtzeeGUI extends JFrame{
 	    		}
 	    		
 	    		else if(desiredAction == 18) {
-	    			gameDrive();
+	    			frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+					
+				firstRollPnl(gameRound, playerCounter, rollRound);
+				frame.getContentPane().add(firstRollPnl);
+				frame.getContentPane().revalidate();
 	    		}
-	    		
+	    		else if(desiredAction == 19) {
+	    			frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+				int flag = 0;
+				flag = modifySettings();
+				if(flag == 2)
+				{
+					firstRollPnl(gameRound, playerCounter, rollRound);
+					frame.getContentPane().add(firstRollPnl);
+				}
+				else {
+					otherRollPnl(gameRound, playerCounter, rollRound);
+					frame.getContentPane().add(otherRollPnl);
+				}
+				frame.getContentPane().revalidate();
+	    		}
+	    		//TO-DO: send to scoring first
+	    		else if(desiredAction == 20) {
+	    			frame.getContentPane().removeAll();
+				frame.getContentPane().invalidate();
+					rollRound = 6;
+					int flag = modifySettings();
+					if(flag == 1)
+					{
+						rollPnl();
+						frame.getContentPane().add(rollPnl);
+					}
+					else {
+						//TO-DO: CHANGE PANEL TO SCOREBOARD
+						firstRollPnl(gameRound, playerCounter, rollRound);
+						frame.getContentPane().add(firstRollPnl);
+					}
+					frame.getContentPane().revalidate();
+	    		}
 	    		
 	    		//another window
 	    		else {
@@ -781,23 +888,28 @@ public class YahtzeeGUI extends JFrame{
 	    
 	}
 	
-	public void firstRollPnl(int numRound, int numPlayer){
+	public void firstRollPnl(int numRound, int numPlayer, int numRoll){
 		firstRollPnl.setLayout(null);
 	    //instrPnl2.setLayout(new BorderLayout());
 		firstRollPnl.setBackground(new Color(145, 200, 255));
-	    panel.add(firstRollPnl, BorderLayout.CENTER);
 		
-	    createGenLabel("Press the ball to roll!", 220, 30, 50, Color.black, firstRollPnl);
-	    System.out.println("Round " + numRound + " for " + players[numPlayer - 1].getName());
-	    createGenLabel("Round " + numRound + " for " + players[numPlayer - 1].getName(), 220, 80, 30, Color.black, firstRollPnl);
+	    panel.add(firstRollPnl, BorderLayout.CENTER);
 	    
+	    //keep array is all 'n'
+	    
+	    
+	    
+	    createGenModLabel("Round " + numRound + ": Roll " + numRoll + " for " + players[numPlayer - 1].getName(), 220, 80, 30, Color.black, firstRollPnl);
+	    createGenLabel("Press the ball to roll!", 220, 30, 50, Color.black, firstRollPnl);
 		//createGenImg("Basketball.png", 200, 200, 400, 200, firstRollPnl); 
 		
 	    //ImageIcon ic2 = new ImageIcon("Basketball.png");
 	    
 	    //START
-	    createGenBtnPic basketball  = new createGenBtnPic("Basketball.png", 300, 300, 350, 150);
+	    createGenBtnPic basketball  = new createGenBtnPic("Basketball.png", 1,300, 300, 350, 150, firstRollPnl);
 	    	basketball.setup();
+	    	
+	    	
 	    
 		//END	
 		
@@ -809,7 +921,23 @@ public class YahtzeeGUI extends JFrame{
 	{
 		JLabel text = new JLabel(dispText);
 	    text.setFont(new Font("Verdana",1,textSize));
-	    panelAdd.add(text);
+		panelAdd.add(text);
+	    Dimension sizeText = text.getPreferredSize();
+	    text.setBounds(textWidth, textHeight, sizeText.width, sizeText.height);
+	    text.setForeground(color);
+	    panelAdd.setSize(400, 400);
+	    //text.setLocation(360, 20);
+	}
+	
+	public void createGenModLabel(String dispText, int textWidth, int textHeight, int textSize, Color color ,JPanel panelAdd)
+	{
+		JLabel text = new JLabel(dispText);
+	    text.setFont(new Font("Verdana",1,textSize));
+	    panelAdd.removeAll();
+		panelAdd.invalidate();
+
+		panelAdd.add(text);
+		panelAdd.revalidate();
 	    Dimension sizeText = text.getPreferredSize();
 	    text.setBounds(textWidth, textHeight, sizeText.width, sizeText.height);
 	    text.setForeground(color);
@@ -846,6 +974,7 @@ public class YahtzeeGUI extends JFrame{
 	    panel.add(rollPnl, BorderLayout.CENTER);
 		
 	    createGenLabel("TODD GUSE", 220, 30, 50, Color.black, rollPnl);
+	    createGenLabel("BYE!", 220, 230, 50, Color.black, rollPnl);
 
 	    
 		//createGenImg("Basketball.png", 200, 200, 400, 200, firstRollPnl);
@@ -853,39 +982,119 @@ public class YahtzeeGUI extends JFrame{
 	    //ImageIcon ic2 = new ImageIcon("Basketball.png");
 	    
 	    //START
-	    createGenBtnPic basketball  = new createGenBtnPic("Basketball.png", 300, 300, 350, 150);
-	    	basketball.setup();
 	    
 		//END	
 		
 	    
 	}
 	
-	void gameDrive()
-	{
-		// Loop for rounds
-		for(int i = 1; i <= 1; i++)//NUMBER_OF_ROUNDS
-		{
-			for(int j = 1; j <= numberOfPlayers; j++)
-			{
-				for(int k = 1; k <= 1; k++)//NUMBER_OF_ROLLS
-				{
-					if(k == 1) //FIRST TURN
-					{
-						frame.getContentPane().removeAll();
-						frame.getContentPane().invalidate();
-						
-						firstRollPnl(i,j);
-						frame.getContentPane().add(firstRollPnl);
-						frame.getContentPane().revalidate();
-					}
-					else
-					{
-						
-					}
-				}
-			}
-		}
+	public void otherRollPnl(int numRound, int numPlayer, int numRoll){
+		otherRollPnl.setLayout(null);
+	    //instrPnl2.setLayout(new BorderLayout());
+		otherRollPnl.setBackground(new Color(145, 200, 255));
+		
+	    panel.add(otherRollPnl, BorderLayout.CENTER);
+	    
+	    
+	    
+	    System.out.println("Round " + numRound + ": Roll " + (numRoll-1) + " for " + players[numPlayer - 1].getName());
+	    //createGenModLabel("Round " + numRound + ": Roll " + numRoll + " for " + players[numPlayer - 1].getName(), 220, 80, 30, Color.black, otherRollPnl);
+	    createGenModLabel(players[numPlayer - 1].getName() + ", select the players you wish to", 30, 25, 40, Color.black, otherRollPnl);
+	    createGenLabel("keep from roll " + (numRoll-1) + ":" , 30, 75, 40, Color.black, otherRollPnl);
+	    //createGenLabel("Select the players you wish to", 220, 30, 50, Color.black, otherRollPnl);
+	    //createGenLabel("keep from the roll " + numRoll + ":", 220, 60, 50, Color.black, otherRollPnl);
+		//createGenImg("Basketball.png", 200, 200, 400, 200, firstRollPnl); 
+		
+	    createGenBtnPic p1Img  = new createGenBtnPic("Kispert.jpeg", 4,162, 220, 25, 150, otherRollPnl);
+	    p1Img.setup();
+	    
+	    createGenBtnPic p2Img  = new createGenBtnPic("Kispert.jpeg", 5,162, 220, 218, 150, otherRollPnl);
+	    p2Img.setup();
+	    
+	    createGenBtnPic p3Img  = new createGenBtnPic("Kispert.jpeg", 6,162, 220, 412, 150, otherRollPnl);
+	    p3Img.setup();
+	    
+	    createGenBtnPic p4Img  = new createGenBtnPic("Kispert.jpeg", 7,162, 220, 606, 150, otherRollPnl);
+	    p4Img.setup();
+	    
+	    createGenBtnPic p5Img  = new createGenBtnPic("Kispert.jpeg", 8,162, 220, 799, 150, otherRollPnl);
+	    p5Img.setup();
+	    
+	    
+	    
+	    //ImageIcon ic2 = new ImageIcon("Basketball.png");
+	    
+	    //START
+	   
+        // Next button
+	    if(numRoll != 6) {
+	    		createGenBtn rollAgain = new createGenBtn("Roll Again", 19, 500, 500, otherRollPnl);
+	    		rollAgain.setup();
+	    }
+        createGenBtn finishTurn = new createGenBtn("Finish Turn", 20, 725, 500, otherRollPnl);
+        finishTurn.setup();
+	    
 	}
 	
+	public static Die rollDie()
+	{
+		Die newDie = new Die();
+		newDie.roll();
+		return newDie;
+	}
+	
+	public int modifySettings()
+	{
+		int desiredAction = 0;
+		//if (...) go to Todd Guse slide
+		if(rollRound == NUMBER_OF_ROLLS && gameRound == NUMBER_OF_ROUNDS && playerCounter == numberOfPlayers) {
+			 desiredAction = 1;
+		}
+		//if(...) go to 
+		if(rollRound == NUMBER_OF_ROLLS) 
+		{
+			rollRound = 1;
+			desiredAction = 2;
+			if(playerCounter == numberOfPlayers) 
+			{
+				playerCounter = 1;
+				if(gameRound == NUMBER_OF_ROUNDS) 
+				{
+					desiredAction = 1;
+				}
+				else
+				{
+					gameRound++;
+				}
+			}
+			else 
+			{
+				playerCounter++;
+			}
+		}
+		else {
+				for(int dieNumber = 0; dieNumber < 5; dieNumber++)
+				{
+					if(keep[dieNumber] == 'y') //ROLL the dice!
+					{
+						if(rollRound == 1)
+							players[numberOfPlayers - 1].hand.add(dieNumber, rollDie());
+						else
+							players[numberOfPlayers - 1].hand.set(dieNumber, rollDie());
+					}
+				}
+			rollRound++;
+		}
+		return desiredAction;
+	}
+	
+	public static String keepString(int numberOfDie, String initializeVal)
+	{
+		String keeps = "";
+		for(int i = 0; i < numberOfDie; i++)
+		{
+			keeps = keeps + initializeVal;
+		}
+		return keeps;
+	}
 }
