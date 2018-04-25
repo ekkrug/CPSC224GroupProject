@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,7 +44,7 @@ INTERNAL PANEL KEY:
 18: first roll
 19: roll again
 20: finishTurn
-21:
+21: next on scorecard panel
 */
 
 /*
@@ -64,7 +65,7 @@ public class YahtzeeGUI extends JFrame{
     private int playerChoice;    
 	private Player[] players;
 	final int NUMBER_OF_ROUNDS = 2;
-	final int NUMBER_OF_ROLLS = 6;
+	final int NUMBER_OF_ROLLS = 6; //its actually 5 but our code is all sorts of FUCKED UP --remove comment b4 turning in.
 	private int playerCounter = 1;
 	private int scorecardPlayerCounter = 1;
 	
@@ -288,11 +289,14 @@ public class YahtzeeGUI extends JFrame{
 				if(desiredAction == 0) {
 					players[playSpot - 1].setName(textField.getText());
 				}
-				else {
+				else if (desiredAction == 1){
 					String pC = textField.getText();
                     System.out.println(pC);
                     
                     playerChoice = Integer.parseInt(pC);
+				}
+				else {
+					
 				}
 			}
 			
@@ -510,13 +514,28 @@ public class YahtzeeGUI extends JFrame{
                     rollRound = 6;
                     
                     //RESET keep array to roll all dice
-                    keep = keepString(Die.numberOfDie, "n").toCharArray();                        
+                    keep = keepString(Die.numberOfDie, "n").toCharArray();   
+                    
+                    //Might need to sort the ArrayList<Die> before calculating shit
+                    //TO-DO: should we display their sorted hand?
+                    sortArray(players[scorecardPlayerCounter - 1].hand, Die.numberOfDie);
+                    
                     scorePnl();
+                    
 					frame.getContentPane().add(scorePnl);
 					frame.getContentPane().revalidate();
+					frame.getContentPane().repaint();
 	    		}
 	    		else if(desiredAction == 21)
                 {
+			        scoreCardTrackerGUI(players[scorecardPlayerCounter - 1].hand);
+			        if(scorecardPlayerCounter == numberOfPlayers){
+			        	scorecardPlayerCounter = 1;
+                    }
+			        else{
+			        	scorecardPlayerCounter++;
+			        }
+			        
                     frame.getContentPane().removeAll();
                     frame.getContentPane().invalidate();
                     
@@ -527,24 +546,25 @@ public class YahtzeeGUI extends JFrame{
                         frame.getContentPane().add(rollPnl);
                     }
                     else{
-                    
-                    rollRound = 1;
-					if((playerCounter == numberOfPlayers))
-					{
-						playerCounter = 1;
-						gameRound++;
-					}
-					else
-					{
-						playerCounter++;
-					}
-						
-					
-						//TO-DO: CHANGE PANEL TO SCOREBOARD
+                        rollRound = 1;
+                        if((playerCounter == numberOfPlayers))
+                        {
+                            playerCounter = 1;
+                            if(gameRound == NUMBER_OF_ROUNDS) {
+                            	//game over
+                            }else {
+                            	 gameRound++;
+                            }
+             
+                        }
+                        else
+                        {
+                            playerCounter++;
+                        }
                         
                         //RESET keep array to roll all dice
-                        keep = keepString(Die.numberOfDie, "n").toCharArray();
-
+                      //  keep = keepString(Die.numberOfDie, "n").toCharArray();
+                        
 						firstRollPnl(gameRound, playerCounter, rollRound);
 						frame.getContentPane().add(firstRollPnl);
                     }
@@ -584,10 +604,10 @@ public class YahtzeeGUI extends JFrame{
 		instrPnl2.setBackground(new Color(145, 200, 255));
 		panel.add(instrPnl2, BorderLayout.CENTER);
 		
-	   // Instructions title
+		// Instructions title
 	    createGenLabel("Dice", 100, 50, 40, Color.black, instrPnl2);
 	    
-	 // ....
+	    // ....
 	    createGenLabel("*The game uses five, fifteen-sided dice.", 25, 200, 15, Color.black, instrPnl2);
 	    createGenLabel("*The sides of each die represent the GU", 25, 225, 15, Color.black, instrPnl2);
 	    createGenLabel("  Men’s Basketball 2017-2018 Roster:", 25, 245, 15, Color.black, instrPnl2);
@@ -1002,6 +1022,15 @@ public class YahtzeeGUI extends JFrame{
 		rollPnl.setBackground(new Color(145, 200, 255));
 	    panel.add(rollPnl, BorderLayout.CENTER);
 		
+	    
+	    String output = "";
+        for(int i = 0; i < numberOfPlayers; i++)
+        {
+            output = players[i].getName() + " scored " + players[i].totalValue() + " for this game";
+            //players[i].printCompleted(players[i].hand); //TO-DO: It's 1:40am and I don't want to put in the effort to figure out how to print each person's completed scorecard
+            createGenLabel(output, 300, 300 + 20 * i, 20, Color.green, rollPnl);
+        }
+	    
 	    createGenLabel("TODD GUSE", 220, 30, 50, Color.black, rollPnl);
 	    createGenLabel("BYE!", 220, 230, 50, Color.black, rollPnl);
 
@@ -1012,9 +1041,7 @@ public class YahtzeeGUI extends JFrame{
 	    
 	    //START
 	    
-		//END	
-		
-	    
+		//END		    
 	}
 	
 	public void otherRollPnl(int numRound, int numPlayer, int numRoll){
@@ -1028,7 +1055,7 @@ public class YahtzeeGUI extends JFrame{
 	    
 	    System.out.println("Round " + numRound + ": Roll " + (numRoll-1) + " for " + players[numPlayer - 1].getName());
 	    //createGenModLabel("Round " + numRound + ": Roll " + numRoll + " for " + players[numPlayer - 1].getName(), 220, 80, 30, Color.black, otherRollPnl);
-	    createGenModLabel(players[numPlayer - 1].getName() + ", select the players you wish to", 30, 25, 40, Color.black, otherRollPnl);
+	    createGenModLabel(players[numPlayer - 1].getName() + ": select the players you wish to", 30, 25, 40, Color.black, otherRollPnl);
 	    createGenLabel("keep from roll " + (numRoll-1) + ":" , 30, 75, 40, Color.black, otherRollPnl);
 	    //createGenLabel("Select the players you wish to", 220, 30, 50, Color.black, otherRollPnl);
 	    //createGenLabel("keep from the roll " + numRoll + ":", 220, 60, 50, Color.black, otherRollPnl);
@@ -1069,26 +1096,24 @@ public class YahtzeeGUI extends JFrame{
     	scorePnl.setLayout(null);
 		scorePnl.setBackground(new Color(145, 200, 255));
 	    panel.add(scorePnl, BorderLayout.CENTER);
-    	
-        //TO-DO: print upper ScoreCard choices
-        players[scorecardPlayerCounter - 1].printUpperChoices(players[scorecardPlayerCounter - 1].hand);
-                    
-        //TO-DO: print lower scorecard
-        players[scorecardPlayerCounter - 1].printLowerChoices(players[scorecardPlayerCounter - 1].hand);
+        //TO-DO: Eugene look pretty
+    	printUpperGUI();
+    	printLowerGUI();
         
+    	//output current score
+    	createGenLabel("This is " + players[scorecardPlayerCounter - 1].getName() + "'s current score: " + players[scorecardPlayerCounter - 1].getCurrentScore(), 400, 2, 17, Color.cyan, scorePnl);
+    	
         //TO-DO: Eugene make it look pretty (the scoreNumber field)
-        createGenTextField scoreNumber = new createGenTextField(scorecardPlayerCounter, 1, 100, 30, 325, 500, scorePnl);
+        createGenTextField scoreNumber = new createGenTextField(1, 1, 100, 30, 325, 500, scorePnl);
         scoreNumber.setup();
+        
+        //TO-DO: Is it possible to make sure they click submit before allowing them to click next? (for textField)
+        //TO-DO: Also, how do we check for bad data? (like if row 0 has alrdy been chosen and they choose it again?
+        
         
         createGenBtn next9 = new createGenBtn("Next", 21, 725, 500, scorePnl);
         next9.setup();
-        
-        if(scorecardPlayerCounter == numberOfPlayers)
-        	scorecardPlayerCounter = 1;
-        else
-        	scorecardPlayerCounter++;
     }
-    
     
 	public static Die rollDie()
 	{
@@ -1187,4 +1212,153 @@ public class YahtzeeGUI extends JFrame{
 			}
 		}
     }
+    
+    
+	public static void sortArray(ArrayList<Die> hand, int size)
+	{
+	   boolean swap;
+	   Die temp = new Die();
+
+	   do
+	   {
+		  swap = false;
+		  for (int count = 0; count < (size - 1); count++)
+		  {
+			 if (hand.get(count).getValue() > hand.get(count + 1).getValue())
+			 {
+				try{
+					temp = hand.get(count).clone();		// temp = array[count]
+				}
+				catch(CloneNotSupportedException e){
+					e.printStackTrace();
+				}
+					
+				hand.set(count, hand.get(count + 1)); 		// array[count] = array[count + 1]
+				hand.set(count + 1, temp);
+				swap = true;
+			 }
+		  }
+	   } while (swap);
+	}
+    
+    public void printUpperGUI()
+    {
+    	String output = "";
+    	char modLabel = 'y';
+	    for (int dieValue = 1; dieValue <= Die.numberOfSides; dieValue++)
+		{
+			int currentCount = 0;
+			for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
+			{
+				if (players[scorecardPlayerCounter - 1].hand.get(diePosition).getValue() == dieValue)
+					currentCount++;
+			}
+			if(players[scorecardPlayerCounter - 1].canPrint(dieValue - 1))
+			{																										 //0 bc its same for all players.
+				output = "Row " + (dieValue - 1) + ": " + "Score is " + dieValue * currentCount + " on the " + players[0].athleteNames[dieValue - 1] + " line";
+				if(modLabel == 'y')
+				{
+					createGenModLabel(output, 50, 20*dieValue, 15, Color.black, scorePnl);
+					modLabel = 'n';
+				}
+				else
+					createGenLabel(output, 50, 20*dieValue, 15, Color.black, scorePnl);
+			}
+		}	
+    }
+    
+	public void printLowerGUI()
+	{
+		String output = "";
+		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides))
+		{
+			if (Calculations.maxOfAZagFound(players[scorecardPlayerCounter - 1].hand) >= 3)
+			{
+				output = "Row " + (Die.numberOfSides) + ": " + "Score " + Calculations.totalAllDice(players[scorecardPlayerCounter - 1].hand) + " on the ";
+				output = output + "3 of a Zag line";
+				
+			}
+			else 
+				output = "Row " + (Die.numberOfSides) + ": " + "Score 0 on the 3 of a Zag line";
+			createGenLabel(output, 50, 320, 15, Color.black, scorePnl);
+		}
+		
+		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 1))
+		{
+			if (Calculations.maxOfAZagFound(players[scorecardPlayerCounter - 1].hand) >= 4)
+			{
+				output = "Row " + (Die.numberOfSides + 1) + ": " + "Score " + Calculations.totalAllDice(players[scorecardPlayerCounter - 1].hand) + " on the ";
+				output = output + "4 of a Zag line";
+			}
+			else 
+				output = "Row " + (Die.numberOfSides + 1) + ": " + "Score 0 on the 4 of a Zag line";
+			createGenLabel(output, 50, 340, 15, Color.black, scorePnl);
+		}
+		
+		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 2))
+		{
+			if (Calculations.fullTeamFound(players[scorecardPlayerCounter - 1].hand))
+				output = "Row " + (Die.numberOfSides + 2) + ": " + "Score 25 on the Full Team line";
+			else
+				output = "Row " + (Die.numberOfSides + 2) + ": " + "Score 0 on the Full House line";
+			createGenLabel(output, 50, 360, 15, Color.black, scorePnl);
+		}
+		
+		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 3))
+		{
+			if (Calculations.benchBrigadeFound(players[scorecardPlayerCounter - 1].hand))
+				output = "Row " + (Die.numberOfSides + 3) + ": " + "Score 30 on the Bench Brigade line";
+			else
+				output = "Row " + (Die.numberOfSides + 3) + ": " + "Score 0 on the Bench Brigade line";
+			createGenLabel(output, 50, 380, 15, Color.black, scorePnl);
+		}
+		
+		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 4))
+		{
+			if (Calculations.startingLineupFound(players[scorecardPlayerCounter - 1].hand))
+				output = "Row " + (Die.numberOfSides + 4) + ": " + "Score 40 on the Starters line";
+			else
+				output = "Row " + (Die.numberOfSides + 4) + ": " + "Score 0 on the Starters line";
+			createGenLabel(output, 50, 400, 15, Color.black, scorePnl);
+		}
+		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 5))
+		{
+			if (Calculations.maxOfAZagFound(players[scorecardPlayerCounter - 1].hand) >= 5)
+				output = "Row " + (Die.numberOfSides + 5) + ": " + "Score 100 on the Zombie Nation line";
+			else
+				output = "Row " + (Die.numberOfSides + 5) + ": " + "Score 0 on the Zombie Nation line";
+			createGenLabel(output, 50, 420, 15, Color.black, scorePnl);
+		}
+		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 6))
+		{
+			output = "Row " + (Die.numberOfSides + 6) + ": " + "Score " + Calculations.totalAllDice(players[scorecardPlayerCounter - 1].hand) + " on the ";
+			output = output + "Kennel line";
+			createGenLabel(output, 50, 440, 15, Color.black, scorePnl);
+		}
+	}
+	public void scoreCardTrackerGUI(ArrayList<Die> hand)
+	{
+		//Scanner scoring = new Scanner(System.in);
+		//System.out.println("What row number would you like to score this round at? ");
+		players[scorecardPlayerCounter - 1].scoredRowNumber = playerChoice;
+		
+/*		while(!players[scorecardPlayerCounter - 1].canPlaceScoreCard[players[scorecardPlayerCounter - 1].scoredRowNumber] && !players[scorecardPlayerCounter - 1].isFull())
+		{
+			System.out.println("That row is filled. Please enter a different number ");
+			players[scorecardPlayerCounter - 1].scoredRowNumber = scoring.nextInt();
+		}
+*/
+		//Now we want to place the value!
+		if((players[scorecardPlayerCounter - 1].scoredRowNumber) >= Die.numberOfSides)
+		{
+			players[scorecardPlayerCounter - 1].placeLower(hand);
+		}
+		else
+		{
+			players[scorecardPlayerCounter - 1].placeUpper(hand, players[scorecardPlayerCounter - 1].scoredRowNumber);
+		}
+		players[scorecardPlayerCounter - 1].canPlaceScoreCard[players[scorecardPlayerCounter - 1].scoredRowNumber] = false;
+		System.out.println(players[scorecardPlayerCounter - 1].getName() + ": scored on Row: " + players[scorecardPlayerCounter - 1].scoredRowNumber);
+		System.out.println("The rowValue is: " + players[scorecardPlayerCounter - 1].scoringCard[players[scorecardPlayerCounter - 1].scoredRowNumber]); 
+	}
 }

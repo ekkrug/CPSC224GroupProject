@@ -20,10 +20,10 @@ public class Player {
 
 	
 	public int numberRows;
-	private int[] scoringCard;
-	private boolean[] canPlaceScoreCard;
-    private String[] athleteNames;
-	private int scoredRowNumber;
+	public int[] scoringCard;
+	public boolean[] canPlaceScoreCard;
+    public String[] athleteNames;
+	public int scoredRowNumber;
     private String name;
     public ArrayList<Die> hand;
     private int bonusLine;
@@ -113,7 +113,7 @@ public class Player {
     * @returns N/A
 	* @throws N/A
     */
-	private void placeUpper(ArrayList<Die> hand, int scoredRowNumber)
+	public void placeUpper(ArrayList<Die> hand, int scoredRowNumber)
 	{
 		int dieValue = scoredRowNumber + 1;
 		int rowValue;
@@ -135,7 +135,7 @@ public class Player {
     * @returns N/A
 	* @throws N/A
     */
-	private void placeLower(ArrayList<Die> hand)
+	public void placeLower(ArrayList<Die> hand)
 	{
 		//if 3 of a Zag Row
 		if(scoredRowNumber == Die.numberOfSides) 
@@ -304,7 +304,7 @@ public class Player {
     * @returns true if scoreCard is true and false otherwise
 	* @throws N/A
     */
-	private boolean isFull()
+	public boolean isFull()
 	{
 		boolean cardFull = true;
 		for(int i = 0; i < numberRows; i++)
@@ -323,7 +323,7 @@ public class Player {
 	*          for the player to place a value). false otherwise
 	* @throws N/A
     */
-	private boolean canPrint(int index)
+	public boolean canPrint(int index)
 	{
 		return canPlaceScoreCard[index];
 	}
