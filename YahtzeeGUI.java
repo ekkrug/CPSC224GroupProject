@@ -41,6 +41,9 @@ INTERNAL PANEL KEY:
 16: player name panel
 17: get name
 18: first roll
+19: roll again
+20: finishTurn
+21:
 */
 
 /*
@@ -58,11 +61,13 @@ public class YahtzeeGUI extends JFrame{
 	private JPanel panel, mainMenuPanel, instrPnl1, instrPnl2,instrPnl3,instrPnl4,instrPnl5, instrPnl6, instrPnl7, instrPnl8, ldrPnl, playNumPnl, firstRollPnl, otherRollPnl;
 	private JPanel playNamePnl, rollPnl, scorePnl;
 	private int numberOfPlayers;
-	private String[] playerNames = new String[4]; // TO-DO: remove @ some pt.
+    private int playerChoice;    
 	private Player[] players;
 	final int NUMBER_OF_ROUNDS = 2;
 	final int NUMBER_OF_ROLLS = 6;
 	private int playerCounter = 1;
+	private int scorecardPlayerCounter = 1;
+	
 	private int rollRound = 1;
 	private int gameRound = 1;
 	private char[] keep = keepString(Die.numberOfDie, "n").toCharArray(); //setup to roll all dice in the first roll
@@ -182,30 +187,15 @@ public class YahtzeeGUI extends JFrame{
 			if(e.getSource() == genBtn) {
 
 				if(desiredAction == 1) {
-					int flag = modifySettings();
-	    			//the actual game window
-				if(flag==1) {
-	    				frame.getContentPane().removeAll();
-	    				frame.getContentPane().invalidate();
-	    			
-	    				rollPnl();
-	    				frame.getContentPane().add(rollPnl);
-	    				frame.getContentPane().revalidate();
-				}
-				else {
+                    //Increment round
+                    rollDice();
+                    rollRound++;
+                    
 					frame.getContentPane().removeAll();
 					frame.getContentPane().invalidate();
-					
-					if(rollRound == 1){
-						firstRollPnl(gameRound, playerCounter, rollRound);
-						frame.getContentPane().add(firstRollPnl);
-					}
-					else{
-						otherRollPnl(gameRound, playerCounter, rollRound);
-						frame.getContentPane().add(otherRollPnl);
-					}
+					otherRollPnl(gameRound, playerCounter, rollRound);
+					frame.getContentPane().add(otherRollPnl);
 					frame.getContentPane().revalidate();
-				}
 				}
 				else if(desiredAction == 2){
 					//exit game panel
@@ -259,14 +249,16 @@ public class YahtzeeGUI extends JFrame{
 		 JPanel panelAdd;
 		 int playSpot;
 		 JButton btn;
+		 int desiredAction;
 		 
-		 public createGenTextField(int play,int Width, int Height, int WidthLoc, int HeightLoc, JPanel Add){
+		 public createGenTextField(int play, int action,int Width, int Height, int WidthLoc, int HeightLoc, JPanel Add){
 			 textFieldWidth = Width;
 			 textFieldHeight = Height;
 			 textFieldWidthLoc = WidthLoc;
 			 textFieldHeightLoc = HeightLoc;
 			 panelAdd = Add;
 			 playSpot = play;
+			 desiredAction = action;
 			 
 		 }
 		 public void setup() {
@@ -280,7 +272,12 @@ public class YahtzeeGUI extends JFrame{
 		  btn.setFont(new Font("Verdana",1, 20));
 		  panelAdd.add(btn);
 		  Dimension sizeBtn = btn.getPreferredSize();
-		  btn.setBounds(500, (playSpot-1)*45 + 175, sizeBtn.width, sizeBtn.height);
+		  if(desiredAction == 0 ) {
+			  btn.setBounds(500, (playSpot-1)*45 + 175, sizeBtn.width, sizeBtn.height);
+		  }
+		  else {
+			  btn.setBounds(500, 500, sizeBtn.width, sizeBtn.height);
+		  }
 		  btn.addActionListener(this);
 
 		 }
@@ -288,8 +285,15 @@ public class YahtzeeGUI extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method tub
 			if(e.getSource() == btn) {
-	    		//playerNames[playSpot-1] = textField.getText(); 	
-	    		players[playSpot - 1].setName(textField.getText());
+				if(desiredAction == 0) {
+					players[playSpot - 1].setName(textField.getText());
+				}
+				else {
+					String pC = textField.getText();
+                    System.out.println(pC);
+                    
+                    playerChoice = Integer.parseInt(pC);
+				}
 			}
 			
 		}
@@ -480,56 +484,72 @@ public class YahtzeeGUI extends JFrame{
 	    		}
 	    		
 	    		else if(desiredAction == 18) {
-	    			frame.getContentPane().removeAll();
-				frame.getContentPane().invalidate();
+                    frame.getContentPane().removeAll();
+                    frame.getContentPane().invalidate();
 					
-				firstRollPnl(gameRound, playerCounter, rollRound);
-				frame.getContentPane().add(firstRollPnl);
-				frame.getContentPane().revalidate();
+                    firstRollPnl(gameRound, playerCounter, rollRound);
+                    frame.getContentPane().add(firstRollPnl);
+                    frame.getContentPane().revalidate();
 	    		}
 	    		else if(desiredAction == 19) {
 	    			frame.getContentPane().removeAll();
-				frame.getContentPane().invalidate();
-				int flag = 0;
-				flag = modifySettings();
+                    frame.getContentPane().invalidate();
+                    modifySettings();
                     //RESET keep array to roll all dice
                     keep = keepString(Die.numberOfDie, "n").toCharArray(); //Bladow added
-				if(flag == 2)
-				{
-					firstRollPnl(gameRound, playerCounter, rollRound);
-					frame.getContentPane().add(firstRollPnl);
-				}
-				else {
 					otherRollPnl(gameRound, playerCounter, rollRound);
 					frame.getContentPane().add(otherRollPnl);
-				}
-				frame.getContentPane().revalidate();
+                    frame.getContentPane().revalidate();
 	    		}
 	    		//TO-DO: send to scoring first
 	    		else if(desiredAction == 20) {
 	    			frame.getContentPane().removeAll();
                     frame.getContentPane().invalidate();
-					rollRound = 6;
-					int flag = modifySettings();
-					if(flag == 1)
+                    
+                    //If finishTurn is clicked...
+                    rollRound = 6;
+                    
+                    //RESET keep array to roll all dice
+                    keep = keepString(Die.numberOfDie, "n").toCharArray();                        
+                    scorePnl();
+					frame.getContentPane().add(scorePnl);
+					frame.getContentPane().revalidate();
+	    		}
+	    		else if(desiredAction == 21)
+                {
+                    frame.getContentPane().removeAll();
+                    frame.getContentPane().invalidate();
+                    
+                    int flag = updateFlag();
+                    if(flag == 1)
+                    {
+                        rollPnl();
+                        frame.getContentPane().add(rollPnl);
+                    }
+                    else{
+                    
+                    rollRound = 1;
+					if((playerCounter == numberOfPlayers))
 					{
-						rollPnl();
-						frame.getContentPane().add(rollPnl);
+						playerCounter = 1;
+						gameRound++;
 					}
-					else {
+					else
+					{
+						playerCounter++;
+					}
+						
+					
 						//TO-DO: CHANGE PANEL TO SCOREBOARD
                         
                         //RESET keep array to roll all dice
                         keep = keepString(Die.numberOfDie, "n").toCharArray();
-                        
-                        
-                        scorePnl();
-						//firstRollPnl(gameRound, playerCounter, rollRound);
-						frame.getContentPane().add(scorePnl);
-					}
+
+						firstRollPnl(gameRound, playerCounter, rollRound);
+						frame.getContentPane().add(firstRollPnl);
+                    }
 					frame.getContentPane().revalidate();
-	    		}
-	    		
+                }
 	    		//another window
 	    		else {
 	    			//another window
@@ -881,7 +901,7 @@ public class YahtzeeGUI extends JFrame{
         for(int i = 1; i <= numberOfPlayers; i++)
         {
               createGenLabel("Player #" + i + ":", 150, (i-1)*45 + 175, 20, Color.black, playNamePnl);
-              createGenTextField userNames = new createGenTextField(i, 200, 30, 275, (i-1)*45 + 175, playNamePnl);
+              createGenTextField userNames = new createGenTextField(i, 0, 200, 30, 275, (i-1)*45 + 175, playNamePnl);
               userNames.setup();
               players[i-1] = new Player();
         }
@@ -1046,13 +1066,27 @@ public class YahtzeeGUI extends JFrame{
 	
     public void scorePnl()
     {
+    	scorePnl.setLayout(null);
+		scorePnl.setBackground(new Color(145, 200, 255));
+	    panel.add(scorePnl, BorderLayout.CENTER);
+    	
         //TO-DO: print upper ScoreCard choices
-        players[playerCounter - 1].printUpperChoices(players[playerCounter - 1].hand);
+        players[scorecardPlayerCounter - 1].printUpperChoices(players[scorecardPlayerCounter - 1].hand);
                     
         //TO-DO: print lower scorecard
-        players[playerCounter - 1].printLowerChoices(players[playerCounter - 1].hand);
+        players[scorecardPlayerCounter - 1].printLowerChoices(players[scorecardPlayerCounter - 1].hand);
         
-        //TO-DO: have a text box for input from user to see which row they want to place.
+        //TO-DO: Eugene make it look pretty (the scoreNumber field)
+        createGenTextField scoreNumber = new createGenTextField(scorecardPlayerCounter, 1, 100, 30, 325, 500, scorePnl);
+        scoreNumber.setup();
+        
+        createGenBtn next9 = new createGenBtn("Next", 21, 725, 500, scorePnl);
+        next9.setup();
+        
+        if(scorecardPlayerCounter == numberOfPlayers)
+        	scorecardPlayerCounter = 1;
+        else
+        	scorecardPlayerCounter++;
     }
     
     
@@ -1108,7 +1142,6 @@ public class YahtzeeGUI extends JFrame{
                 for (int dieNumber = 0; dieNumber < Die.numberOfDie; dieNumber++)
                 {
                     System.out.print(players[playerCounter - 1].hand.get(dieNumber).getValue() + " ");
-                    System.out.println(players[playerCounter - 1].getName());
                 }
                 //--above
 			rollRound++;
@@ -1116,6 +1149,16 @@ public class YahtzeeGUI extends JFrame{
 		return desiredAction;
 	}
 	
+    public int updateFlag()
+    {
+        int desiredAction = 0;
+		//if (...) go to Todd Guse slide
+		if(rollRound >= NUMBER_OF_ROLLS && gameRound >= NUMBER_OF_ROUNDS && playerCounter >= numberOfPlayers) {
+			 desiredAction = 1;
+		}
+		return desiredAction;
+    }
+    
 	public static String keepString(int numberOfDie, String initializeVal)
 	{
 		String keeps = "";
@@ -1130,4 +1173,18 @@ public class YahtzeeGUI extends JFrame{
 	{
         return players[playerCounter - 1].hand.get(dieNumber).getName() + ".jpeg";
 	}
+    
+    public void rollDice()
+    {
+        for(int dieNumber = 0; dieNumber < 5; dieNumber++)
+		{
+            if(keep[dieNumber] != 'y') //ROLL the dice!
+			{
+				if(rollRound == 1)
+					players[playerCounter - 1].hand.add(dieNumber, rollDie());
+				else
+					players[playerCounter - 1].hand.set(dieNumber, rollDie());
+			}
+		}
+    }
 }
