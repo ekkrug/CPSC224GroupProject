@@ -594,6 +594,10 @@ public class YahtzeeGUI extends JFrame{
                     }
 					frame.getContentPane().revalidate();
                 }
+	    		
+	    		else if(desiredAction == 99) {
+	    			System.exit(0);
+	    		}
 	    		//another window
 	    		else {
 	    			//another window
@@ -1047,25 +1051,30 @@ public class YahtzeeGUI extends JFrame{
 	    panel.add(rollPnl, BorderLayout.CENTER);
 		
 	    
-	    String output = "";
+	    
+	    
+	    createGenLabel("Thank you for playing!", 240, 30, 40, Color.black, rollPnl);
+	    createGenLabel("Final game scores:", 305, 100, 35, Color.black, rollPnl);
+
+	    createGenLabel("Player name", 318, 150, 25, Color.black, rollPnl);
+	    createGenLabel("Score", 575, 150, 25, Color.black, rollPnl);
+	    createGenLabel("---------------", 318, 165, 25, Color.black, rollPnl);
+	    createGenLabel("-------", 575, 165, 25, Color.black, rollPnl);
+	    //String output = "";
         for(int i = 0; i < numberOfPlayers; i++)
         {
-            output = players[i].getName() + " scored " + players[i].totalValue() + " for this game";
+            String curPlayerTotalValueStr = Integer.toString(players[i].totalValue());
+        	    //output = players[i].getName() + " scored " + players[i].totalValue() + " pon";
             //players[i].printCompleted(players[i].hand); //TO-DO: It's 1:40am and I don't want to put in the effort to figure out how to print each person's completed scorecard
-            createGenLabel(output, 300, 300 + 20 * i, 20, Color.green, rollPnl);
+            createGenLabel(players[i].getName(), 318, 190 + 35 * i, 25, Color.black, rollPnl);
+            createGenLabel(curPlayerTotalValueStr, 575, 190 + 35 * i, 25, Color.black, rollPnl);
         }
 	    
-	    createGenLabel("TODD GUSE", 220, 30, 50, Color.black, rollPnl);
-	    createGenLabel("BYE!", 220, 230, 50, Color.black, rollPnl);
-
+        createGenLabel("To see if you made it on the leaderboard or to play again,", 90, 425, 25, Color.black, rollPnl);
+	    createGenLabel("click Exit and reload the game! ", 255, 450, 25, Color.black, rollPnl);	  
 	    
-		//createGenImg("Basketball.png", 200, 200, 400, 200, firstRollPnl);
-		
-	    //ImageIcon ic2 = new ImageIcon("Basketball.png");
-	    
-	    //START
-	    
-		//END		    
+	    createGenBtn Exit= new createGenBtn("Exit", 99, 850, 500, rollPnl);
+	    Exit.setup();
 	}
 	
 	public void otherRollPnl(int numRound, int numPlayer, int numRoll){
