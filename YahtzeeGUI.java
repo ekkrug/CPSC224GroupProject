@@ -292,8 +292,25 @@ public class YahtzeeGUI extends JFrame{
 				else if (desiredAction == 1){
 					String pC = textField.getText();
                     System.out.println(pC);
-                    
                     playerChoice = Integer.parseInt(pC);
+                    
+            		if(((playerChoice < 0) || (playerChoice > 21)))
+            		{
+            			pC = textField.getText();
+                        System.out.println(pC);
+                        playerChoice = Integer.parseInt(pC);
+                        
+            		}
+            		else if(!players[scorecardPlayerCounter - 1].canPlaceScoreCard[playerChoice])
+                    {
+            			pC = textField.getText();
+                        System.out.println(pC);
+                        playerChoice = Integer.parseInt(pC);
+                    }
+            		else {
+            			createGenBtn next9 = new createGenBtn("Next", 21, 725, 500, scorePnl);
+            			next9.setup();      
+            		}
 				}
 				else {
 					
@@ -1118,8 +1135,7 @@ public class YahtzeeGUI extends JFrame{
         //TO-DO: Also, how do we check for bad data? (like if row 0 has alrdy been chosen and they choose it again?
         
         
-        createGenBtn next9 = new createGenBtn("Next", 21, 725, 500, scorePnl);
-        next9.setup();
+       
     }
     
 	public static Die rollDie()
