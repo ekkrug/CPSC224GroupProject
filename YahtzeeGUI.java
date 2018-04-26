@@ -542,6 +542,13 @@ public class YahtzeeGUI extends JFrame{
                     int flag = updateFlag();
                     if(flag == 1)
                     {
+                    	//Do we want to update leaderboard here?
+                    	try {
+							checkLeaderboard();
+						} catch (FileNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
                         rollPnl();
                         frame.getContentPane().add(rollPnl);
                     }
@@ -1300,7 +1307,7 @@ public class YahtzeeGUI extends JFrame{
 			if (Calculations.fullTeamFound(players[scorecardPlayerCounter - 1].hand))
 				output = "Row " + (Die.numberOfSides + 2) + ": " + "Score 25 on the Full Team line";
 			else
-				output = "Row " + (Die.numberOfSides + 2) + ": " + "Score 0 on the Full House line";
+				output = "Row " + (Die.numberOfSides + 2) + ": " + "Score 0 on the Full Team line";
 			createGenLabel(output, 50, 360, 15, Color.black, scorePnl);
 		}
 		
@@ -1361,4 +1368,79 @@ public class YahtzeeGUI extends JFrame{
 		System.out.println(players[scorecardPlayerCounter - 1].getName() + ": scored on Row: " + players[scorecardPlayerCounter - 1].scoredRowNumber);
 		System.out.println("The rowValue is: " + players[scorecardPlayerCounter - 1].scoringCard[players[scorecardPlayerCounter - 1].scoredRowNumber]); 
 	}
+	
+	
+    public void checkLeaderboard()
+            throws FileNotFoundException{
+            //1. Get numbers and names
+            //2. Put at end of leaderboard
+            //3. Sort leaderboard
+            //4. Put in correct order
+            //5. Print leaderboard 
+            int numberOfLeaders;
+            int iterator;
+            int nextInt;
+            String nextName;
+            
+            Map<Integer, String> gameScoreNames = new HashMap<Integer, String>();
+            for(int i = 0; i < numberOfPlayers; i++)
+            {
+                gameScoreNames.put(players[i].totalValue(), players[i].getName());
+            }
+           
+    		Scanner inputLeader = new Scanner(new File("leaderboard.txt"));
+            numberOfLeaders = inputLeader.nextInt();
+            iterator = numberOfLeaders;
+            
+            if(numberOfLeaders > 15) //Reset numberOfLeaders
+            {
+                numberOfLeaders = 0;
+            }
+            numberOfLeaders = numberOfLeaders + numberOfPlayers;
+            
+    		while(iterator > 0)
+            {
+                nextInt = inputLeader.nextInt();
+                nextName = inputLeader.nextLine();  //next?
+                gameScoreNames.put(nextInt, nextName);
+                
+                iterator--;
+            }    
+            
+    		//SORT
+            Map<Integer, String> sortedLeaders = new TreeMap<Integer, String>(gameScoreNames);
+            
+            Map<Integer, String> sorted = new TreeMap<Integer, String>(Collections.reverseOrder());
+            
+            for(Map.Entry<Integer, String> entry : sortedLeaders.entrySet())
+            {
+                sorted.put(entry.getKey(), entry.getValue());
+            }
+            
+            
+    		PrintWriter writer = new PrintWriter("leaderboard.txt");
+    		
+    		//Overwriting values in "yahtzeeConfig.txt"
+    		writer.print("");
+    		writer.println(numberOfLeaders);
+            
+            for(Map.Entry<Integer, String> entry : sorted.entrySet())
+            {
+                writer.print(entry.getKey());
+                writer.print(" ");
+                writer.println(entry.getValue());
+            }
+            
+            writer.close();
+            
+            int i = 1;
+            for(Map.Entry<Integer, String> entry : sorted.entrySet())
+            {
+                System.out.print("This is place: " + i + " for player: " + entry.getValue());
+                System.out.print(" total score is: ");
+                System.out.println(entry.getKey());
+                i++;
+            }
+        }
+    	
 }
