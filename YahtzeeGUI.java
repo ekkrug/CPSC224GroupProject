@@ -277,8 +277,9 @@ public class YahtzeeGUI extends JFrame{
 			  btn.setBounds(500, (playSpot-1)*45 + 175, sizeBtn.width, sizeBtn.height);
 		  }
 		  else {
-			  btn.setBounds(500, 500, sizeBtn.width, sizeBtn.height);
+			  btn.setBounds(660, 524, sizeBtn.width, sizeBtn.height);
 		  }
+		  
 		  btn.addActionListener(this);
 
 		 }
@@ -293,12 +294,14 @@ public class YahtzeeGUI extends JFrame{
 					String pC = textField.getText();
                     System.out.println(pC);
                     playerChoice = Integer.parseInt(pC);
+                    playerChoice = playerChoice - 1;
                     
             		if(((playerChoice < 0) || (playerChoice > 21)))
             		{
-            			pC = textField.getText();
+            				pC = textField.getText();
                         System.out.println(pC);
                         playerChoice = Integer.parseInt(pC);
+                        playerChoice = playerChoice - 1;
                         
             		}
             		else if(!players[scorecardPlayerCounter - 1].canPlaceScoreCard[playerChoice])
@@ -306,9 +309,10 @@ public class YahtzeeGUI extends JFrame{
             			pC = textField.getText();
                         System.out.println(pC);
                         playerChoice = Integer.parseInt(pC);
+                        playerChoice = playerChoice - 1;
                     }
             		else {
-            			createGenBtn next9 = new createGenBtn("Next", 21, 725, 500, scorePnl);
+            			createGenBtn next9 = new createGenBtn("Next", 21, 850, 490, scorePnl);
             			next9.setup();      
             		}
 				}
@@ -687,14 +691,14 @@ public class YahtzeeGUI extends JFrame{
 	    createGenLabel("How to Play", 340, 30, 50, Color.black, instrPnl4);
 	    
 	    // Text
-	    createGenLabel("To start, you will roll the dice by clicking Roll. After rolling you can either score the current roll on the", 25, 100, 15, Color.black, instrPnl4);
-	    createGenLabel("scorecard or re-roll any or all of the dice*. You may only roll the dice a total of five times. After the", 25, 115, 15, Color.black, instrPnl4);
-	    createGenLabel("fifth roll you must choose a category on the scorecard to score your hand in. You must choose a", 25, 130, 15, Color.black, instrPnl4);
-	    createGenLabel("different category each time i.e., you can NOT score your hand in a category you have already scored.", 25, 145, 15, Color.black, instrPnl4);
+	    createGenLabel("To start, you will roll the dice by clicking the basketball image. After rolling you can either score the current", 25, 100, 15, Color.black, instrPnl4);
+	    createGenLabel("roll on the scorecard by clicking 'Finish Turn' or re-roll any or all of the dice*. You may only roll the dice a", 25, 115, 15, Color.black, instrPnl4);
+	    createGenLabel("total of five times. After the fifth roll you must choose a line on the scorecard to score your hand in. ", 25, 130, 15, Color.black, instrPnl4);
+	    createGenLabel("You must choose a different line each time (i.e., you CANNOT score your hand in a line you have already scored.)", 25, 145, 15, Color.black, instrPnl4);
 	    //createGenLabel("text here", 25, 160, 15, Color.black, instrPnl4);
-	    createGenLabel("To keep a die value enter ‘y’ in the same order that the die appeared. Enter ‘n’ to re-roll. For example,", 25, 175, 15, Color.black, instrPnl4);
+	    createGenLabel("To keep a player, click their picture. Not clicking a picture will cause that die to be rerolled. For example,", 25, 175, 15, Color.black, instrPnl4);
 	    createGenLabel("if the roll is Jones, Hachimura, Norvell, Tillie, Perkins to keep Jones, Norvell, and Tillie and re-roll the", 25, 190, 15, Color.black, instrPnl4);
-	    createGenLabel("others you would enter: ‘ynyyn’.", 25, 205, 15, Color.black, instrPnl4);
+	    createGenLabel("others you would: click, not click, click, click, and not click.", 25, 205, 15, Color.black, instrPnl4);
 	    //createGenLabel("text here", 25, 220, 15, Color.black, instrPnl4);
 	    createGenLabel("*Note: For example, after the first roll you can keep 4 dice and re-roll the fifth die. Then you can", 25, 235, 15, Color.black, instrPnl4);
 	    createGenLabel("choose to keep all of the die and end that round or keep the first 2 die and roll the next 3 and", 25, 250, 15, Color.black, instrPnl4);
@@ -746,12 +750,12 @@ public class YahtzeeGUI extends JFrame{
 	    createGenLabel("Upper Section", 340, 30, 50, Color.black, instrPnl6);
 	    
 	    // Text
-	    createGenLabel("*The upper section scores only the play ", 25, 200, 15, Color.black, instrPnl6);
-	    createGenLabel("used during that turn. Their score is based ", 25, 215, 15, Color.black, instrPnl6);
-	    createGenLabel("off their player number, for example, getting ", 25, 230, 15, Color.black, instrPnl6);
-	    createGenLabel("Johnathon Williams 3 times, and Jesse Wade", 25, 245, 15, Color.black, instrPnl6);
-	    createGenLabel("2 times, will score 9 points for the Williams", 25, 260, 15, Color.black, instrPnl6);
-	    createGenLabel("section, and 20 forthe Wade section", 25, 275, 15, Color.black, instrPnl6);
+	    createGenLabel("*Each line in the upper section is calculated", 25, 200, 15, Color.black, instrPnl6);
+	    createGenLabel("by the number of the particular player rolled ", 25, 215, 15, Color.black, instrPnl6);
+	    createGenLabel("multipled by its scaling factor (1-15) as", 25, 230, 15, Color.black, instrPnl6);
+	    createGenLabel("outlined on the scorecard. For example, two", 25, 245, 15, Color.black, instrPnl6);
+	    createGenLabel("Brian Pete's in a hand would be of value 24", 25, 260, 15, Color.black, instrPnl6);
+	    createGenLabel("(2 x 12 = 24).", 25, 275, 15, Color.black, instrPnl6);
 	  
 		// Next button
 	    createGenBtn Next6 = new createGenBtn("Next", 10, 560, 500, instrPnl6);
@@ -840,74 +844,50 @@ public class YahtzeeGUI extends JFrame{
 		// Leaderboard title
 	    createGenLabel("Leaderboard", 310, 30, 50, Color.black, ldrPnl);
 	    
+	    final int MAX_PLAYER_DISPLAY_LEADERBOARD = 3;
+	    Scanner inputLeader = new Scanner(new File("leaderboard.txt"));
+
+	    if(!inputLeader.hasNext())
+	    {
+	    		createGenLabel("There is currenty no one on the leaderboard!", 100, 120,25,Color.black, ldrPnl);
+	    		createGenLabel("Play a game to be featured!", 100, 180, 25,Color.black, ldrPnl);
+        }
 	    
-	        //1. Get numbers and names
-	        //2. Put at end of leaderboard
-	        //3. Sort leaderboard
-	        //4. Put in correct order
-	        //5. Print leaderboard 
-	        int numberOfLeaders;
-	        int iterator;
-	        int nextInt;
-	        String nextName;
-	        
-	        Map<Integer, String> gameScoreNames = new HashMap<Integer, String>();
-	       
-			Scanner inputLeader = new Scanner(new File("leaderboard.txt"));
-	        numberOfLeaders = inputLeader.nextInt();
-	        iterator = numberOfLeaders;
-	        
-	        if(numberOfLeaders == 0) {
-	        	createGenLabel("There is currenty no one on the leaderboard!", 100, 120,25,Color.black, ldrPnl);
-	        	createGenLabel("Play a game to be featured!", 100, 180, 25,Color.black, ldrPnl);
-	        }
-	        else {
-	        	while(iterator > 0)
-	        	{
-	            	nextInt = inputLeader.nextInt();
-	            	nextName = inputLeader.nextLine();  //next?
-	            	gameScoreNames.put(nextInt, nextName);
-	            
-	            	iterator--;
-	        	}    
-	        
-				//SORT
-	        	Map<Integer, String> sorted = new TreeMap<Integer, String>(gameScoreNames);
-	        	Map<Integer,String> sortedLeaders = new TreeMap<Integer, String>(Collections.reverseOrder());
-	            for(Map.Entry<Integer, String> entry : sorted.entrySet()) {
-	              	sortedLeaders.put(entry.getKey(), entry.getValue());
-	            }
-	        	
-	        	Integer i = 1;
-	        	String curPlayerPosition;
-	        	String PlayerPosition;
-	        	
-	        
-	        	for(Map.Entry<Integer, String> entry : sortedLeaders.entrySet())
-	        	{
-	        		StringBuilder playerPositionSB = new StringBuilder();
-		        	playerPositionSB.append("# ");
-		        	curPlayerPosition = i.toString();
-	            	playerPositionSB.append(curPlayerPosition);
-	            	PlayerPosition = playerPositionSB.toString();
-	            	
-	            	StringBuilder playerScoreSB = new StringBuilder();
-	            	String curPlayerScore = entry.getKey().toString();;
-	            	playerScoreSB.append(curPlayerScore);
-	            	playerScoreSB.append(" points");
-	            	String playerScore = playerScoreSB.toString();
-	            	
-	            	
-	        		createGenLabel(PlayerPosition,100,120+(i-1)*60,25,Color.black,ldrPnl);
-	            	createGenLabel(entry.getValue(),400,120+(i-1)*60,25,Color.black,ldrPnl);
-	            	createGenLabel(playerScore,700,120+(i-1)*60,25,Color.black,ldrPnl);
-	            	i++;
-	        	}
-	        }
-	    // Main Menu button
+	    else
+	    {
+	    
+	    
+	    for(int i = 1; inputLeader.hasNext() && i <= MAX_PLAYER_DISPLAY_LEADERBOARD; i++)
+	    {
+	    		StringBuilder playerPositionSB = new StringBuilder();
+	    		playerPositionSB.append("# ");
+	    		String iStr = Integer.toString(i);
+        		playerPositionSB.append(iStr);
+        		String curPlayerPosition = playerPositionSB.toString();
+        		
+        		
+        		int curPlayerScoreInt = inputLeader.nextInt();
+        		String curPlayerScoreVal = Integer.toString(curPlayerScoreInt);
+        		StringBuilder curPlayerScoreSB = new StringBuilder();
+        		curPlayerScoreSB.append(curPlayerScoreVal);
+        		curPlayerScoreSB.append(" points");
+        		String curPlayerScore = curPlayerScoreSB.toString();
+        		
+        		String curPlayerName = inputLeader.next();
+        		
+        		createGenLabel(curPlayerPosition, 100, 120+(i-1)*60, 25, Color.black, ldrPnl);
+            	createGenLabel(curPlayerName, 400, 120+(i-1)*60, 25, Color.black, ldrPnl);
+            	createGenLabel(curPlayerScore, 700, 120+(i-1)*60, 25, Color.black, ldrPnl);
+            	
+            	
+	    }
+	    
+	    }
+	    
+	 // Main Menu button
 	    createGenBtn MainMenu9 = new createGenBtn("Main Menu", 4, 725, 500, ldrPnl);
 	    MainMenu9.setup();
-}
+	}
 	public void addPlayNumPnl(){
 	    //NIBS1 - Add players
 	    playNumPnl.setLayout(null);
@@ -955,7 +935,7 @@ public class YahtzeeGUI extends JFrame{
         }
         
         // Upper Section title
-      createGenLabel("Enter player names", 225, 30, 50, Color.black, playNamePnl);
+      createGenLabel("Enter player name(s)", 200, 30, 50, Color.black, playNamePnl);
       createGenLabel("No spaces allowed!", 365, 100, 25, Color.black, playNamePnl);
      
         // Next button
@@ -1085,11 +1065,19 @@ public class YahtzeeGUI extends JFrame{
 	    panel.add(otherRollPnl, BorderLayout.CENTER);
 	    
 	    
-	    
+	    if(numRoll != 6) {
 	    System.out.println("Round " + numRound + ": Roll " + (numRoll-1) + " for " + players[numPlayer - 1].getName());
 	    //createGenModLabel("Round " + numRound + ": Roll " + numRoll + " for " + players[numPlayer - 1].getName(), 220, 80, 30, Color.black, otherRollPnl);
-	    createGenModLabel(players[numPlayer - 1].getName() + ": select the players you wish to", 30, 25, 40, Color.black, otherRollPnl);
+	    createGenModLabel(players[numPlayer - 1].getName() + ", select the players you wish to", 30, 25, 40, Color.black, otherRollPnl);
 	    createGenLabel("keep from roll " + (numRoll-1) + ":" , 30, 75, 40, Color.black, otherRollPnl);
+	    }
+	    
+	    else
+	    {
+	    	createGenModLabel(players[numPlayer - 1].getName() + ", here are the players you rolled", 30, 25, 40, Color.black, otherRollPnl);
+		createGenLabel("in roll 5:", 30, 75, 40, Color.black, otherRollPnl);
+	    }
+	    
 	    //createGenLabel("Select the players you wish to", 220, 30, 50, Color.black, otherRollPnl);
 	    //createGenLabel("keep from the roll " + numRoll + ":", 220, 60, 50, Color.black, otherRollPnl);
 		//createGenImg("Basketball.png", 200, 200, 400, 200, firstRollPnl); 
@@ -1134,10 +1122,14 @@ public class YahtzeeGUI extends JFrame{
     	printLowerGUI();
         
     	//output current score
-    	createGenLabel("This is " + players[scorecardPlayerCounter - 1].getName() + "'s current score: " + players[scorecardPlayerCounter - 1].getCurrentScore(), 400, 2, 17, Color.cyan, scorePnl);
+    	createGenLabel(players[scorecardPlayerCounter - 1].getName() + ", here are the values you are eligible to score by line...", 5, 2, 25, Color.black, scorePnl);
+    	createGenLabel("Your current score (before scoring this round) is: " + players[scorecardPlayerCounter - 1].getCurrentScore(), 5, 25, 25, Color.black, scorePnl);
+    	
+    	createGenLabel("Enter the line", 590, 460, 20, Color.red, scorePnl);
+    	createGenLabel("you wish to score below:", 525, 485, 20, Color.red, scorePnl);
     	
         //TO-DO: Eugene make it look pretty (the scoreNumber field)
-        createGenTextField scoreNumber = new createGenTextField(1, 1, 100, 30, 325, 500, scorePnl);
+        createGenTextField scoreNumber = new createGenTextField(1, 1, 100, 30, 550, 525, scorePnl);
         scoreNumber.setup();
         
         //TO-DO: Is it possible to make sure they click submit before allowing them to click next? (for textField)
@@ -1287,14 +1279,14 @@ public class YahtzeeGUI extends JFrame{
 			}
 			if(players[scorecardPlayerCounter - 1].canPrint(dieValue - 1))
 			{																										 //0 bc its same for all players.
-				output = "Row " + (dieValue - 1) + ": " + "Score is " + dieValue * currentCount + " on the " + players[0].athleteNames[dieValue - 1] + " line";
+				output = "Line " + (dieValue) + ": " + "Score is " + dieValue * currentCount + " on the " + players[0].athleteNames[dieValue - 1] + " line";
 				if(modLabel == 'y')
 				{
-					createGenModLabel(output, 50, 20*dieValue, 15, Color.black, scorePnl);
+					createGenModLabel(output, 50, 20*dieValue + 50, 15, Color.black, scorePnl);
 					modLabel = 'n';
 				}
 				else
-					createGenLabel(output, 50, 20*dieValue, 15, Color.black, scorePnl);
+					createGenLabel(output, 50, 20*dieValue + 50, 15, Color.black, scorePnl);
 			}
 		}	
     }
@@ -1306,66 +1298,66 @@ public class YahtzeeGUI extends JFrame{
 		{
 			if (Calculations.maxOfAZagFound(players[scorecardPlayerCounter - 1].hand) >= 3)
 			{
-				output = "Row " + (Die.numberOfSides) + ": " + "Score " + Calculations.totalAllDice(players[scorecardPlayerCounter - 1].hand) + " on the ";
+				output = "Line " + (Die.numberOfSides +1) + ": " + "Score " + Calculations.totalAllDice(players[scorecardPlayerCounter - 1].hand) + " on the ";
 				output = output + "3 of a Zag line";
 				
 			}
 			else 
-				output = "Row " + (Die.numberOfSides) + ": " + "Score 0 on the 3 of a Zag line";
-			createGenLabel(output, 50, 320, 15, Color.black, scorePnl);
+				output = "Line " + (Die.numberOfSides+1) + ": " + "Score 0 on the 3 of a Zag line";
+			createGenLabel(output, 50, 320 + 50, 15, Color.black, scorePnl);
 		}
 		
 		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 1))
 		{
 			if (Calculations.maxOfAZagFound(players[scorecardPlayerCounter - 1].hand) >= 4)
 			{
-				output = "Row " + (Die.numberOfSides + 1) + ": " + "Score " + Calculations.totalAllDice(players[scorecardPlayerCounter - 1].hand) + " on the ";
+				output = "Line " + (Die.numberOfSides + 2) + ": " + "Score " + Calculations.totalAllDice(players[scorecardPlayerCounter - 1].hand) + " on the ";
 				output = output + "4 of a Zag line";
 			}
 			else 
-				output = "Row " + (Die.numberOfSides + 1) + ": " + "Score 0 on the 4 of a Zag line";
-			createGenLabel(output, 50, 340, 15, Color.black, scorePnl);
+				output = "Line " + (Die.numberOfSides + 2) + ": " + "Score 0 on the 4 of a Zag line";
+			createGenLabel(output, 50, 340 + 50, 15, Color.black, scorePnl);
 		}
 		
 		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 2))
 		{
 			if (Calculations.fullTeamFound(players[scorecardPlayerCounter - 1].hand))
-				output = "Row " + (Die.numberOfSides + 2) + ": " + "Score 25 on the Full Team line";
+				output = "Line " + (Die.numberOfSides + 3) + ": " + "Score 25 on the Full Team line";
 			else
-				output = "Row " + (Die.numberOfSides + 2) + ": " + "Score 0 on the Full Team line";
-			createGenLabel(output, 50, 360, 15, Color.black, scorePnl);
+				output = "Line " + (Die.numberOfSides + 3) + ": " + "Score 0 on the Full Team line";
+			createGenLabel(output, 50, 360 + 50, 15, Color.black, scorePnl);
 		}
 		
 		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 3))
 		{
 			if (Calculations.benchBrigadeFound(players[scorecardPlayerCounter - 1].hand))
-				output = "Row " + (Die.numberOfSides + 3) + ": " + "Score 30 on the Bench Brigade line";
+				output = "Line " + (Die.numberOfSides + 4) + ": " + "Score 30 on the Bench Brigade line";
 			else
-				output = "Row " + (Die.numberOfSides + 3) + ": " + "Score 0 on the Bench Brigade line";
-			createGenLabel(output, 50, 380, 15, Color.black, scorePnl);
+				output = "Line " + (Die.numberOfSides + 4) + ": " + "Score 0 on the Bench Brigade line";
+			createGenLabel(output, 50, 380 + 50, 15, Color.black, scorePnl);
 		}
 		
 		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 4))
 		{
 			if (Calculations.startingLineupFound(players[scorecardPlayerCounter - 1].hand))
-				output = "Row " + (Die.numberOfSides + 4) + ": " + "Score 40 on the Starters line";
+				output = "Line " + (Die.numberOfSides + 5) + ": " + "Score 40 on the Starters line";
 			else
-				output = "Row " + (Die.numberOfSides + 4) + ": " + "Score 0 on the Starters line";
-			createGenLabel(output, 50, 400, 15, Color.black, scorePnl);
+				output = "Line " + (Die.numberOfSides + 5) + ": " + "Score 0 on the Starters line";
+			createGenLabel(output, 50, 400 + 50, 15, Color.black, scorePnl);
 		}
 		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 5))
 		{
 			if (Calculations.maxOfAZagFound(players[scorecardPlayerCounter - 1].hand) >= 5)
-				output = "Row " + (Die.numberOfSides + 5) + ": " + "Score 100 on the Zombie Nation line";
+				output = "Line " + (Die.numberOfSides + 6) + ": " + "Score 100 on the Zombie Nation line";
 			else
-				output = "Row " + (Die.numberOfSides + 5) + ": " + "Score 0 on the Zombie Nation line";
-			createGenLabel(output, 50, 420, 15, Color.black, scorePnl);
+				output = "Line " + (Die.numberOfSides + 6) + ": " + "Score 0 on the Zombie Nation line";
+			createGenLabel(output, 50, 420 + 50, 15, Color.black, scorePnl);
 		}
 		if(players[scorecardPlayerCounter - 1].canPrint(Die.numberOfSides + 6))
 		{
-			output = "Row " + (Die.numberOfSides + 6) + ": " + "Score " + Calculations.totalAllDice(players[scorecardPlayerCounter - 1].hand) + " on the ";
+			output = "Line " + (Die.numberOfSides + 7) + ": " + "Score " + Calculations.totalAllDice(players[scorecardPlayerCounter - 1].hand) + " on the ";
 			output = output + "Kennel line";
-			createGenLabel(output, 50, 440, 15, Color.black, scorePnl);
+			createGenLabel(output, 50, 440 + 50, 15, Color.black, scorePnl);
 		}
 	}
 	public void scoreCardTrackerGUI(ArrayList<Die> hand)
@@ -1403,7 +1395,7 @@ public class YahtzeeGUI extends JFrame{
             //4. Put in correct order
             //5. Print leaderboard 
             int numberOfLeaders;
-            int iterator;
+            int iterator = 3;
             int nextInt;
             String nextName;
             
@@ -1414,46 +1406,45 @@ public class YahtzeeGUI extends JFrame{
             }
            
     		Scanner inputLeader = new Scanner(new File("leaderboard.txt"));
-            numberOfLeaders = inputLeader.nextInt();
-            iterator = numberOfLeaders;
+   
             
-            if(numberOfLeaders > 15) //Reset numberOfLeaders
-            {
-                numberOfLeaders = 0;
-            }
-            numberOfLeaders = numberOfLeaders + numberOfPlayers;
-            
-    		while(iterator > 0)
-            {
-                nextInt = inputLeader.nextInt();
-                nextName = inputLeader.nextLine();  //next?
-                gameScoreNames.put(nextInt, nextName);
-                
+        
+    			while(iterator > 0)
+            {	
+    				if(inputLeader.hasNextInt()) {
+    					nextInt = inputLeader.nextInt();
+    					if(inputLeader.hasNext()) {
+    						nextName = inputLeader.nextLine();  //next?
+    						gameScoreNames.put(nextInt, nextName);
+    					}
+    				}
                 iterator--;
-            }    
-            
+            }       
     		//SORT
-            Map<Integer, String> sortedLeaders = new TreeMap<Integer, String>(gameScoreNames);
+            Map<Integer, String> sorted = new TreeMap<Integer, String>(gameScoreNames);
             
-            Map<Integer, String> sorted = new TreeMap<Integer, String>(Collections.reverseOrder());
+            Map<Integer, String> sortedLeaders = new TreeMap<Integer, String>(Collections.reverseOrder());
             
-            for(Map.Entry<Integer, String> entry : sortedLeaders.entrySet())
+            for(Map.Entry<Integer, String> entry : sorted.entrySet())
             {
-                sorted.put(entry.getKey(), entry.getValue());
+                sortedLeaders.put(entry.getKey(), entry.getValue());
             }
             
             
     		PrintWriter writer = new PrintWriter("leaderboard.txt");
-    		
+    		iterator = 3;
     		//Overwriting values in "yahtzeeConfig.txt"
-    		writer.print("");
-    		writer.println(numberOfLeaders);
-            
-            for(Map.Entry<Integer, String> entry : sorted.entrySet())
+            for(Map.Entry<Integer, String> entry : sortedLeaders.entrySet())
             {
-                writer.print(entry.getKey());
-                writer.print(" ");
-                writer.println(entry.getValue());
+            		if(iterator > 0) {
+            			writer.print(entry.getKey());
+                		writer.print(" ");
+                		writer.println(entry.getValue());
+            		}
+            		else {
+            			writer.println();
+            		}
+            		iterator--;
             }
             
             writer.close();
