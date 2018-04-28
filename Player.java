@@ -1,18 +1,16 @@
-package yahtzee;
 /**
-* This class will construct a ScoreCard that will keep track
-* of which values are being placed into it and where.  It can print
-* out the options a player has for placing values in the scoreCard. 
-* An ArrayList of Dice and the Calculations class is used to do so
-* 
-* CPSC 224-02, Spring 2018
-* Group Programming Assignment 
-* @author Benjamin Bladow
-* @author Brandon Niblock
-* @author Eugene Krug
-* 
-* @version v2.0 4/7/18
-*/
+ * This file... TO-DO: complete
+ *
+ *
+ * CPSC 224-02, Spring 2018
+ * Group Project: Gonzaga Men's Basketball Yahtzee (Group 1)
+ 
+ * @author Ben Bladow
+ * @author Eugene Krug
+ * @author Brandon Niblock
+ * @version v9.0 4/28/18
+ */
+
 import java.util.*;
 import java.io.*;
 
@@ -26,7 +24,7 @@ public class Player {
 	public int scoredRowNumber;
     private String name;
     public ArrayList<Die> hand;
-    int bonusLine;
+    private int bonusLine;
     
     /**
     * Default constructor will create a game specific ScoreCard
@@ -415,7 +413,7 @@ public class Player {
 		return sum;
     }
     
-    int sumBonus()
+    private int sumBonus()
     {
         int sum = 0;
         int countUpper = 0;

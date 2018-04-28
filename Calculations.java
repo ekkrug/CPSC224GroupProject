@@ -1,17 +1,16 @@
-package yahtzee;
 /**
-* This class does the different calculations required to calculate 
-* the different yahtzee scores.  Each method is static and takes in 
-* a parameter of type ArrayList<Die>
-* 
-* CPSC 224-02, Spring 2018
-* Group Project
-* @author Benjamin Bladow
-* @author Brandon Niblock
-* @author Eugene Krug
-* 
-* @version v1.1 3/7/18
-*/
+ * This file... TO-DO: complete
+ *
+ * 
+ * CPSC 224-02, Spring 2018
+ * Group Project: Gonzaga Men's Basketball Yahtzee (Group 1)
+
+ * @author Ben Bladow
+ * @author Eugene Krug
+ * @author Brandon Niblock
+ * @version v9.0 4/28/18 
+ */
+
 import java.util.*;
 
 public class Calculations {
@@ -26,16 +25,15 @@ public class Calculations {
 	public static int maxOfAZagFound(ArrayList<Die> hand)
 	{
 		int maxCount = 0;
-		int currentCount;
+		int currentCount ;
 		for (int dieValue = 1; dieValue <= Die.numberOfSides; dieValue++)
 		{
 			currentCount = 0;
-			for (int diePosition = 0; diePosition < hand.size(); diePosition++)
+			for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
 			{
+				// equivalent to hand[diePosition] == dieValue of c++ code
 				if (hand.get(diePosition).getValue() == dieValue) 
-				{
 					currentCount++;
-				}
 			}
 			if (currentCount > maxCount)
 				maxCount = currentCount;
@@ -53,7 +51,7 @@ public class Calculations {
 	{
 		int total = 0;
 		
-		for (int diePosition = 0; diePosition < hand.size(); diePosition++)
+		for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
 		{
 			total += hand.get(diePosition).getValue(); // hand[position] c++ code
 		}
@@ -75,7 +73,7 @@ public class Calculations {
 		boolean found2K = false;
 		int guardCount = 0;
 		int forwardCount = 0;
-		for (int diePosition = 0; diePosition < hand.size(); diePosition++)
+		for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
 		{
 			if (hand.get(diePosition).getPosition().equals("GUARD"))
 				guardCount++;

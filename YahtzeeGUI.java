@@ -1,6 +1,15 @@
-package yahtzee;
+/**
+ * This file... TO-DO: complete
+ *
+ * 
+ * CPSC 224-02, Spring 2018
+ * Group Project: Gonzaga Men's Basketball Yahtzee (Group 1)
 
-// BBQ is 2morrow
+ * @author Ben Bladow
+ * @author Eugene Krug
+ * @author Brandon Niblock
+ * @version v9.0 4/28/18 
+ */
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -131,7 +140,7 @@ public class YahtzeeGUI extends JFrame{
 	    mainMenuPanel.setSize(400, 400);
 	    jlabel.setLocation(105, 20);
 	  
-	    createGenImg("1718PosterPhoto.jpg",900,400,50,80, mainMenuPanel);
+	    createGenImg("Graphics/1718PosterPhoto.jpg",900,400,50,80, mainMenuPanel);
 	    
 	    // Play button
 	    createGenBtn play = new createGenBtn("Play", 1, 305, 500, mainMenuPanel);
@@ -644,7 +653,7 @@ public class YahtzeeGUI extends JFrame{
 	    // ....
 	    createGenLabel("*The game uses five, fifteen-sided dice.", 25, 200, 15, Color.black, instrPnl2);
 	    createGenLabel("*The sides of each die represent the GU", 25, 225, 15, Color.black, instrPnl2);
-	    createGenLabel("  Men’s Basketball 2017-2018 Roster:", 25, 245, 15, Color.black, instrPnl2);
+	    createGenLabel("  Menâ€™s Basketball 2017-2018 Roster:", 25, 245, 15, Color.black, instrPnl2);
 	    
 		// Next button
 	    createGenBtn next2 = new createGenBtn("Next",6, 560, 500, instrPnl2);
@@ -653,7 +662,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn mainMenu2 = new createGenBtn("Main Menu", 4, 725, 500, instrPnl2);
 	    mainMenu2.setup();
 	    // Roster image
-	    createGenImg("RosterScreenshot.png", 465, 465, 450, 25, instrPnl2);
+	    createGenImg("Graphics/RosterScreenshot.png", 465, 465, 450, 25, instrPnl2);
 	}
 	public void addInstrPnl3()
 	{
@@ -830,7 +839,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenLabel("Scorecard", 600, 30, 50, Color.black, instrPnl8);
 	    
 	    // Scorecard Screenshot
-	    createGenImg("ScorecardScreenshot.png", 500, 525, 25, 20, instrPnl8);
+	    createGenImg("Graphics/ScorecardScreenshot.png", 500, 525, 25, 20, instrPnl8);
 	  
 	    // Main Menu button
 	    createGenBtn MainMenu8 = new createGenBtn("Main Menu", 4, 725, 500, instrPnl8);
@@ -965,7 +974,7 @@ public class YahtzeeGUI extends JFrame{
 	    //ImageIcon ic2 = new ImageIcon("Basketball.png");
 	    
 	    //START
-	    createGenBtnPic basketball  = new createGenBtnPic("Basketball.png", 1,300, 300, 350, 150, firstRollPnl);
+	    createGenBtnPic basketball  = new createGenBtnPic("Graphics/Basketball.png", 1,300, 300, 350, 150, firstRollPnl);
 	    	basketball.setup();
 	    	
 	    	
@@ -1222,7 +1231,7 @@ public class YahtzeeGUI extends JFrame{
 	
 	public String dieRoll(int dieNumber)
 	{
-        return players[playerCounter - 1].hand.get(dieNumber).getName() + ".jpeg";
+        return "Graphics/" + players[playerCounter - 1].hand.get(dieNumber).getName() + ".jpeg";
 	}
     
     public void rollDice()
@@ -1431,7 +1440,8 @@ public class YahtzeeGUI extends JFrame{
             {
                 sortedLeaders.put(entry.getKey(), entry.getValue());
             }
-               
+            
+            
     		PrintWriter writer = new PrintWriter("leaderboard.txt");
     		iterator = 3;
     		//Overwriting values in "yahtzeeConfig.txt"
@@ -1459,4 +1469,5 @@ public class YahtzeeGUI extends JFrame{
                 i++;
             }
         }
+    	
 }

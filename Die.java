@@ -1,4 +1,15 @@
-package yahtzee;
+/**
+ * This file... TO-DO: complete
+ *
+ * 
+ * CPSC 224-02, Spring 2018
+ * Group Project: Gonzaga Men's Basketball Yahtzee (Group 1)
+
+ * @author Ben Bladow
+ * @author Eugene Krug
+ * @author Brandon Niblock
+ * @version v9.0 4/28/18 
+ */
 
 /**
 * This class will create a Die that can be rolled. It also 
@@ -15,13 +26,13 @@ package yahtzee;
 
 
 public class Die implements Cloneable{
-    int jerseyNumber;
+    private int jerseyNumber;
     public static int numberOfSides = 15;
 	public static int numberOfDie = 5;
 	public static int numberOfRolls = 5;
-	String position;
-    String status;
-    String name;
+	private String position;
+    private String status;
+    private String name;
     
 	/**
     * "Rolls" the die by finding a random double between 0.0 and 1.0.
