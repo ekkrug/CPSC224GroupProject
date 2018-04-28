@@ -1,4 +1,4 @@
-//package yahtzee;
+package yahtzee;
 /**
 * This class will construct a ScoreCard that will keep track
 * of which values are being placed into it and where.  It can print

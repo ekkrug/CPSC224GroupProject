@@ -1,3 +1,5 @@
+package yahtzee;
+
 // BBQ is 2morrow
 
 import java.awt.BorderLayout;

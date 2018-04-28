@@ -1,4 +1,4 @@
-//package yahtzee;
+package yahtzee;
 
 /**
 * This class will create a Die that can be rolled. It also 

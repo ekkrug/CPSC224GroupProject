@@ -1,4 +1,4 @@
-//package yahtzee;
+package yahtzee;
 
 /**
 * This program will implement the game Lizard Spock Yahtzee.
