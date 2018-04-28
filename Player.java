@@ -26,7 +26,7 @@ public class Player {
 	public int scoredRowNumber;
     private String name;
     public ArrayList<Die> hand;
-    private int bonusLine;
+    int bonusLine;
     
     /**
     * Default constructor will create a game specific ScoreCard
@@ -415,7 +415,7 @@ public class Player {
 		return sum;
     }
     
-    private int sumBonus()
+    int sumBonus()
     {
         int sum = 0;
         int countUpper = 0;

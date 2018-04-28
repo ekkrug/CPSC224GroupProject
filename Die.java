@@ -15,13 +15,13 @@ package yahtzee;
 
 
 public class Die implements Cloneable{
-    private int jerseyNumber;
+    int jerseyNumber;
     public static int numberOfSides = 15;
 	public static int numberOfDie = 5;
 	public static int numberOfRolls = 5;
-	private String position;
-    private String status;
-    private String name;
+	String position;
+    String status;
+    String name;
     
 	/**
     * "Rolls" the die by finding a random double between 0.0 and 1.0.

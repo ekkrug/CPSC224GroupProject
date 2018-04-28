@@ -644,7 +644,7 @@ public class YahtzeeGUI extends JFrame{
 	    // ....
 	    createGenLabel("*The game uses five, fifteen-sided dice.", 25, 200, 15, Color.black, instrPnl2);
 	    createGenLabel("*The sides of each die represent the GU", 25, 225, 15, Color.black, instrPnl2);
-	    createGenLabel("  Menâ€™s Basketball 2017-2018 Roster:", 25, 245, 15, Color.black, instrPnl2);
+	    createGenLabel("  Men’s Basketball 2017-2018 Roster:", 25, 245, 15, Color.black, instrPnl2);
 	    
 		// Next button
 	    createGenBtn next2 = new createGenBtn("Next",6, 560, 500, instrPnl2);
@@ -1431,8 +1431,7 @@ public class YahtzeeGUI extends JFrame{
             {
                 sortedLeaders.put(entry.getKey(), entry.getValue());
             }
-            
-            
+               
     		PrintWriter writer = new PrintWriter("leaderboard.txt");
     		iterator = 3;
     		//Overwriting values in "yahtzeeConfig.txt"
@@ -1460,5 +1459,4 @@ public class YahtzeeGUI extends JFrame{
                 i++;
             }
         }
-    	
 }

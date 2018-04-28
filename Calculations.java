@@ -26,15 +26,16 @@ public class Calculations {
 	public static int maxOfAZagFound(ArrayList<Die> hand)
 	{
 		int maxCount = 0;
-		int currentCount ;
+		int currentCount;
 		for (int dieValue = 1; dieValue <= Die.numberOfSides; dieValue++)
 		{
 			currentCount = 0;
-			for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
+			for (int diePosition = 0; diePosition < hand.size(); diePosition++)
 			{
-				// equivalent to hand[diePosition] == dieValue of c++ code
 				if (hand.get(diePosition).getValue() == dieValue) 
+				{
 					currentCount++;
+				}
 			}
 			if (currentCount > maxCount)
 				maxCount = currentCount;
@@ -52,7 +53,7 @@ public class Calculations {
 	{
 		int total = 0;
 		
-		for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
+		for (int diePosition = 0; diePosition < hand.size(); diePosition++)
 		{
 			total += hand.get(diePosition).getValue(); // hand[position] c++ code
 		}
@@ -74,7 +75,7 @@ public class Calculations {
 		boolean found2K = false;
 		int guardCount = 0;
 		int forwardCount = 0;
-		for (int diePosition = 0; diePosition < Die.numberOfDie; diePosition++)
+		for (int diePosition = 0; diePosition < hand.size(); diePosition++)
 		{
 			if (hand.get(diePosition).getPosition().equals("GUARD"))
 				guardCount++;
@@ -84,7 +85,7 @@ public class Calculations {
 			}
 			if (hand.get(diePosition).getPosition().equals("FORWARD"))
 				forwardCount++;
-			if(forwardCount == 3 && !found2K)
+			if(forwardCount == 2 && !found2K)
 			{
 				found2K = true;
 			}
