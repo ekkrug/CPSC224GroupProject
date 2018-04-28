@@ -1,6 +1,8 @@
 /**
- * This file... TO-DO: complete
- *
+ * This class will create a Die that can be rolled. It also 
+ * keeps track of the number of Dice in  play the number of sides
+ * all dice have and the number of rolls per turn.  Objects of 
+ * this class can be cloned.
  * 
  * CPSC 224-02, Spring 2018
  * Group Project: Gonzaga Men's Basketball Yahtzee (Group 1)
@@ -10,20 +12,6 @@
  * @author Brandon Niblock
  * @version v9.0 4/28/18 
  */
-
-/**
-* This class will create a Die that can be rolled. It also 
-* keeps track of the number of Dice in  play the number of sides
-* all dice have and the number of rolls per turn.  Objects of 
-* this class can be cloned.
-* 
-* CPSC 224-02, Spring 2018
-* Programming Assignment #5
-* @author Benjamin Bladow
-* 
-* @version v2.1 3/7/18
-*/
-
 
 public class Die implements Cloneable{
     private int jerseyNumber;
@@ -98,16 +86,33 @@ public class Die implements Cloneable{
         return jerseyNumber;   
     }
     
-//***************************************NEEDS DOCUMENTATION**************************************\\
 
+	/**
+    * returns an athlete's (Die's) position -- Forward or Guard.  Die must be rolled first 
+	* @param N/A
+    * @returns the String of the athlete's (Die's) position. 
+	* @throws N/A
+    */
 	public String getPosition(){
         return position;
     }
-    
+
+	/**
+    * returns an athlete's (Die's) status -- Starter or Bench.  Die must be rolled first 
+	* @param N/A
+    * @returns the String of the athlete's (Die's) stauts. 
+	* @throws N/A
+    */
     public String getStatus(){
         return status;
     }
     
+    /**
+    * returns an athlete's (Die's) name.  Die must be rolled first 
+	* @param N/A
+    * @returns the String of the athlete's (Die's) name. 
+	* @throws N/A
+    */
     public String getName(){
         return name;
     }

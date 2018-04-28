@@ -1,7 +1,9 @@
 /**
- * This file... TO-DO: complete
+ * This file will help Player.java calculate the scores of a certain player.
+ * The methods in here determine the max number of zags, the total of all zags,
+ * whether or not a full team has been found and whether or not the starting Line-
+ * up was found for an ArrayList of Die.
  *
- * 
  * CPSC 224-02, Spring 2018
  * Group Project: Gonzaga Men's Basketball Yahtzee (Group 1)
 

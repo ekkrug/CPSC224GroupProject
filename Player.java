@@ -1,7 +1,10 @@
 /**
- * This file... TO-DO: complete
- *
- *
+ * This class will construct a Player that will keep track
+ * of a player's score and where a player has scored something.
+ * It can print out the options a player has for placing values 
+ * in the scoreCard. An ArrayList of Dice and the Calculations 
+ * class is used to do so
+ * 
  * CPSC 224-02, Spring 2018
  * Group Project: Gonzaga Men's Basketball Yahtzee (Group 1)
  
@@ -65,6 +68,12 @@ public class Player {
         athleteNames[14] = "Jonathan Williams";
 	}
 	
+    /**
+    * Sets the name for a player object.
+	* @param String: the name of the player
+    * @returns N/A
+	* @throws N/A
+    */
 	public void setName(String name)
 	{
 		this.name = name;
@@ -395,11 +404,23 @@ public class Player {
         
 	}
     
+    /**
+    * returns a player's name. The name must be set first 
+	* @param N/A
+    * @returns the String of the player's name. 
+	* @throws N/A
+    */
     public String getName()
     {
         return name;
     }
     
+    /**
+    * returns a player's current Score.  Does not include bonus
+	* @param N/A
+    * @returns the int of player's total score
+	* @throws N/A
+    */
     public int getCurrentScore()
     {
         int sum = 0;
@@ -413,6 +434,13 @@ public class Player {
 		return sum;
     }
     
+    /**
+    * Determines if bonus has been achieved. If so, return the bonus (35).
+    * Else return 0.
+	* @param N/A
+    * @returns an integer value based on whether a bonus has been achieved. 
+	* @throws N/A
+    */
     private int sumBonus()
     {
         int sum = 0;
@@ -430,6 +458,12 @@ public class Player {
         return sum;
     }
     
+    /**
+    * resets a the score card values for a player
+	* @param N/A
+    * @returns N/A
+	* @throws N/A
+    */
     public void resetScoreCard()
     {
         for(int i = 0; i < numberRows; i++)
