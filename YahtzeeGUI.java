@@ -32,6 +32,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 /*
 INTERNAL PANEL KEY:
 1: The game!
@@ -64,6 +65,7 @@ INTERNAL GEN PIC BUTTON KEY:
 7: Player 4 image
 8: Player 5 image 
 */
+
 public class YahtzeeGUI extends JFrame{
 	private static JFrame frame;
 	private JPanel panel, mainMenuPanel, instrPnl1, instrPnl2,instrPnl3,instrPnl4,instrPnl5, instrPnl6, instrPnl7, instrPnl8, ldrPnl, playNumPnl, firstRollPnl, otherRollPnl;
@@ -83,6 +85,7 @@ public class YahtzeeGUI extends JFrame{
 	*
 	* @param N/A
     * @returns N/A
+    * @throw N/A
     */
 	public YahtzeeGUI() {
 		createWindow(1000, 600);
@@ -90,6 +93,7 @@ public class YahtzeeGUI extends JFrame{
 		frame.add(panel);
 		frame.setVisible(true);
 	}
+	
 	/**
     * Creates the games window, and makes all of the panels new JPanels 
 	*
@@ -122,6 +126,7 @@ public class YahtzeeGUI extends JFrame{
 		rollPnl = new JPanel();
         scorePnl = new JPanel();
 	}
+	
 	/**
     * Creates the main menu panel 
 	*
@@ -153,6 +158,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn instructions = new createGenBtn("Instructions", 3, 725, 500, mainMenuPanel);
 		instructions.setup(); 
 	}
+	
 	/**
     * Creates a generic button picture that implements an action listener 
 	*
@@ -201,6 +207,7 @@ public class YahtzeeGUI extends JFrame{
 			genBtn.setBorderPainted(false);
 			genBtn.addActionListener(this);
 	}
+		
 	/**
     * Makes the button exectuable 
 	*
@@ -245,6 +252,7 @@ public class YahtzeeGUI extends JFrame{
 			}
 		}
 	}
+	
 	/**
     * Creates a generic textfield that implements an action listener 
 	*
@@ -342,6 +350,7 @@ public class YahtzeeGUI extends JFrame{
 			}
 		}
     }
+	
 	/**
     * Creates a generic button that implements an action listener 
 	*
@@ -607,6 +616,7 @@ public class YahtzeeGUI extends JFrame{
 	    	}
 		}
 	}	
+	
 	/**
     * This method implements the first part of the instructions 
 	*
@@ -628,6 +638,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn mainMenu1 = new createGenBtn("Main Menu", 4, 725, 500, instrPnl1);
 	    mainMenu1.setup();
 	}
+	
 	/**
     * This method implements the second part of instructions
 	* the dice instructions
@@ -656,6 +667,7 @@ public class YahtzeeGUI extends JFrame{
 	    // Roster image
 	    createGenImg("Graphics/RosterScreenshot.png", 465, 465, 450, 25, instrPnl2);
 	}
+	
 	/**
     * This method implements the third part of instructions
 	* the how to win instructions
@@ -681,6 +693,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn mainMenu3 = new createGenBtn("Main Menu", 4, 725, 500, instrPnl3);
 	    mainMenu3.setup();
 	}
+	
 	/**
     * This method implements the fourth part of instructions
 	* the how to play instructions
@@ -714,6 +727,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn MainMenu4 = new createGenBtn("Main Menu",4, 725, 500, instrPnl4);
 	    MainMenu4.setup();
 	}
+	
 	/**
     * This method implements the fifth part of instructions
 	* the scoring instructions
@@ -739,6 +753,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn MainMenu5 = new createGenBtn("Main Menu", 4, 725, 500, instrPnl5);
 	    MainMenu5.setup();
 	}
+	
 	/**
     * This method implements the sixth part of instructions
 	* the upper section instructions
@@ -768,6 +783,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn MainMenu6 = new createGenBtn("Main Menu",4, 725, 500, instrPnl6);
 	    MainMenu6.setup();
 	}
+	
 	/**
     * This method implements the seventh part of instructions
 	* the lower section instructions
@@ -813,6 +829,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn MainMenu7 = new createGenBtn("Main Menu",4, 725, 500, instrPnl7);
 	    MainMenu7.setup();
 	}
+	
 	/**
     * This method implements the eigth part of instructions
 	* the scorecard
@@ -834,6 +851,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn MainMenu8 = new createGenBtn("Main Menu", 4, 725, 500, instrPnl8);
 	    MainMenu8.setup();
 	}
+	
 	/**
     * This method implements leaderboard panel
 	*
@@ -883,6 +901,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn MainMenu9 = new createGenBtn("Main Menu", 4, 725, 500, ldrPnl);
 	    MainMenu9.setup();
 	}
+	
 	/**
     * This method implements adding the amount of players that are going to play the Yahtzee game
 	* The maximum number of players is 4 and the minimum is 1
@@ -910,6 +929,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn numPlayers4 = new createGenBtn("4", 15, 600, 400, playNumPnl);
 	    numPlayers4.setup();
 	}
+	
 	/**
     * This method implements adding the players names that are going to play the Yahtzee game
 	* The maximum number of players is 4 and the minimum is 1
@@ -942,6 +962,7 @@ public class YahtzeeGUI extends JFrame{
 		createGenBtn Next8= new createGenBtn("Next", 18, 725, 500, playNamePnl);
 		Next8.setup();
 	}
+	
 	/**
     * This method implements the first roll panel to the file, this is the basketball picture
 	* when the basketball picture is clicked, roll the dice and go to the next slide
@@ -961,6 +982,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtnPic basketball  = new createGenBtnPic("Graphics/Basketball.png", 1,300, 300, 350, 150, firstRollPnl);
 	    	basketball.setup();
 	}
+	
 	/**
     * This method creates a generic label that is used throughout the program to put text onto a specific panel
 	*
@@ -978,6 +1000,7 @@ public class YahtzeeGUI extends JFrame{
 	    text.setForeground(color);
 	    panelAdd.setSize(400, 400);
 	}
+	
 	/**
     * This method creates a generic modified label that is used throughout the program to put text onto a specific panel
 	* This code is modifiable so that if a panel is called more than once, and variables change, the output is not overwriting previous output
@@ -999,6 +1022,7 @@ public class YahtzeeGUI extends JFrame{
 	    text.setForeground(color);
 	    panelAdd.setSize(400, 400);
 	}
+	
 	/**
     * This method creates a generic image that is used throughout the program to put pictures onto a specific panel 
 	*
@@ -1020,6 +1044,7 @@ public class YahtzeeGUI extends JFrame{
 	    Dimension sizePic = picLabel.getPreferredSize();
 	    picLabel.setBounds(imgWidthLoc, imgHeightLoc, sizePic.width, sizePic.height);
 	}
+	
 	/**
     * This method implements the final panel of the game, when the game is over, this slide displays the final scores for each player
 	*
@@ -1049,6 +1074,7 @@ public class YahtzeeGUI extends JFrame{
 	    createGenBtn Exit= new createGenBtn("Exit", 99, 850, 500, rollPnl);
 	    Exit.setup();
 	}
+	
 	/**
     * This method implements the rolling panel
 	* from rolls 2 to 5
@@ -1090,6 +1116,7 @@ public class YahtzeeGUI extends JFrame{
         createGenBtn finishTurn = new createGenBtn("Finish Turn", 20, 725, 500, otherRollPnl);
         finishTurn.setup();	    
 	}
+	
 	/**
     * This method implements the scoring panel
 	* the user selects which row they want to score on, after being given all the eligble scoring lines
@@ -1114,6 +1141,7 @@ public class YahtzeeGUI extends JFrame{
         createGenTextField scoreNumber = new createGenTextField(1, 1, 100, 30, 550, 525, scorePnl);
         scoreNumber.setup();
     }
+    
     /**
     * This method creates a new Die and rolls the die
 	*
@@ -1127,6 +1155,7 @@ public class YahtzeeGUI extends JFrame{
 		newDie.roll();
 		return newDie;
 	}
+	
 	/**
     * This method modifies the settings of the game, and if eligible will put dice into the users hand
 	*
@@ -1171,6 +1200,7 @@ public class YahtzeeGUI extends JFrame{
 			rollRound++;
 		}
 	}
+	
 	/**
     * This method checks to see if the game is over
 	*
@@ -1186,6 +1216,7 @@ public class YahtzeeGUI extends JFrame{
 		}
 		return desiredAction;
     }
+    
 	/**
     * This method checks to see which Dice are going to be kept
 	*
@@ -1202,6 +1233,7 @@ public class YahtzeeGUI extends JFrame{
 		}
 		return keeps;
 	}
+	
 	/**
     * Returns the player that was rolled in form of a .jpeg
 	*
@@ -1213,6 +1245,7 @@ public class YahtzeeGUI extends JFrame{
 	{
         return "Graphics/" + players[playerCounter - 1].hand.get(dieNumber).getName() + ".jpeg";
 	}
+	
 	/**
     * Rolls the dice
 	*
@@ -1233,6 +1266,7 @@ public class YahtzeeGUI extends JFrame{
 			}
 		}
     }
+    
 	/**
     * This method sorts the hand of our dice
 	*
@@ -1265,6 +1299,7 @@ public class YahtzeeGUI extends JFrame{
 		  }
 	   } while (swap);
 	}
+	
 	/**
     * Places the value to be stored in the correct place in the Upper section
 	* of the ScoreCard
@@ -1297,6 +1332,7 @@ public class YahtzeeGUI extends JFrame{
 			}
 		}	
     }
+    
 	/**
     * Places the value to be stored in the correct place in the Lower section
 	* of the ScoreCard
@@ -1369,6 +1405,7 @@ public class YahtzeeGUI extends JFrame{
 			createGenLabel(output, 50, 440 + 50, 15, Color.black, scorePnl);
 		}
 	}
+	
 	/**
     * Checks if the player has placed the hand in the desired scoring spot, and if not place the hand in the desired scoring spot 
 	*
@@ -1390,6 +1427,7 @@ public class YahtzeeGUI extends JFrame{
 		}
 		players[scorecardPlayerCounter - 1].canPlaceScoreCard[players[scorecardPlayerCounter - 1].scoredRowNumber] = false; 
 	}
+	
 	/**
     * Updates the leaderboard and overwrites values on Leaderboard.txt
 	*
