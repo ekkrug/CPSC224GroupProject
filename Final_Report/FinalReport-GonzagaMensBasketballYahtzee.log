@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  30 APR 2018 21:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  4 MAY 2018 16:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -108,7 +108,7 @@ File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
-No file FinalReport-GonzagaMensBasketballYahtzee.aux.
+(./FinalReport-GonzagaMensBasketballYahtzee.aux)
 \openout1 = `FinalReport-GonzagaMensBasketballYahtzee.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
@@ -123,6 +123,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
 LaTeX Font Info:    ... okay on input line 16.
+
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count100
@@ -379,25 +380,25 @@ on input line 608.
 Part 4.
 [19
 
-] (./FinalReport-GonzagaMensBasketballYahtzee.aux) ) 
+] [20] (./FinalReport-GonzagaMensBasketballYahtzee.aux) ) 
 Here is how much of TeX's memory you used:
- 3243 strings out of 492995
- 48874 string characters out of 6132704
+ 3245 strings out of 492995
+ 48964 string characters out of 6132704
  150369 words of memory out of 5000000
  6773 multiletter control sequences out of 15000+600000
  5466 words of font info for 20 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,8n,32p,1381b,1541s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2017/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on FinalReport-GonzagaMensBasketballYahtzee.pdf (20 pages, 33769
-61 bytes).
+ 39i,8n,32p,2394b,1541s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/20
+17/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/201
+7/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on FinalReport-GonzagaMensBasketballYahtzee.pdf (21 pages, 33780
+02 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
- 59 compressed objects within 1 object stream
+ 114 PDF objects out of 1000 (max. 8388607)
+ 61 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
